@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+        <link rel="stylesheet" href="../css/aui.2.0.css"/>
+        <link rel="stylesheet" href="../css/aui-slider-full.css" />
+        <link rel="stylesheet" href="../css/aui-flex.css" />
+        <style type="text/css">
+        html,body{
+        	width: 100%;
+        	height: 100%;
+        }
+        .header {
+                height: 43px;
+                width: 100%;
+                display: none;
+                line-height: 43px;
+                text-align: center;
+        }
+
+        .header.active {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-orient: horizontal;
+                -webkit-flex-flow: row;
+                flex-flow: row;
+        }
+        .header.home {
+                background: #00BCD4;
+        }
+
+        .header h5{
+                display: inline-block;
+                color: #FFF;
+                line-height: 48px;
+                width: 100%;
+                position: absolute;
+                left: 0;
+        }
+        .top-menu {
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+                height: 43px;
+        }
+        .btn {
+                height: 40px;
+                width: 35px;
+            }
+            
+        .add_btn {
+                background: #00BCD4 url('../../image/user_menu_set@2x.png') center center no-repeat;
+                -webkit-background-size: 38px 43px;
+                background-size: 38px 43px;
+        }
+        .text h1 {
+            margin-top: 180px;
+            /*color: #ffffff;*/
+            font-size: 30px;
+        }
+        .text p {
+            color: #ffffff;
+        }
+        .imgWrap{
+        	height: 100%;
+        	width: 100%;
+        }
+        .imgWrap li a{
+        	display: block;
+        	height: 100%;
+        	width: 100%;
+        }  
+        #edit-save {
+        	width: 100%;
+        	height: 100%;
+        }​
+
+        </style>
+    </head>
+
+    <body>
+            <!-- <div class="container"> </div> ​ -->
+             <ul class="imgWrap clearfix">
+                <li>
+                    <a href="#" class="imgBox">
+                        <span></span>
+                        <img id="edit-save" src="../image/peixun.jpg" alt="" onclick="ListenById()" />
+                    </a>
+                </li>
+            </ul> 
+        
+    </body>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/common.js"></script>
+    <script type="text/javascript" src="../script/SHA1.js"></script>
+    <script type="text/javascript" src="../script/doT.min.js"></script>
+    <script src="../script/aui-slider-full.js"></script>
+    <script type="text/javascript">
+        apiready = function() {
+            loadimg();
+            api.parseTapmode();
+        };
+        function loadimg(){
+            var img= api.pageParam['img'];
+            var image = document.getElementById('edit-save');
+            if(!img){
+                image.src = img;
+            }
+            
+        }
+
+        function fnOpenMy(){
+            setmnPopups = api.require('MNPopups');
+            setmnPopups.open({
+                rect: {
+                        w: 100,
+                        h: 180
+                },
+                position: {       
+                    x: api.winWidth-10,             
+                    y: 0                            
+                },
+                styles: {
+                    mask: 'rgba(0,0,0,0.2)',
+                    bg: '#eee',                        
+                    cell: {                            
+                        bg:{
+                            normal: '',              
+                            highlight: ''            
+                        },                   
+                        h: 45,                         
+                        title: {                      
+                            marginL: 45,               
+                            color: '#636363',          
+                            size: 12,                 
+                        },
+                        icon: {                        
+                            marginL: 10,               
+                            w: 25,                     
+                            h: 25,                     
+                            corner: 2                  
+                        }
+                    },
+                pointer: {
+                    size: 7,                     
+                    xPercent: 90,                
+                    yPercent: 0,                 
+                    orientation: 'downward'
+                }
+            },
+            datas: [{                           
+                title: '添加朋友'
+            },
+            {                           
+                title: '扫一扫'
+            },
+            {                           
+                title: '面对面快传'
+            },
+            {                           
+                title: '我的'
+            }],
+            animation: true
+                    });
+        }
+        var winmodule = ['news','edus','malls','job','tours','my'];
+        var wintitle  = ['资讯','职业/认证','嗨购','兼职/实习','旅游','我的'];
+        var url =  '../html/common.html';
+        function ListenById(){
+            api.setWinAttr({
+                bounces: false
+            });
+            var index = api.pageParam['id'];
+            api.openWin({
+                name: winmodule[index],
+                url: url,
+                pageParam:{
+                title:wintitle[index],
+                name:winmodule[index]
+             }
+            });
+            
+            api.setWinAttr({
+                bounces: true
+            });
+        }
+    </script>
+
+</html>

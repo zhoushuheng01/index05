@@ -1,0 +1,665 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+        <title>APP</title>
+        <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                background-color: #ccc;
+            }
+            
+            #main {
+                padding: 0;
+            }
+            /* home页具体内容 */
+            
+            .container {
+                padding: 0 3px;
+            }
+            
+            .headlines {
+                width: 50%;
+                padding-top: 1em;
+                background-color: #FFFFFF;
+            }
+            
+            .header_top_1 {
+                margin: 0.2rem 0;
+                display: flex;
+                display: -webkit-flex;
+            }
+            
+            .container .title {
+                text-indent: 13px;
+                color: #58616D;
+                width: 100%;
+                display: block;
+            }
+            
+            .container .brief {
+                text-indent: 13px;
+                font-size: 0.7em;
+                color: #BDBDBD;
+                width: 100%;
+                margin: 6px 0 3px 0;
+                display: block;
+            }
+            
+            .headlines img {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+            
+            .brand {
+                width: 100%;
+                margin-left: 0.15rem;
+                background-color: #FFF;
+                overflow: hidden;
+            }
+            
+            .brand:after {
+                clear: both;
+                content: '';
+                display: block;
+            }
+            
+            .brand .brand_left {
+                float: left;
+                width: 47%;
+                padding-top: 1em;
+            }
+            
+            .brand .brand_left img {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+            
+            .brand .brand_right {
+                float: left;
+                width: 50%;
+                background: #fff;
+            }
+            
+            .brand .brand_right .title {
+                text-indent: 0;
+                width: 100%;
+                display: block;
+            }
+            
+            .brand .brand_right .brief {
+                text-indent: 0;
+                width: 100%;
+                color: #58616D;
+                display: block;
+            }
+            
+            .brand .brand_right .img_box {
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .brand .brand_right .img_box:after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+            
+            .brand .brand_right .img_box img {
+                width: 46%;
+                height: 100%;
+                float: left;
+                margin: 2px;
+            }
+            
+
+            /*我的衣橱*/
+            .ul_list_1{
+                display: flex;
+                display: -webkit-flex;
+                flex-wrap:wrap;
+                -webkit-justify-content:space-between;
+                 justify-content:space-between;
+
+            }
+           /* div[class*="ul_list_"] >div,.header_top_1 >div,.count_down{
+                box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
+                border: 1px solid rgba(0,0,0,0.3);
+            }*/
+            div[class*="ul_list_"] >div{
+                border: 1px solid rgba(0,0,0,0.3);
+            }
+            .ul_list_1 > div{
+                flex-basis:32.78%;
+            }
+            .ul_list_1 > div:nth-child(2n){
+               
+            }
+            /*我的衣橱结束*/
+            /*行业精选*/
+            .ul_list_2{
+                display: flex;
+                display: -webkit-flex;
+                flex-wrap:wrap;
+                -webkit-justify-content:space-between;
+                 justify-content:space-between;
+
+            }
+            .ul_list_2 > div{
+                flex-basis:49.5%;
+            }
+            
+           
+
+            @media screen and (min-width: 280px) and (max-width: 560px) {
+              
+                .ul_list_1 > div{
+                    flex-basis:32.63%;
+                }
+                .ul_list_2 > div{
+                    flex-basis:49.3%;
+                }
+            }
+            @media screen and (min-width: 560px) and (max-width: 860px) {
+               
+
+                .ul_list_1 > div{
+                    flex-basis:32.96%;
+               
+                }
+                .ul_list_2 > div{
+                    flex-basis:49.63%;
+                }
+            } 
+            .ul_list_2 > div:nth-child(2n){
+               
+            }
+            /*行业精选结束*/
+
+            /*更多惊喜*/
+            .ul_list_3{
+                display: flex;
+                display: -webkit-flex;
+                flex-wrap:wrap;
+                -webkit-justify-content:space-between;
+                 justify-content:space-between;
+
+            }
+            .ul_list_3 > div{
+                flex-basis:49.9%;
+            }
+            .ul_list_3 > div:nth-child(2n){
+               
+            }
+            /*更多惊喜结束*/
+            .count_down {
+                background-color: #FFF;
+                margin-bottom: 18px;
+            }
+            
+            .count_down:after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+            
+            .count_down .left {
+                float: left;
+                width: 33%;
+                padding-top: 1em;
+            }
+            
+            .count_down .center {
+                float: left;
+                width: 33%;
+            }
+            
+            .count_down .center img {
+                width: 100%;
+                display: block;
+            }
+            
+            .count_down .right {
+                float: left;
+                width: 33%;
+                padding-top: 1.5em;
+            }
+            
+            .count_down .right .title {
+                font-size: 0.7em;
+                color: #58616D;
+                display: block;
+            }
+            
+            #counting_box {
+                padding-left: 13px;
+            }
+            
+            #counting_box li {
+                float: left;
+                font-size: 0.7em;
+            }
+            
+            #counting_box .t {
+                background-color: #333333;
+                border-radius: 2px;
+                color: #FFF;
+                width: 0.75em;
+                height: 1.3em;
+                line-height: 1.4em;
+                text-align: center;
+                margin-right: 1px;
+                text-decoration: line-through;
+            }
+            /*会场*/
+            
+            .venue {
+                width: 100%;
+                padding-top: 1em;
+                margin-top: -17px;
+                background-color: #FFFFFF;
+            }
+            
+            .venue img {
+                width: 100%;
+                display: block;
+            }
+            
+            .venue_big_box {
+                width: 100%;
+                padding-bottom: 1em;
+                overflow-x: scroll;
+                overflow-y: hidden;
+            }
+            
+            .venue_big_inner {}
+            
+            .venue_big {
+                padding-top: 1em;
+                background-color: #FFFFFF;
+            }
+            
+            .venue_big.v1 {
+                margin-left: 0;
+            }
+            
+            .venue_big img {
+                width: 100%;
+                display: block;
+            }
+            /*会场end*/
+            /*中间大广告*/
+            
+            .big_ads {
+                margin-top: 0.25em;
+                margin-bottom: 0.25em;
+                width: 100%;
+            }
+            
+            .big_ads.last {
+                margin: 7px 0;
+            }
+            /*中间大广告end*/
+            /*行业精选*/
+            
+            .industry_select {}
+            
+            .industry {
+                background-color: #FFF;
+            }
+            
+            .reload_header {
+                margin: 0.4em 0;
+                position: relative;
+            }
+            
+            .reload_header .title {
+               font-size: 0.8rem;
+            }
+            
+            .reload_header .reload {
+                position: absolute;
+                right: 0;
+                top: 0;
+                color: #BDBDBD;
+                border-radius: 3px;
+                text-align: center;
+                width: 5em;
+                font-size: 0.8em;
+                height: 1.5em;
+                line-height: 1.4em;
+            }
+            
+            .reload_header .reload .reload_icon {
+                width: 1em;
+                height: 1em;
+                display: inline-block;
+                background: url(../../res/img/tm_home_refresh_small_normal.png) center center no-repeat;
+                background-size: 100% 100%;
+                vertical-align: baseline;
+            }
+            
+            .reload_header .reload:active,
+            .reload_header .reload.tap-active {
+                background-color: #666666;
+            }
+            
+            .reload_header .reload:active .reload_icon,
+            .reload_header .reload.tap-active .reload_icon {
+                background: url(../../res/img/tm_home_refresh_small_press.png) center center no-repeat;
+                background-size: 100% 100%;
+            }
+            
+            .industry_left {
+                padding-top: 1em;
+                width: 50%;
+                float: left;
+            }
+            
+            .industry_right {
+                width: 50%;
+                float: left;
+            }
+            
+            .industry_right img {
+                width: 100%;
+                display: block;
+            }
+            /*行业精选end*/
+            /* 更多惊喜 */
+            
+            .more {}
+            
+            .more_unit {
+                background-color: #FFF;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            
+            .more_unit .img_box {
+                
+            }
+            
+            .more_unit img {
+                width: 100%;
+                display: block;
+            }
+            
+            .more_unit .price {
+                text-indent: 0.75em;
+                color: #FF4450;
+                margin-bottom: 8px;
+            }
+            /*更多惊喜 end*/
+            /* home页具体内容 end */
+
+            #wrap{
+                margin-top: 179px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id= 'index'></div>
+    </body>
+    <script id="adver_pos" type="text/x-dot-template">
+        <div class="aui-slide-wrap">
+            {{ for(var i=0; i
+            < it.length; i++) { }} <div class="aui-slide-node bg-dark" data-img_url="{{= it[i].adv_url }}">
+                <img src="{{= it[i].adv_png.url }}" />
+        </div>
+        {{ } }}
+        </div>
+        <div class="aui-slide-page-wrap">
+            <!--分页容器-->
+        </div>
+    </script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/zepto.js"></script>
+    <script type="text/javascript" src="../../script/swipe.js"></script>
+    <script type="text/javascript" src="../../script/aui-slide.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/SHA1.js"></script>
+    <script type="text/javascript" src="../../script/doT.min.js"></script>
+    <script type="text/javascript">
+        var  UIScrollPicture;
+        var  browser ;
+        var  header_height =0 ;
+
+        var slide = new Swipe(document.getElementById('slider'), {
+            startSlide: 2,
+            speed: 400,
+            auto: 3000,
+            continuous: true,
+            disableScroll: false,
+            stopPropagation: false,
+            callback: function(index, elem) {},
+            transitionEnd: function(index, elem) {}
+        });
+  
+         var list, dot;
+
+        apiready = function(){
+             fnInit();
+             LoadData(0);
+             api.parseTapmode();
+        }
+            
+        function fnInit(){
+            var paths =[];
+            var captions =[];
+
+            header_height = api.pageParam.head_height;
+            UIScrollPicture = api.require('UIScrollPicture');
+            browser =  api.require('webBrowser');
+            model = api.require('model');
+            query = api.require('query');
+
+            
+
+            model.config({
+                    appKey: 'EA5B6F20-8019-7DFB-F30B-0DB42BDE6473'
+                });
+
+            query.createQuery(function(ret, err) {
+                if (ret) {
+                    queryId = ret.qid;
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+
+            var init = new Init(1);
+
+            init.ajax('/adver_pos?filter={"where":{ "type":0 },"skip":0,"limit":5}','get',{},function(ret,err){
+                if (ret) {
+                
+                    var retS = ret;
+                    var paths = [];
+                    var captions = [];
+                    for (var i = 0; i < ret.length; i++) {
+                        
+                        paths.push(ret[i].adv_png.url);
+                        captions.push(ret[i].title);                    
+                    }
+                    //alert(paths);
+                    var data = {
+                        paths: paths,
+                        captions: captions
+                    };
+
+                    UIScrollPictures(data, function(ret, err) {
+
+                        if( ret.status ){
+                                var index = ret.index;
+
+                                switch(ret.eventType){
+                                    case "show":
+                                        
+                                       break;
+                                    case "click":
+                                        switch(index){
+                                            case index:
+                                                    openWinLocation(retS[index-1].adv_url);
+                                                break;
+                                        }
+                                       break;
+                                };
+                                
+                            }
+                            
+                        });
+                }
+                else
+                {
+                   //alert(JSON.stringify(err));
+                   api.toast({
+                       msg: JSON.stringify(err),
+                       duration: 2000,
+                       location: 'bottom'
+                   });
+                }
+
+            });
+
+        }
+
+    function openWinLocation(url) {
+     browser.open({
+            url: url
+        }); 
+    
+    }
+    function UIScrollPictures(data, callback) {
+        UIScrollPicture.open({
+            rect: {
+                x: 0,
+                y: 0,
+                w: "auto",
+                h: 180
+            },
+            data: data,
+            styles: {
+                caption: {
+                    height: 35,
+                    color: '#E0FFFF',
+                    size: 13,
+                    bgColor: '#696969',
+                    position: 'bottom'
+                },
+                indicator: {
+                    align: 'center',
+                    color: '#FFFFFF',
+                    activeColor: '#DA70D6'
+                }
+            },
+            placeholderImg: 'widget://image/loading_more.gif',
+            contentMode: 'scaleToFill',
+            interval: 4,
+            fixedOn: api.frameName,
+            loop: true,
+            fixed: false
+        }, function(ret, err) {
+
+            if (typeof callback == "function") {
+                callback(ret, err)
+            };
+        });
+  }
+
+  var skip_num = 0;
+  var limit_num = 5;
+ 
+  function LoadData(index){
+    var init = new Init(1);
+    skip_num += index;
+    var ul_list_2 ,ul_list_1;
+    var body_html = '<div id="wrap"><div id="main"><div class="container">';
+           
+    init.ajax('/mall_goods?filter={"where":{"adv_flag":1},"skip":0,"limit":20}',
+            'get',{},function(ret,err){
+                if (ret) {
+                   var curl_flag = 0;
+
+                   ul_list_2 = '';
+                   ul_list_1 = '';
+                   for(var i in ret){                     
+                         if(ret[i].head_pos == '1'){                                  
+
+                            ul_list_1 += '<div class="venue sp1_3" tapmode="" data-url="1" data-title="'+ret[i].NAME+'" onclick="ToDetail(this)" style="margin-bottom:1em;" id="'+ret[i].id+'_1">';
+                            ul_list_1 += '<span class="title"></span>';
+                            ul_list_1 += '<span class="brief"></span>';
+                            ul_list_1 += '<img src="'+ret[i].img_path.url+'" alt="">';
+                            ul_list_1 += '</div>';
+                          }
+                          else 
+                          { 
+                             if(ret[i].head_pos =='2'){    
+                                ul_list_2 +='<div class="sp1_2 industry clearfix" tapmode="tap-active" data-url="2" data-title="" '
+                                          + 'onclick="ToDetail(this)" data-id="" id="'+ret[i].id+'_2">'
+                                          + '    <div class="industry_left">'
+                                          + '         <span class="title">'+ret[i].NAME+'</span>'
+                                          + '         <span class="brief">text-decoration</span>'
+                                          + '    </div>'
+                                          + '    <div class="industry_right">'
+                                          + '        <img src="'+ret[i].img_path.url +'" alt="">'
+                                          + '    </div>'
+                                          + '</div>';
+                             }
+
+                          }
+                      
+                     }
+
+                    }
+                    
+                    
+                    ul_list_2 = ' <div class="ul_list_2">' + ul_list_2 + '</div>';
+                    ul_list_1 = ' <div class="ul_list_1">' + ul_list_1 + '</div>';
+                    body_html = body_html + ul_list_1 
+                            + '<div class="industry_select clearfix">'
+                            + '<div class="sp1 reload_header"></div> '
+                            + '<span class="title">本校精选</span>'
+                            + '<i class="reload_icon"></i>'
+                            + ul_list_2 + '</div>';
+                    body_html += '</div>';
+
+                   $("#index").append(body_html);
+
+            });
+  }
+
+  function ToDetail(data){
+        var goods_url ='./bottom_it.html';
+
+        var npos = data.id.indexOf('_');
+        var good_type = data.id.substr(npos+1,1);
+        var good_id = data.id.substr(0,npos);
+
+        if (good_type == '1') {
+            goods_url = './botton.html';
+        }
+        
+        api.openWin({
+            name: 'goods_deatil',
+            url: goods_url,
+            pageParam: {
+                good_id:good_id,
+                header_height:header_height
+            },
+            vScrollBarEnabled:true
+        });
+
+  }
+ </script>
+
+</html>

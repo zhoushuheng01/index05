@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title> 
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+	    <style type="text/css">
+	    	.body{
+	    		background-color: rgba(27,130,225,0.89);
+	    	}
+	    	#mainS{
+	    		width: 100%;
+	    		height: 100%;
+	    		padding: 0 5%;
+	    		overflow: hidden;
+	    	}
+	    	#mainS header{
+	    		padding:60px 0 1.7rem;
+	    		display: flex;
+	    		align-items:center;
+	    		justify-content:center;
+	    	}
+	    	#mainS header img{
+	    		width: 110px;
+	    		align-self:center;
+	    		border-radius: 50%;
+	    		height: 110px;
+	    	}
+	    	#mainS .list{
+	    		background: #fff;
+	    		border-radius: 2px;
+	    	}
+	    	#mainS .list-input:first-child > input{
+	    		border-bottom: 1px solid rgba(0,0,0,0.17);
+	    	}
+	    	#mainS .list-input > input{
+	    		padding: 10px;
+	    	}
+	    	#mainS .list-s .btn{
+	    		margin: 10px 0 15px;
+	    	}
+	    	#mainS .list-s .btn span{
+	    		display: block;
+	    		text-align: center;
+	    		background: rgba(0,0,0,0.3);
+	    		padding: 10px 0;
+	    		color: rgba(255,255,255,0.99);
+	    	}
+	    	#mainS .list-s .reg{
+	    		display: flex;
+	    		display: -webkit-flex;
+	    		justify-content:space-between;
+	    		font-size: 0.7rem;
+	    		color: rgba(255,255,255,0.99);
+	    	}
+	    	#mainS .list-s .reg .left{
+	    		color: rgba(255,255,255,0.59);
+	    	}
+	    	
+	    	#mainS footer{
+	    		margin-top: 1.3rem;
+	    	}
+	    	#mainS footer .title{
+	    		position: relative;
+	    		text-align: center;
+	    	}
+	    	#mainS footer .title span{
+	    		position: relative;
+	    		display: block;
+	    		font-size: 0.67rem;
+	    	}
+	    	#mainS footer .title span:before{
+	    		content: "";
+	    		width: 40%;
+	    		left: -15px;
+	    		top: 45%;
+	    		display: inline-block;
+	    		position: absolute;
+	    		border-bottom:1px solid rgba(0,0,0,0.39);
+	    	}
+	    	#mainS footer .title span:after{
+	    		content: "";
+	    		width: 40%;
+	    		right: -15px;
+	    		top: 45%;
+	    		height: 1px;
+	    		display: inline-block;
+	    		position: absolute;
+	    		border-bottom:1px solid rgba(0,0,0,0.39);
+	    	}
+	    	#mainS footer .login{
+	    		display: flex;
+	    		display: -webkit-flex;
+	    		margin-top: 1.3rem;
+	    		justify-content: space-around;
+	    		align-items: center;
+	    	}
+	    	#mainS footer .login div[class ^= "btn"]{
+	    		text-align: center;
+	    		padding: 0.4rem 1.5rem;
+	    	}
+	    	/*#mainS footer .login div[class*="btn"] > i{
+	    		font-size: 1.5rem;
+	    		color: rgba(255,255,255,0.58);
+	    	}*/
+	    	#mainS footer .login div[class ^="btn"] > div{
+	    		font-size: 0.8rem;
+	    		color: rgba(255,255,255,0.58);
+	    	}
+	    	#mainS .login div[class ^="btn"] i{
+	    		width: 60px;
+	    		height: 60px;
+	    		display: inline-block;
+	    		background-repeat: no-repeat;
+	    		
+	    	}
+	    	#mainS .login div:nth-child(1) i{
+	    		background: url(../../image/my/wb.png);
+	    		background-size: 60px 60px;
+	    	}
+	    	#mainS .login div:nth-child(2) i{
+	    		background: url(../../image/my/wx.png);
+	    		background-size: 60px 60px;
+	    	}
+	    	#mainS .login div:nth-child(3) i{
+	    		background: url(../../image/my/qq.png);
+	    		background-size: 60px 60px;
+	    
+	    	}
+	    </style>
+	</head>
+	<body class="body">
+		<div id="mainS">
+			<header>
+				<img src="../../image/a10.jpg"/>
+			</header>
+			<div class="list-s">
+				<div class="list">
+					<div class="list-input">
+						<input type="text" id="email-sho" value="" placeholder="手机号/邮箱" />
+					</div>
+					<div class="list-input">
+						<input type="password" id="password-sho" value="" placeholder="请输入密码" />
+					</div>
+				</div>
+				<div class="btn" onclick="Login()">
+					<span>登录</span>
+				</div>
+				<div class="reg">
+					<div class="left" onclick="RestPassWord()">忘记密码?</div>
+					<div class="right" onclick="RegAccount()">注册账号</div>
+				</div>
+			</div>
+			<footer>
+				<div class="title">
+					<span>其他账号登录</span>
+				</div>
+				<div class="login">
+					<div class="btn1" onclick="Logbytype(0)">
+						<i></i>
+						<div>微博</div>
+					</div>
+					<div class="btn2"  onclick="Logbytype(1)">
+						<i></i>
+						<div>微信</div>
+					</div>
+					<div class="btn3"  onclick="Logbytype(2)">
+						<i></i>
+						<div>QQ</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script src="../../script/api.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	apiready = function(){		
+		fnInit();
+		api.parseTapmode();		
+	};
+
+
+
+	function RestPassWord(){
+	    //忘记密码
+		openframe("forget_password",'./forget_password.html');
+	};
+    
+	function RegAccount(){
+		//注册
+	    openframe('reg','./reg.html');
+	};
+
+	var weibo,accessToken,userId;
+	var qq, user, userLogin, avatar, nick;
+
+    function fnInit(){
+        weibo = api.require('weibo');
+
+        user = $api.byId('user');
+        userLogin = $api.byId('userLogin');
+        avatar = $api.byId('avatar');
+        nick = $api.byId('nick');
+        qq = api.require('qq');
+    }
+  
+  	 var now = Date.now();
+     var appKey = SHA1("A6919941751589" + "UZ" + "20C93719-0DE5-8C9B-2F05-36D9BB835C02" + "UZ" + now) + "." + now;
+
+    function fnGetErr(err){
+    	if(!err){
+    		return;
+    	}
+    	var error_str;
+    }
+
+    ///
+	function Logbytype(index){
+		switch(index)
+		{
+			case 0:
+			{
+				var appKey = '1362065432';
+				var error_str;
+				alert('微博登录!');
+				weibo.auth({
+					"apiKey":appKey
+				},function(ret,err){
+					if (ret) {
+						accessToken = ret.accessToken;
+						userId = ret.userId;
+
+						weibo.getUserInfo({"token":accessToken,"userId":userId},function(ret,err){
+							if (err) {
+								alert('err:'+JSON.stringify(err));
+							}
+							else if (ret & ret.status) {
+								alert('ret:'+JSON.stringify(ret.UserInfo));
+							}
+						});
+					}
+					else
+					{
+						alert('err.code:' + err.code);
+					}
+					
+				})
+			    break;
+
+			}
+
+			case 1:
+			  alert('微信登录!');
+			  break;
+			case 2:
+			  fnQQLogin();
+			  break;
+		};
+
+	};
+
+	function fnQQLogin(){
+		api.showProgress({
+                animationType: 'fade',
+                title: '正在前往QQ...',
+                modal: true
+            });
+		 qq.login(function(ret, err) {
+                api.hideProgress();
+
+                if (false == ret.status) {
+                    return;
+                }
+
+                api.showProgress({
+                    animationType: 'fade',
+                    title: '正在为您登录...',
+                    modal: true
+                });
+
+                fnCheckUser(ret.openId);
+            });
+	}
+
+	function fnCheckUser(qqId) {
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user?filter={"where":{"qqId":"' + qqId + '"},"skip":0,"limit":1}',
+                method: 'get',
+                cache: true,
+                timeout: 5,
+                headers: {
+                    "X-APICloud-AppId": "A6919941751589",
+                    "X-APICloud-AppKey": appKey
+                }
+            }, function(ret, err) {
+                // alert(JSON.stringify(ret) + ',' + JSON.stringify(err));
+
+                if (!ret) {
+                    return;
+                }
+
+                if (0 < ret.length) {
+                    fnLogin(ret[0].username, qqId);
+                } else {
+                    fnQQRegister(qqId);
+                }
+            });
+    };
+
+    function fnLogin(username, password) {
+            var body = {
+                username: username,
+                password: password
+            };
+
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user/login',
+                method: 'post',
+                cache: false,
+                timeout: 5,
+                headers: {
+                    "X-APICloud-AppId": "A6919941751589",
+                    "X-APICloud-AppKey": appKey,
+                    "Content-Type": "application/json"
+                },
+                data: {
+                    body: JSON.stringify(body)
+                }
+            }, function(ret, err) {
+                // alert(JSON.stringify(ret) + ',' + JSON.stringify(err));
+
+                if (ret && ret.id) {
+                    $api.setStorage('loginInfo', ret);
+
+                    fnGetQQUser(ret.id, ret.userId);
+                }
+            });
+     };
+	
+	function fnGetQQUser(id, userId) {
+            fnUserControl(true);
+
+            qq.getUserInfo(function(ret, err) {
+                if (ret.status) {
+                    fnUploadQQUser(id, userId, ret.info.nickname, ret.info.figureurl_qq_2);
+                }
+            });
+        };
+
+     function fnUploadQQUser(accessToken, id, nick, avatar) {
+            api.imageCache({
+                url: avatar
+            }, function(ret, err) {
+                api.ajax({
+                    url: 'https://d.apicloud.com/mcm/api/file',
+                    method: 'post',
+                    headers: {
+                        "X-APICloud-AppId": "A6919941751589",
+                        "X-APICloud-AppKey": appKey
+                    },
+                    data: {
+                        values: {
+                            filename: 'user_icon.png'
+                        },
+                        files: {
+                            file: ret.url
+                        }
+                    }
+                }, function(ret, err) {
+                    fnUpdateUser(accessToken, id, nick, ret.id, ret.name, ret.url);
+                });
+            });
+        };
+
+    function fnUpdateUser(accessToken, id, nick, avatarId, avatarName, avatarUrl) {
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user/' + id,
+                method: 'post',
+                headers: {
+                    "X-APICloud-AppId": "A6919941751589",
+                    "X-APICloud-AppKey": appKey,
+                    'authorization': accessToken
+                },
+                data: {
+                    values: {
+                        nick: nick,
+                        avatar: {
+                            id: avatarId,
+                            name: avatarName,
+                            url: avatarUrl
+                        },
+                        _method:'put'
+                    }
+                }
+            }, function(ret, err) {
+                api.hideProgress();
+                window.nick.innerHTML = nick;
+
+                $api.setStorage('nick', nick);
+
+                api.imageCache({
+                    url: avatarUrl
+                }, function(ret, err) {
+                    avatar.src = ret.url;
+                    $api.setStorage('avatar', ret.url);
+                });
+            });
+        };
+
+	function fnQQRegister(qqId) {
+            var username = 'username_' + new Date().getTime();
+            var body = {
+                username: username,
+                password: qqId,
+                qqId: qqId
+            };
+
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user',
+                method: 'post',
+                cache: false,
+                timeout: 5,
+                headers: {
+                    "X-APICloud-AppId": "A6919941751589s",
+                    "X-APICloud-AppKey": appKey,
+                    "Content-Type": "application/json"
+                },
+                data: {
+                    body: JSON.stringify(body)
+                }
+            }, function(ret, err) {
+                // alert('register====' + JSON.stringify(ret) + ',' + JSON.stringify(err));
+                fnLogin(username, qqId);
+            });
+        };
+
+
+	function openframe(name,url){
+		api.openFrame({
+                name: name,
+                url: url,
+                rect: {
+                    x: 0,
+                    y: 68,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+	};
+  
+    function fnUserControl(flag) {
+            if (flag) {
+                userLogin.style.display = "block";
+                user.style.display = 'none';
+            } else {
+                userLogin.style.display = "none";
+                user.style.display = 'block';
+            }
+        };
+
+
+	function Login(){  // document.getElementById("myRange").value
+        var log_name =  document.getElementById("email-sho").value;
+        var password =  document.getElementById("password-sho").value;
+		
+		var model = api.require('model');
+		
+		// var query = api.require('query');
+  /*      if (false == /^1\d{10}$/gi.test(log_name)) {
+            alert('手机号是由1开头的11位数字组成');
+            return;
+        }
+*/
+        if (false == /^[^ ]{6,16}$/gi.test(password)) {
+            alert('密码是由6到16位的非空格字符组成');
+            return;
+        }
+
+        var body = {
+                username:log_name,
+                password: password
+            };
+
+        var now = Date.now();
+        var appKey = SHA1("A6919941751589" + "UZ" + "EA5B6F20-8019-7DFB-F30B-0DB42BDE6473" + "UZ" + now) + "." + now;
+
+        api.ajax({
+            url: 'https://d.apicloud.com/mcm/api/user/login',
+            method: 'post',
+            cache: false,
+            timeout: 5,
+            headers: {
+                "X-APICloud-AppId": "A6919941751589",
+                "X-APICloud-AppKey": appKey,
+                "Content-Type": "application/json"
+            },
+            data: {
+                body: JSON.stringify(body)
+            }
+        }, function(ret, err) {
+           // alert('ret:1'+JSON.stringify(ret) + 'err:' + JSON.stringify(err));
+           
+            if (ret && ret.id) {
+               api.toast({msg: '登陆成功'});
+                //关闭当前window，使用默认动画                
+                //关闭指定window，若待关闭的window不在最上面，则无动画
+               // alert('ret:'+JSON.stringify(ret) + 'err:' + JSON.stringify(err));
+                var userid = ret.userId;
+                
+                model.findById({
+				    class: 'user',
+				    id: ''+userid+''
+				}, function(ret, err){
+				    if( ret ){
+				         alert("2-->" +JSON.stringify( ret ) );  
+				         $api.setStorage({
+				         	'userid':ret.id,
+				         	'token':ret.token,
+				         	'qqId':ret.qqId,
+				         	'sex':ret.sex
+				         });//用户id 
+				         
+				         var username = ret.username;
+				         var userid  = ret.id;
+						 var userImg = ret.icon.url;
+				       //  alert(userid);
+
+
+						 $api.setStorage("userImg",userImg);
+				         $api.setStorage('userName',username);
+				         $api.setStorage('userid',userid);
+				     api.toast({
+					    msg: '登入成功',
+					    duration: 2000,
+					    location: 'bottom'
+					});  
+				        
+					setTimeout(function(){
+						 api.closeWin({
+		                    name: 'login_frame'
+		                });
+					},260);
+				    }else{
+				         alert( JSON.stringify( err ) );
+				    }
+				});
+				
+            //    $api.setStorage('userName',ret.userid);//用户名字
+                
+            } else {
+                alert('用户名或密码错误:)');
+            }
+        });
+     };
+</script>
+</html>

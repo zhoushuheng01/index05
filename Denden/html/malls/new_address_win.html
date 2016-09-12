@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>收货</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+            overflow: hidden;
+        }
+        #wrap {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            height: 100%;
+        }
+        .aui-bar-nav .aui-pull-left{
+            padding:0 0.7rem;
+        }
+        #main{
+            background-color: #fff;
+        }
+        #main ul {
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+        #main ul .item{
+            display: -webkit-flex;
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            padding: 0 10px;
+        }
+        #main ul .item:last-of-type{
+            border-bottom: none;
+            padding: 0;
+        }
+        #main ul .item:last-of-type textarea{
+            width:100%;
+            height:100%;
+            padding: 10px;
+        }
+        #main ul .item .left{
+
+            height:50px;
+            line-height: 50px;
+            width:70px;
+
+        }
+        #main ul .item .left{
+
+        }
+        #main ul .item .right{
+
+        }
+        #main ul .item .right{
+            -webkit-flex: 1;
+            flex:1;
+        }
+        #main ul .item .right input{
+            width:100%;
+            height:100%;
+        }
+        #main ul .item{
+
+         }
+
+
+        .b_footer{
+            display: -webkit-flex;
+            display: flex;
+            padding: 0 10px;
+            margin-top: 10px;
+            height:40px;
+            line-height: 40px;
+            vertical-align: middle;
+            background-color: #fff;
+        }
+        .b_footer .left{
+            -webkit-flex: 1;
+            flex:1;
+        }
+        .b_footer .right{
+            
+        }
+
+        #header{
+            height:50px;
+            line-height: 50px;
+            background-color: #00AAEE;
+            display: -webkit-flex;
+            display: flex;
+        }
+        #header .left{
+            padding-left: 5px;
+        }
+        #header .content{
+            -webkit-flex: 1;
+            flex:1;
+        }
+        #header .right{
+            color: red;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header id="header">
+        <div class="left">
+            <span class="iconfont-app">&#xe6ac; 添加新地址</span>
+        </div>
+        <div class="content"></div>
+        <div class="right">
+            保存
+        </div>
+    </header>
+    <div id="main">
+
+        <ul>
+            <li class="item">
+                <div class="left">
+                    收货人
+                </div>
+                <div class="right">
+                    <input type="text">
+                </div>
+            </li>
+            <li class="item">
+                <div class="left">
+                    联系电话
+                </div>
+                <div class="right">
+                    <input type="text">
+                </div>
+            </li>
+            <li class="item">
+                <textarea  placeholder="详细地址" rows="1"></textarea>
+            </li>
+        </ul>
+    </div>
+
+    <footer class="b_footer">
+        <div class="left">
+            设置为默认地址
+        </div>
+        <div class="right">
+            <input type="checkbox">
+        </div>
+    </footer>
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    var header, headerPos;
+    apiready = function() {
+        header = $api.byId('header');
+        var systemType = api.systemType;
+        var systemVersion = parseFloat(api.systemVersion);
+        if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+            if (systemType == "android") {
+                $api.fixStatusBar(header);
+            }
+        } else {
+            $api.fixIos7Bar(header);
+        }
+        headerPos = $api.offset(header);
+
+
+
+    }
+
+</script>
+</html>

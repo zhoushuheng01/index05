@@ -1,0 +1,272 @@
+#index{
+}
+.hr_border{
+	width: 108%;
+	margin: 10px 0;
+	border-top:2px solid #ccc ;
+}
+.content{
+	padding: 10px;
+	width: 98%;
+	padding-bottom: 60px;
+}
+.content .row{
+	border:1px solid #ccc;
+}
+.content .col-xs-12 .col-xs-2{
+	padding: 15px 0;
+}
+.content .col-xs-12 a{
+	display: block;
+	width: 70px;
+	height: 70px;
+	text-align: center;
+	line-height: 70px;
+}
+.content .col-xs-12 a img{
+	width:70px;
+	height:70px;
+	
+	border-radius: 50%;
+}
+.content .col-1{
+	
+}
+.content .col-1 .title{
+	margin-top: 17px;
+}
+.content .col-1 .title h4{
+	float: left;
+	font-weight: 600;
+	font-size: 16px;
+}
+.content .col-1 .title span i{
+	color:#afa01d;
+}
+.content .col-1 .title span{
+	float: right;
+	position: relative;
+	top: 6px;
+	font-size: 15px;
+	margin-right: -40px;
+}
+.content .col-1 .body{
+	
+}
+.content .col-1 .body span{
+	font-size: 13px;
+}
+.content .col-1 .body i{
+	float: right;
+	position: relative;
+	top: 6px;
+	color: red;
+	font-style: normal;
+	margin-right: -40px;
+}
+.content .col-1-footer{
+	height: 30px;
+	line-height: 30px;
+	border-top: 1px solid #ccc;
+	position: relative;
+}
+.content .col-1-footer .left{
+
+}
+.content .col-1-footer .left{
+	float: left;
+	position: absolute;
+	top: -17px;
+}
+.content .col-1-footer .left span{
+	float: left;
+	position: relative;
+	top: 25px;
+	margin-right: 11px;
+}
+.content .col-1-footer .left .title{
+	float: left;
+}
+.content .col-1-footer .right{
+	float: right;
+}
+
+.content .row-section{
+	margin-top: 10px;
+}
+.content .row-section h4{
+	text-indent: 0.5em;
+	color: #000;
+	border-left: 2px solid ##FF5000;
+}
+.content .row-section .body{
+	padding: 10px;
+	overflow: hidden;
+}
+.content .row-section .body tr{
+	overflow: hidden;
+	position: relative;
+	
+}
+.content .row-section .body tr td:first-child{
+	width: 75px;
+	float: left;
+	display: inline-block;
+	white-space: pre-wrap;
+}
+.content .row-section .body tr td:last-child{
+	float: left;
+}
+@media (max-width: 750px) {
+	.content .row-section .body tr td:last-child p{
+	position: relative;
+	left: 75px;
+	width: 100%;
+	text-wrap: normal;
+	word-break: break-word;
+	word-wrap: break-word;
+	}
+}
+.content .row-section .title{
+	border-bottom: 1px solid #ccc;
+}
+.content .row-section .body tr td:last-child p{
+	position: relative;
+	width: 100%;
+	text-wrap: normal;
+	word-break: break-word;
+	word-wrap: break-word;
+}
+.content .row-section-2{
+	
+}
+
+.content .row-section-2 section{
+}
+.content .row-section-2 .body{
+	
+	border: none;
+	padding-bottom: 30px;
+}
+.content .row-section-2 .body .row,.content .row-section-3 .body .row{
+	border: none;
+}
+.content .row-section-2 .col-ul{
+	padding: 10px;
+}
+.content .row-section-2 .col-ul li{
+	margin-top: 3px;
+}
+.content .row-section-2 .col-ul li i{
+	
+	position: relative;
+	top: 5px;
+	margin-right: 7px;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	
+}
+.content .row-section-2 .col-ul-2{
+	margin-top: -15px;
+}
+
+
+
+.content .row-section-2 .col-ul-2 li{
+	float: left;
+	font-size: 14px;
+	color: #fff;
+	background: red;
+	margin-top: 11px;
+	margin-right: 15px;
+	border-radius: 5px;
+}
+.content .row-section-2 .col-ul-2 li span{
+	padding: 5px 10px;
+}
+/*.content .row-section-2 .col-ul li i.icon-ul-1{
+	background: url(../image/9.png) no-repeat;	
+	background-size: 20px 20px;
+}
+.content .row-section-2 .col-ul li i.icon-ul-2{
+	background: url(../image/8.png) no-repeat;	
+	background-size: 20px 20px;
+}*/
+.content .row-section-2 .col-ul li span{
+	
+}
+.content .row-section-3 .body h5{
+	
+}
+.content .row-section-3 .body .span{
+	margin-bottom: 5px;
+}
+.content .row-section-3 .body .span i{
+	color: #666;
+}
+.content .row-section-3 .body .span span{
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin-left: -3px;
+}
+.content .row-section-3 .body {
+	
+}
+.content .row-section-3  footer{
+	padding: 5px 0;
+	text-align: center;
+	border-top: 1px solid #ccc;
+}
+.content .row-section-3 footer a{
+	display: inline-block;
+	width:48%;
+	padding: 5px 15px;
+}
+.content .row-section-3 footer a:first-child{
+	border-right: 1px solid #ccc;
+}
+.content .row-section-3 footer a span{
+	margin-right: 5px;
+	position: relative;
+	top: 1px;
+}
+#footer{
+	
+	background: #fff;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	height: 60px;
+	text-align: center;
+	border-top: 1px solid #ccc;
+}
+#footer .row{
+	
+}
+
+#footer .row .col-xs-6 a{
+	display: block;
+	padding: 10px 0;
+	color: #000;
+	font-size: 15px;
+	
+}
+#footer .row a:hover{
+	text-decoration: none;
+}
+#footer .row .col-xs-6 .col-xs-6:first-child{
+	border-right: 1px solid #ccc;
+}
+#footer .row .blue{
+	height: 100%;
+	padding: 10px 0;
+	background-color: #03a9f4;
+}
+#footer .row .blue a{
+	display: block;
+	color: #fff;
+	letter-spacing: 5px;
+	font-size: 17px;
+}

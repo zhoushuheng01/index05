@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        html,body {
+            height:100%;
+            width: 100%;
+            background-color: #f5f5f5;
+        }
+        body{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #index{
+            flex:1;
+        }
+        #item_ul{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+        #item_ul .item{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            padding: 7px 10px 0px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #dcd3d3;
+            background-color: #ffffff;
+        }
+        #item_ul .item .top{
+            display: -webkit-flex;
+            display: flex;
+        }
+        #item_ul .item .top .left{
+            flex:1;
+            height:60px;
+            position: relative;
+        }
+        #item_ul .item .top .left img{
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: block;
+            position: absolute;
+            left:0;
+        }
+        #item_ul .item .top .right{
+            flex:4;
+        }
+        h4{
+            height: 30px;
+            line-height: 30px;
+        }
+
+        #item_ul .item .content{
+            margin: 7px 0;
+        }
+        #item_ul .item .content .content_top{
+        	min-height: 150px;
+        }
+        #item_ul .item .content .content_top img{
+            width: 100%;
+            height:100%;
+            display: block;
+        }
+        #item_ul .item .content .content_title{
+
+        }
+        #item_ul .item .footer{
+            border-top:1px solid #dcd3d3;
+            height:30px;
+            line-height: 30px;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content:flex-end;
+            justify-content:flex-end;
+        }
+        #item_ul .item .footer >div{
+
+        }
+        #item_ul .item .footer >div:last-of-type{
+            margin:0 10px
+        }
+        #item_ul .item .footer .iconfont-app{
+            padding: 0 10px;
+            font-size: 1rem;
+        }
+
+
+        /*
+			 * 评论
+			 */
+        #comments{
+            border:1px solid #d2d2d2;
+            border-radius: 5px;
+
+        }
+        #comments h4{
+            color:red;
+            height:30px;
+            padding-left:10px;
+            line-height: 30px;
+            border-bottom: 1px solid #ccc;
+
+        }
+        #comments_{
+            margin:10px 0;
+        }
+        #comments_ .item{
+            display: -webkit-flex;
+            display: flex;
+
+            padding-top: 10px;
+        }
+        #comments_ .item:last-child .right, #comments_ .item:last-of-type .right{
+            border-bottom: none;
+        }
+        #comments_ .item .left{
+            width: 70px;
+            text-align: center;
+            display: flex;
+
+            justify-content: space-around;
+
+        }
+        #comments_ .item .left img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+
+        }
+        #comments_ .item .right{
+            -webkit-flex: 1;
+            flex:1;
+            border-bottom: 1px solid rgba(0,0,0,0.23);
+        }
+
+        #comments_ .item .right .user{
+            display: -webkit-flex;
+            display: flex;
+        }
+        #comments_ .item .right  .user-left{
+            -webkit-flex:1;
+            flex: 1;
+        }
+        #comments_ .item .right   .name{
+            color: dodgerblue;
+            font-size:0.95rem;
+        }
+        #comments_ .item .right  .user-left .bottom{
+            font-size:0.76rem;
+        }
+        #comments_ .item .right  .user-right{
+            width:55px;
+            text-align: center;
+        }
+
+        #comments_ .item .right .body{
+            margin: 10px 0;
+        }
+        #comments_ .item .right .body p{
+            padding-right: 10px;
+        }
+        #comments > .bottom{
+            border-top: 1px solid #ccc;
+            height:40px;
+            line-height: 40px;
+            text-align: center;
+            color: dodgerblue;
+        }
+
+        .footer{
+            height: 50px;
+
+        }
+        #footer {
+            display: -webkit-flex;
+            display: flex;
+            height: 50px;
+            background-color: #fff;
+            line-height: 50px;
+            box-shadow: 0 -1px 1px 1px rgba(0,0,0,0.17);
+        }
+        #footer .left {
+            -webkit-flex: 1;
+            flex: 1;
+            padding: 0 10px;
+            border-right:1px solid #cccccc;
+        }
+        #footer .right {
+            width: 60px;
+            text-align: center;
+        }
+        .active{
+            background-color: #3b84d0;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="index">
+    <section>
+        <ul id="item_ul">
+
+        </ul>
+    </section>
+
+    <div id="comments"></div>
+</div>
+<script id="tour_landscape" type="text/x-dot-template">
+
+    {{ if( it ){ }}
+        <li class="item" tapmode ="">
+            <div class="top">
+                <div class="left">
+                {{	if( it.user_id ){  }}
+                	<img src="../../image/face/m32.gif" alt="" id="userid_{{= it.user_id.id }}">
+                {{	}else{ }}
+                	
+                 {{	} }}
+                    
+                    
+                </div>
+                <div class="right">
+                
+                    <h4>
+                    {{ if(it.user_id){ }}
+                    		{{= it.user_id.name}}
+                     {{	} }}
+                    </h4>
+                    <p>发布于: {{= Format(it.createdAt) }}</p>
+                </div>
+            </div>
+            <div class="content">
+
+                <div class="content_title">
+                    {{= it.text }}
+                </div>
+                <div class="content_top">
+                    {{ for(var i =0; i<  it.image.length; i++){ }}
+                      {{ if( it.image[i] ){ }}
+                       <img src="" alt="" id="pic_{{= it.image[i].id }}">
+                      {{ } }}
+                    {{ } }}
+                </div>
+            </div>
+            <div class="footer">
+                <div class="iconfont-app">&#xe6a3;</div>
+            </div>
+        </li>
+
+    {{ } }}
+</script>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/swipe.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+
+    var tour_id;
+
+    var pageNum =1;
+    
+    var images = [];
+    apiready = function(){
+
+        tour_id = api.pageParam.tour_id; //获取旅游心情id
+
+        var init = new Init(1);
+
+        var tour_landscape_Url = '/tour_landscape?filter=';
+        var tour_landscape_UrlParam = {
+            'fields':{
+                'id':0,
+                'updatedAt':0
+            },
+            "where":{
+                "tour_id":tour_id
+            },
+            'skip':init.skip,
+            'limit':1,
+            "include":{
+                'user_idPointer':''
+            }
+        };
+
+
+
+        
+        init.ajax(tour_landscape_Url + JSON.stringify(tour_landscape_UrlParam),"GET",{},function(ret,err){
+
+            if(ret){
+
+				for( var k in ret ){
+					
+					if(ret[k].user_id){
+				
+						 images.push({
+		                    id : 'userid_' + ret[k].user_id.icon.id,
+		                    url : ret[k].user_id.icon.url
+		                });
+					}
+					
+					
+					if( ret[k].image.length ){
+						
+						for (var i = 0; i < ret[k].image.length; i++) {
+
+		
+		                    images.push({
+		                        id : 'pic_' + ret[k].image[i].id,
+		                        url :ret[k].image[i].url
+		                    });
+		                }
+						
+					}
+					
+				}
+				
+				
+               
+                
+                
+
+               // alert(JSON.stringify(images))
+
+                var evalText = doT.template($("#tour_landscape").text());
+                $("#item_ul").html(evalText(ret[0]));
+
+                fnImageCache(images, 0);
+            }else{
+               // alert(JSON.stringify(err))
+            }
+
+        });
+
+        var comment_Url = '/comment';
+
+        var userid = $api.getStorage("userid");
+        var t_app = $api.byId("text");
+
+        var text = $api.val(t_app);
+
+        var btn = $api.byId("icon_app");
+
+
+
+
+        $api.addEvt(t_app,"input",function(){
+            if( $api.val(t_app).length > 0 ){
+
+                $api.addCls(btn,"active");
+            }else{
+                $api.removeCls(btn,"active");
+
+            }
+        });
+
+        /*
+            点击的时候发送ajax
+         */
+        $api.addEvt(btn,"click",function(){
+
+            if( $api.hasCls(this, 'active') ){
+                var text = $api.val(t_app);
+                var c_body = {
+
+                    "comment_id":tour_id,
+                    "comment_msg":text,
+                    "comment_usr":userid
+                };
+
+
+                init.ajax(comment_Url,"POST",JSON.stringify(c_body),function(ret,err){
+
+                    if ( ret ){
+                        //alert(JSON.stringify(ret));
+                    }else{
+
+                    }
+
+                });
+            }
+
+        });
+
+        //获取评论列表
+        Update_list(pageNum);
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //下拉加载
+
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra:{
+                threshold:0            //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+
+            pageNum++;
+            Update_list(pageNum,function(ret,err){
+                if( ret ){
+                    var html = "";
+                    html += "<ul id='comments_'>";
+                    for( var i=0;i<ret.length;i++ ){
+                        html += ' <li class="item">';
+                        html += '	  <div class="left">';
+                        	
+                        	if( ret[i].comment_usr ){
+                        html += '<img src="'+ret[i].comment_usr.icon.url+'" alt="" id="icon_'+ret[i].comment_usr.icon.id+'" />';	
+                        
+                        	}else{
+                        	
+                        html += '<img src="" alt="" id="icon_" />';
+                        	
+                        	}
+                        
+                        
+                        
+                        html += '	  </div>';
+                        html += '	  <div class="right">';
+                        html += '		  <div class="user">';
+                        html += '			  <div class="user-left">';
+                        html += '				  <div class="name">';
+                        	if( ret[i].comment_usr ){
+                        	
+                        html += ''+ ret[i].comment_usr.username +' ';	
+                        
+                        	}
+                        
+                        
+                        html += '				  </div>';
+                        html += '				  <div class="bottom">';
+                        html += '					 '+ fnGetDate(ret[i].createdAt) +'前';
+                        html += '				  </div>';
+                        html += '			  </div>';
+                        html += '			  <div class="user-right iconfont-app">'+ret[i].like+'&#xe67e;</div>';
+                        html += '		  </div>';
+                        html += '		  <div class="body">';
+                        html += '			  <p>' + ret[i].comment_msg + '</p>';
+                        html += '		  </div>';
+                        html += '	  </div>';
+                        html += ' </li>';
+						
+						if( ret[i].comment_usr ){
+						
+							images.push({
+	                            id : 'icon_' + ret[i].comment_usr.icon.id,
+	                            url :ret[i].comment_usr.icon.url
+	                        });
+							
+						}
+                        
+
+                    }
+                    html += "</ul>";
+
+
+                    $("#comments").append(html);
+
+                   // fnImageCache(images, 0);
+                }
+
+                if( ret.length < 10 ){
+                    //$api.html(view_more, "没有数据了");
+
+                    api.toast({
+                        msg: '亲，到底了！没有更多数据了',
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+
+
+                }
+
+            });
+        });
+
+
+
+        //监听发布评论重新获取数据
+
+        api.addEventListener({
+            name: 'Detail_frm'
+        }, function(ret, err) {
+            var Detail_id = ret.value.Detail_id;  //     从评论页面返回回来的    评论id    用来更新数据
+            // alert(JSON.stringify(Event_id));
+
+            var Comment_Url = '/comment?filter=';
+            var Comment_UrlParam = {
+                'fields':{
+                },
+                'where':{
+                    "id":Detail_id
+                },
+                'skip':0,
+                'limit':1,
+                "include":{
+                    "comment_usrPointer":""
+                }
+            };
+
+            //如果元素不存在，，，，，就获取数据更新
+            var men = $("#comments_").size();
+
+            if( men ){
+                init.ajax(Comment_Url + JSON.stringify(Comment_UrlParam),"GET",{},function(ret,err){
+                    var html = "";
+                    for( var i=0;i<ret.length;i++ ){
+                        html += ' <li class="item">';
+                        html += '	  <div class="left">';
+                        
+                         	if( ret[i].comment_usr ){
+                        html += '<img src="'+ret[i].comment_usr.icon.url+'" alt="" id="icon_'+ret[i].comment_usr.icon.id+'" />';	
+                        
+                        	}else{
+                        	
+                        html += '<img src="" alt="" id="icon_" />';
+                        	
+                        	}
+                      //  html += '		  <img src="'+ret[i].comment_usr.icon.url+'" alt="" id="icon_'+ret[i].comment_usr.icon.id+'" />';
+                        
+                        html += '	  </div>';
+                        html += '	  <div class="right">';
+                        html += '		  <div class="user">';
+                        html += '			  <div class="user-left">';
+                        html += '				  <div class="name">';
+                        	
+                        	if( ret[i].comment_usr ){
+                        html += '					'+ ret[i].comment_usr.username +' ';	
+                        	}
+                        
+                        html += '				  </div>';
+                        html += '				  <div class="bottom">';
+                        html += '					 '+ fnGetDate(ret[i].createdAt) +'前';
+                        html += '				  </div>';
+                        html += '			  </div>';
+                        html += '			  <div class="user-right iconfont-app">'+ret[i].like+'&#xe67e;</div>';
+                        html += '		  </div>';
+                        html += '		  <div class="body">';
+                        html += '			  <p>' + ret[i].comment_msg + '</p>';
+                        html += '		  </div>';
+                        html += '	  </div>';
+                        html += ' </li>';
+						
+						
+						if( ret[i].comment_usr ){
+							
+							images.push({
+	                            id : 'icon_' + ret[i].comment_usr.icon.id,
+	                            url :ret[i].comment_usr.icon.url
+	                        });
+							
+						}
+                        
+
+                    }
+
+
+                    $("#comments_").prepend(html);
+
+                   // fnImageCache(images, 0);
+
+                });
+            }else{
+                Update_list(pageNum);
+            }
+
+
+
+
+        });
+
+
+
+    };
+
+
+
+    function Update_list(num,callback){
+        var init = new Init(1);
+
+        var limit = 10;
+        var skip = ( num - 1 ) * limit;
+
+        var Comment_Url = '/comment?filter=';
+        var Comment_UrlParam = {
+            'fields': {},
+            'where': {
+                "comment_id": tour_id
+            },
+            'skip': skip,
+            'limit': limit,
+            "include": {
+                "comment_usrPointer": ""
+            }
+        };
+
+        /*
+         评论列表
+         */
+
+        init.ajax(Comment_Url + JSON.stringify(Comment_UrlParam),'GET',{},function(ret,err){
+            if( ret ){
+
+               // alert(JSON.stringify(ret))
+                if( typeof callback == "function" ){
+                    callback(ret,err);
+                    return;
+                }
+
+
+                var html = "";
+                html += "<ul id='comments_'>";
+                for( var i=0;i<ret.length;i++ ){
+                    html += ' <li class="item">';
+                    html += '	  <div class="left">';
+                    
+                    
+                       if( ret[i].comment_usr ){
+                    html += '<img src="'+ret[i].comment_usr.icon.url+'" alt="" id="icon_'+ret[i].comment_usr.icon.id+'" />';	
+                    
+                    	}else{
+                    	
+                    html += '<img src="" alt="" id="icon_" />';
+                    	
+                    	}
+                   // html += '		  <img src="'+ret[i].comment_usr.icon.url+'" alt="" id="icon_'+ret[i].comment_usr.icon.id+'" />';
+                    
+                    
+                    html += '	  </div>';
+                    html += '	  <div class="right">';
+                    html += '		  <div class="user">';
+                    html += '			  <div class="user-left">';
+                    html += '				  <div class="name">';
+                    	
+                    	if( ret[i].comment_usr ){
+                    	
+                    html += '					'+ ret[i].comment_usr.username +' ';	
+                    
+                    	
+                    	}
+                    
+                    html += '				  </div>';
+                    html += '				  <div class="bottom">';
+                    html += '					 '+ fnGetDate(ret[i].createdAt) +'前';
+                    html += '				  </div>';
+                    html += '			  </div>';
+                    html += '			  <div class="user-right iconfont-app">'+ret[i].like+'&#xe67e;</div>';
+                    html += '		  </div>';
+                    html += '		  <div class="body">';
+                    html += '			  <p>' + ret[i].comment_msg + '</p>';
+                    html += '		  </div>';
+                    html += '	  </div>';
+                    html += ' </li>';
+					
+					if( ret[i].comment_usr ){
+						images.push({
+	                        id : 'icon_' + ret[i].comment_usr.icon.id,
+	                        url :ret[i].comment_usr.icon.url
+	                    });
+					}
+                    
+
+                }
+                html += "</ul>";
+
+
+                $("#comments").html(html);
+
+                //fnImageCache(images, 0);
+            }else{
+              //  api.alert({ msg: 'Detail_frm:-->461' + JSON.stringify(err) });
+            }
+        });
+
+
+    };
+
+    function fnImageCache(images, index) {
+        if (index >= images.length) {
+            return;
+        }
+        api.imageCache({
+            url : images[index].url
+        }, function(ret, err) {
+            var image = $api.byId(images[index].id);
+            if (image) {
+                image.src = ret.url;
+            }
+            fnImageCache(images, index + 1);
+        });
+    };
+</script>
+</html>

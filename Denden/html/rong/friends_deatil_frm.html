@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        html,body {
+            height: 100%;
+        }
+        #body{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+        #main{
+            height: 260px;
+            background: url("../../image/face/m22.gif");
+            background-size: cover;
+        }
+        #footer{
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+        }
+        #content{
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        .m_body{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            -webkit-align-items:center;
+            align-items:center;
+        }
+        .m_body .user_img{
+            margin-top: -50px;
+        }
+        .m_body .user_img img{
+            display: block;
+            border-radius: 50%;
+            height:100px;
+        }
+        .m_body .user_name{
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+
+
+        .btn_s{
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+
+
+        }
+
+        .btn_s .btn{
+            padding: 3px 10px;
+            border-radius: 3px;
+            border:1px solid rgba(0,0,0,0.3);
+            display: block;
+            width:95%;
+            text-align: center;
+            height:40px;
+            line-height: 35px;
+        }
+
+    </style>
+</head>
+
+<body id="body">
+    <div id="main">
+    </div>
+    <div id="content">
+        <!-- <div class="m_body">
+            <div class="user_img">
+                <img src="../../image/face/m05.gif" alt="">
+            </div>
+            <div class="user_name" id="user_nike">
+                nhao
+            </div>
+        </div>
+        <div class="aui-content aui-margin-b-15">
+            <ul class="aui-list aui-list-in">
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">Item1</div>
+                </li>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">Item2</div>
+                    </div>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+    <footer id="footer">
+        <div class="m_">
+            <div class="btn_s">
+                <div class="btn" onclick="AddFriend(1)">加好友</div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+
+    apiready = function() {
+        fnInit();
+        api.parseTapmode();
+    };
+
+    var target_id,target_url,target_name;
+    function fnInit()
+    {   
+        target_id   = api.pageParam.target_id;
+        target_url  = api.pageParam.target_url;
+        target_name = api.pageParam.target_name;
+
+        var html_body = ' <div id="content">'
+                        +'<div class="m_body">'
+                        +   '<div class="user_img">'
+                        +        '<img src="../../image/face/m06.gif" alt="">'
+                        +    '</div>'
+                        +    '<div class="user_name" id="user_nike">'
+                        +        'litao'
+                        +    '</div>'
+                        +'</div>'
+                        +'<div class="aui-content aui-margin-b-15">'
+                        +    '<ul class="aui-list aui-list-in">'
+                        +       '<li class="aui-list-item aui-list-item-middle">'
+                        +            '<div class="aui-list-item-inner">'
+                        +                '<div class="aui-list-item-title">doT</div>'
+                        +        '</li>'
+                        +        '<li class="aui-list-item">'
+                        +            '<div class="aui-list-item-inner">'
+                        +                '<div class="aui-list-item-title">dot2</div>'
+                        +            '</div>'
+                        +        '</li>'
+                        +    '</ul>'
+                        +'</div>'
+                        +'</div>';
+        $api.append($api.byId("content"),html_body);
+    }
+
+    var nick_name,user_mobile,user_png;
+
+    function AddFriend(target){
+        
+        var now = Date.now();
+        var userid = $api.getStorage('userId');
+      
+        var init = new Init(1);
+
+        var filter ={
+            "where":{
+                "id":userid
+            }
+        };
+        init.ajax('/user?filter=' + JSON.stringify(filter)+'get',{},function(ret,err){
+            if (ret) {
+                nick_name = ret[0].username;
+                user_mobile = ret[0].mobile;
+                user_png = ret[0].icon.url;
+            }
+            else
+            {
+                api.toast({
+                    msg: '获取用户信息失败：10001' + JSON.stringify(err),
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return;
+            }
+        });
+
+         var data = {
+            "msg_id":now,
+            "msg_from":"1000",
+            "msg_desc":nick_name + '('+user_mobile+')' + " 申请加你好友",
+            "msg_type":"0",
+            "to_user":target_id
+        };
+
+        init.ajax('/rong_msg','POST',JSON.stringify(data),function(ret,err){
+            if (ret) {
+                api.toast({
+                     msg: '申请发送成功!' + JSON.stringify(ret),
+                     duration: 10000,
+                     location: 'bottom'
+                 });
+
+                AddFriendInfo();
+            }
+            else{
+                api.toast({
+                  msg: '申请失败:'+ JSON.stringify(err),
+                  duration: 2000,
+                  location: 'bottom'
+              });
+            }
+        });
+            
+    }
+
+    //同步数据库
+    function AddFriendInfo(){
+        var init = new Init(1);
+
+        var postData = {
+            "fiends_id":target_id,
+            "nick_name":target_name,
+            "nick_img":target_url,
+            "owner_id":user_mobile
+        };
+
+        var ownerData = {
+            "fiends_id":user_mobile,
+            "nick_name":username,
+            "nick_img":user_png,
+            "owner_id":target_id
+        };
+
+        var cur_url = '/user'
+        init.ajax(cur_url,'POST',JSON.stringify(postData),function(ret,err){
+            if (ret) {
+                 init.ajax(cur_url,'POST',JSON.stringify(ownerData),function(ret,err){
+                    if (ret) {
+                        $api.toast('提示', '增加好友成功！',  1000);
+                    }
+                 }   
+            }
+
+        });
+    }
+</script>
+</html>

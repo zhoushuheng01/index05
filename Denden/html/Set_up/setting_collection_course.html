@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>课程收藏</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+    	html,body{
+    		height:100%;
+    	}
+        .ul_list > h4{
+            text-indent: 10px;
+            color: rgba(0,0,0,0.6);
+            height:30px;
+            line-height: 30px;
+        }
+        .ul_list .item_ul{
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+        .ul_list .item_ul li{
+            padding: 10px 10px;
+            display: -webkit-flex;
+            display: flex;
+            height:110px;
+            border-top:1px solid rgba(0,0,0,0.23);
+        }
+        .ul_list .item_ul li .left{
+            position: relative;
+
+            width:120px;
+            height:90px;
+        }
+        .ul_list .item_ul li .left .hour{
+            position: absolute;
+            padding:5px;
+            right:0;
+            bottom:0;
+            background-color: rgba(0,0,0,0.95);
+            color: rgba(255,255,255,0.85);
+            font-size: 0.7rem;
+        }
+        .ul_list .item_ul li .left img{
+            display: block;
+            width:120px;
+            height:90px;
+        }
+        .ul_list .item_ul li .right{
+            -webkit-flex: 1;
+            flex:1;
+            padding:0 0 0 10px;
+            position: relative;
+        }
+        .ul_list .item_ul li .right h5{
+            font-weight: 500;
+            color: #000;
+            font-size: 0.73rem;
+            line-height: 0.75rem;
+        }
+        .ul_list .item_ul li .right .name{
+            margin:10px 0 10px 0;
+            font-size: 0.65rem;
+            color: rgba(0,0,0,0.75);
+        }
+        .ul_list .item_ul li .right .name .icon{
+            font-weight: 200;
+            font-size:0.65rem;
+
+        }
+        .ul_list .item_ul li .right .price{
+            color: #1D97E4;
+            font-size: 0.75rem;
+            position: absolute;
+            bottom:1px;
+        }
+        #index{
+        	height:100%;
+        	width: 100%;
+        	
+        }
+    </style>
+</head>
+<body>
+<div id="index">
+
+    <!--<div class="ul_list">
+        <h4>2016-08-16</h4>
+        <ul class="item_ul">
+            <li>
+                <div class="left">
+                    <img src="../../image/a8.jpg" alt="">
+                    <span class="hour">37课时</span>
+                </div>
+                <div class="right">
+                    <h5>ThickPHP3.3 理论知识与个人博5555555客</h5>
+                    <div class="name">
+                        <span class="icon iconfont-app">&#xe6b0;Mr 李</span>
+                        <span class="icon iconfont-app">&#xe68b;4.9</span>
+                    </div>
+                    <span class="price">免费</span>
+                </div>
+            </li>
+            <li>
+                <div class="left">
+                    <img src="../../image/a8.jpg" alt="">
+                    <span class="hour">37课时</span>
+                </div>
+                <div class="right">
+                    <h5>ThickPHP3.3 理论知识与个人博客</h5>
+                    <div class="name">
+                        <span class="icon iconfont-app">&#xe6b0;Mr 李</span>
+                        <span class="icon iconfont-app">&#xe68b;4.9</span>
+                    </div>
+                    <span class="price">免费</span>
+                </div>
+            </li>
+            <li>
+                <div class="left">
+                    <img src="../../image/a8.jpg" alt="">
+                    <span class="hour">37课时</span>
+                </div>
+                <div class="right">
+                    <h5>ThickPHP3.3 理论知识与个人博客</h5>
+                    <div class="name">
+                        <span class="icon iconfont-app">&#xe6b0;Mr 李</span>
+                        <span class="icon iconfont-app">&#xe68b;4.9</span>
+                    </div>
+                    <span class="price">免费</span>
+                </div>
+            </li>
+            <li>
+                <div class="left">
+                    <img src="../../image/a8.jpg" alt="">
+                    <span class="hour">37课时</span>
+                </div>
+                <div class="right">
+                    <h5>ThickPHP3.3 理论知识与个人博客</h5>
+                    <div class="name">
+                        <span class="icon iconfont-app">&#xe6b0;Mr 李</span>
+                        <span class="icon iconfont-app">&#xe68b;4.9</span>
+                    </div>
+                    <span class="price">免费</span>
+                </div>
+           </li>
+        </ul>
+    </div>-->
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    apiready = function(){
+
+    }
+</script>
+</html>

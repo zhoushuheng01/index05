@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>旅游收藏</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        .ul_items{
+            padding:0 10px;
+        }
+        .ul_items h4{
+            color: rgba(0,0,0,0.63);
+            height:30px;
+            line-height: 30px;
+        }
+        .ul_items .item_list .item{
+            background: #fff;
+            padding:10px;
+            display: -webkit-flex;
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .ul_items .item_list .item .left{
+            width:90px;
+            height:90px;
+        }
+        .ul_items .item_list .item .left img{
+            display: block;
+            width:100%;
+            height:100%;
+        }
+        .ul_items .item_list .item .right{
+            padding-left: 10px;
+            -webkit-flex: 1;
+            flex:1;
+            font-size:0.65rem;
+            color: rgba(0,0,0,0.53);
+        }
+        .ul_items .item_list .item .right > h5{
+            color: #000;
+            font-weight: 500;
+            font-size:0.92rem;
+
+        }
+        .ul_items .item_list .item .right > h5 span{
+            padding:3px;
+            color: rgba(255,255,255,0.86);
+            background-color: #20A83D;
+            font-size:0.55rem;
+            margin-right:5px;
+        }
+        .ul_items .item_list .item .right .right_con{
+            font-size:0.65rem;
+            color: rgba(0,0,0,0.53);
+            margin:10px 0;
+        }
+        .ul_items .item_list .item .right .bottom{
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-align-items: flex-end;
+            align-items:flex-end;
+            justify-content: center;
+            position: relative;
+        }
+        .ul_items .item_list .item .right .bottom .right{
+            float: right;
+            text-align: center;
+            font-size:0.65rem;
+            color: rgba(0,0,0,0.53);
+        }
+        .ul_items .item_list .item .right .bottom .right .b_top span{
+            color: #ECD82E;
+            font-size: 1rem;
+        }
+        .ul_items .item_list .item .right .bottom .right .b_bottom{
+            text-decoration: line-through;
+
+            font-size:0.65rem;
+            color: rgba(0,0,0,0.5);
+
+        }
+    </style>
+
+</head>
+<body>
+    <div id="index">
+        <!--<div class="ul_items">
+            <h4>最近一个月收藏</h4>
+            <ul class="item_list">
+                <li class="item">
+                    <div class="left">
+                        <img src="../../image/a4.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h5><span>门票</span>黄河风景成人票</h5>
+                        <div class="right_con">
+                            郑州 * 金水区 | 0评论数
+                        </div>
+
+                        <div class="bottom">
+                            <div class="right">
+                                <div class="b_top">
+                                    <span> <i class="iconfont-app">&#xe68e;</i>55</span>起
+                                </div>
+                                <div class="b_bottom iconfont-app">
+                                    票面价&#xe68e;200
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="left">
+                        <img src="../../image/a4.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h5><span>门票</span>黄河风景成人票</h5>
+                        <div class="right_con">
+                            郑州 * 金水区 | 0评论数
+                        </div>
+
+                        <div class="bottom">
+                            <div class="right">
+                                <div class="b_top">
+                                    <span> <i class="iconfont-app">&#xe68e;</i>55</span>起
+                                </div>
+                                <div class="b_bottom iconfont-app">
+                                    票面价&#xe68e;200
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="left">
+                        <img src="../../image/a4.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h5><span>门票</span>黄河风景成人票</h5>
+                        <div class="right_con">
+                            郑州 * 金水区 | 0评论数
+                        </div>
+
+                        <div class="bottom">
+                            <div class="right">
+                                <div class="b_top">
+                                    <span> <i class="iconfont-app">&#xe68e;</i>55</span>起
+                                </div>
+                                <div class="b_bottom iconfont-app">
+                                    票面价&#xe68e;200
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="left">
+                        <img src="../../image/a4.jpg" alt="">
+                    </div>
+                    <div class="right">
+                        <h5><span>门票</span>黄河风景成人票</h5>
+                        <div class="right_con">
+                            郑州 * 金水区 | 0评论数
+                        </div>
+
+                        <div class="bottom">
+                            <div class="right">
+                                <div class="b_top">
+                                    <span> <i class="iconfont-app">&#xe68e;</i>55</span>起
+                                </div>
+                                <div class="b_bottom iconfont-app">
+                                    票面价&#xe68e;200
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>-->
+    </div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    apiready = function(){
+
+    }
+</script>
+</html>

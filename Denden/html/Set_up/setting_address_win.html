@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>收货</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+			#wrap {
+				display: -webkit-flex;
+				display: flex;
+				-webkit-flex-direction: column;
+				flex-direction: column;
+				height: 100%;
+			}
+			
+			#main {
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			.aui-bar-nav .aui-pull-left{
+				padding:0 0.7rem;
+			}
+			#footer {
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				background-color: #fff;
+				border-top: 1px solid rgba(0,0,0,0.06);
+			}
+			#footer .content .icon {
+				color: rgba(5,57,145,0.9);
+			}
+			#footer .content .icon i {
+				font-style: normal;
+				margin-left: 7px;
+			}
+		</style>
+	</head>
+	<body id="body">
+		<div id="wrap">
+			<header class="aui-bar aui-bar-nav" id="header">
+		        <a class="aui-pull-left aui-btn left" onclick="api.closeWin();">
+		            <span class="iconfont-app" onclick="api.closeWin();">&#xe6ac;</span>
+		        </a>
+		        <div class="aui-title middle">收货地址</div>
+		        <a class="aui-pull-right right"></a>
+		    </header>
+			<div id="main"></div>
+			<footer id="footer">
+				<div class="content">
+					<span class="icon iconfont-app">&#xe6b2;<i>新增地址</i> </span>
+				</div>
+			</footer>
+		</div>
+	</body>
+	<script src="../../script/api.js"></script>
+	<script src="../../script/zepto.min.js"></script>
+	<script>
+		var header, headerPos;
+		apiready = function() {
+			header = $api.byId('header');
+			var systemType = api.systemType;
+			var systemVersion = parseFloat(api.systemVersion);
+			if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+				if (systemType == "android") {
+					$api.fixStatusBar(header);
+				}
+			} else {
+				$api.fixIos7Bar(header);
+			}
+			headerPos = $api.offset(header);
+			openFrm('setting_address_frm', 'setting_address_frm');
+		}
+		function openFrm(name, url) {
+			var header = $api.byId("header");
+			$api.fixIos7Bar(header);
+			var headerPos = $api.offset(header);
+			var mainPos = $api.offset($api.byId("main"));
+			var footerPos = $api.offset($api.byId("body"));
+			api.openFrame({
+				name : name,
+				url : url + '.html',
+				bounces : true,
+				rect : {
+					x : 0,
+					y : headerPos.h,
+					w : 'auto',
+					h : mainPos.h
+				},
+				vScrollBarEnabled : true,
+				hScrollBarEnabled : true
+			});
+		};
+		function close() {
+		}
+	</script>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/icon.css"/>
+		<style type="text/css">
+
+
+	/*		html,body{
+				width: 100%;
+				height: 100%;
+			}
+			*/
+			#side{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				z-index: 1000;
+				top: 0%;
+			}
+			#side .content{
+				position: relative;
+				height: 100%;
+			}
+			#side .title_rgba{
+				height: 150px;
+				background-color: rgba(0,0,0,0.3);
+			}
+			#side .content .btn{
+				position: absolute;
+				top: 130px;
+				right: 1rem;
+				border-radius: 50%;
+				background: #fff;
+			}
+			#side .content .btn span{
+				display: inline-block;
+				background: #ccc;
+				padding: 3px;
+				border-radius: 50%;
+			}
+			#side .content_body{
+				height: 100%;
+				background-color: #fff;
+			}
+			#side .content_body header{
+				display: flex;
+				padding-top: 20px;
+			}
+			#side .content_body header div:nth-child(1){
+				flex: 1;
+			}
+			#side .content_body header div:nth-child(2){
+				flex:3;
+			}
+			#side .content_body header div:first-child{
+				padding: 0 10px;
+				text-align: center;
+			}
+			#side .content_body header div:first-child img{
+				display: block;
+				width: 150px;
+				height: 150px;
+				border: 1px solid rgba(235,159,29,0.7);
+			}
+			#side .content_body section{
+				padding-left: 10px;
+				padding-bottom: 30px;
+			}
+			#side .content_body section:nth-child(2){
+				margin: 25px 0 15px 0;
+			}
+			#side .content_body section .btn_S{
+				padding-left: 5px;
+			}
+			#side .content_body section .btn_S button{
+				padding: 5px 25px 5px 25px;
+				font-size: 16px;
+				border: none;
+				margin-top: 10px;
+				background: #EEEEEE;
+			}
+			#side .content_body section .btn_S button.active{
+				background-color: #F39800;
+				color: rgba(255,255,255,0.8);
+			}
+			#side footer{
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+			}
+			.Shopping_ul_go{
+				width: 100%;
+				
+			}
+			
+			.Shopping_list_go li {
+				display: flex;
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				padding-left: 10px;
+				border-top: 1px solid #ccc;
+			}
+			.Shopping_list_go li div{
+				display: inline-block;
+			}
+			
+			.Shopping_list_go li div:first-child{
+				flex: 3;
+			}
+			.Shopping_list_go li div:first-child ul{
+				
+			}
+			.Shopping_list_go li:last-child div:first-child span{
+				color: #FF3C25;
+				font-size: 22px;
+			}
+			.Shopping_list_go li div:last-child{
+				flex: 1;
+			}
+			.Shopping_list_go li:last-child div:last-child{
+				flex: 1;
+				padding: 0 25px;
+				text-align: center;
+				color: rgba(255,255,255,0.9);
+				background: #FF3C25;
+			}
+			.Shopping_list_go li:first-child div:last-child ul{
+				display: flex;
+				height: 40px;
+				line-height: 40px;
+				border: 1px solid #adadad;
+				margin-top: 5px;
+				margin-right: 10px;
+				border-radius: 5px;
+			}
+			.Shopping_list_go li:first-child div:last-child ul li{
+				height: 40px;
+				line-height: 40px;
+				
+				
+			}
+			.Shopping_list_go li:first-child div:last-child ul li:nth-child(1){
+				flex: 2;
+			}
+			.Shopping_list_go li:first-child div:last-child ul li:nth-child(2){
+				flex: 2;
+				text-indent: 3px;
+				border-left: 1px solid #adadad;
+				border-right: 1px solid #adadad;
+			}
+			.Shopping_list_go li:first-child div:last-child ul li:nth-child(3){
+				flex: 2;
+			}
+
+
+
+			#list{
+				width: 100%;
+				height: 100%;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div  id="list">
+		</div>
+	</body>
+	<script type="text/javascript" src="../../js/zepto.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../../script/aui-slide.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/SHA1.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js"></script>
+
+	<script type="text/javascript">
+		var good_name,good_img;
+		apiready = function(){
+		    api.parseTapmode();
+		    fnInit();		    
+		}
+
+		function AddNum(){
+			var shop_num = document.getElementById("buyit").innerHTML;
+			 shop_num = parseInt(shop_num) +1;
+			 var cur_price = shop_num * api.pageParam.good_price;
+			document.getElementById("buyit").innerHTML =  shop_num;
+			document.getElementById("prices9").innerHTML = cur_price;
+		}
+
+		function downNum(){
+			var shop_num = parseInt(document.getElementById("buyit").innerHTML);
+		    var cur_price = shop_num * api.pageParam.good_price;
+			if (shop_num != "1") {
+				shop_num = shop_num -1;
+			    cur_price = shop_num * api.pageParam.good_price;
+			}
+			else{
+				
+			}
+			document.getElementById("buyit").innerHTML =  shop_num;
+			document.getElementById("prices9").innerHTML = cur_price;
+		}
+		   
+		function SetAttr(){
+
+		}
+
+		function fnInit(){
+			
+			var pageParam = api.pageParam;
+ 
+			var body_html = '<div id="side">'
+						+'	<div class="content">'
+						+'		<div class="title_rgba"></div>'
+						+'			<div class="content_body">'
+						+'				<header>'
+						+'					<div class="left"><img src="'+pageParam.good_img+'"/></div>'
+						+'					<div class="right"><p>'+pageParam.good_name+'</p></div>'
+						+'				</header><section></section>'
+						+'		<section>'
+						+'		  <h4><span></span></h4>'
+						+'		  <div class="btn_S">'
+						+'		  	<button class="active"></button>'
+						+'		  	<button></button>'
+						+'		  </div>'
+						+'		</section>'
+						+'		<section>'
+						+'		  <h4><span></span></h4>'
+						+'		  <div class="btn_S">'
+						+'		  	<button>S</button>'
+						+'		  	<button class="active">M</button>'
+						+'		  </div>'
+						+'		</section>'										
+						+'				<footer>'
+						+'					<div class="Shopping_ul_go">'
+						+'						<ul class="Shopping_list_go">'
+						+'							<li>'
+						+'								<div class="left left_now">数量 : <span></span></div>'
+						+'								<div class="right">'
+						+'									<ul>'
+						+'										<li class="iconfont-app" onclick="downNum()">&#xe667;</li>'
+						+'										<li id="buyit">1</li>'
+						+'										<li class="iconfont-app" onclick="AddNum()">&#xe666;</li>'
+						+'									</ul>'
+						+'								</div>'
+						+'							</li>'
+						+'							<li>'
+						+'								<div class="left">'
+						+          '<span class="iconfont-app" id="prices9">&#xe68e;'+pageParam.good_price+'</span></div>'
+						+'								<div class="right" onclick="BuyGood()">确认</div>'
+						+'							</li>'
+						+'						</ul>'
+						+'					</div>'
+						+'				</footer>'
+						+'		</div>'
+						+'		<div class="btn"><span class="iconfont-app">&#xe666;</span></div>'
+						+'	</div>'
+						+'</div>';
+			$("#list").append(body_html);
+		}
+
+		function BuyGood(){
+			var init = new Init(1);
+			var order_url = '/mall_order';
+			var order_id = 'SP'+new Date().getTime();
+			var pay_date =  Format(new Date());
+			var user_id = $api.getStorage("userid");//用户id
+			var buy_num = document.getElementById("buyit").innerHTML;
+
+			//获取收货人
+			api.openWin({
+			    name: 'recev_person_header',
+			    url: './recev_person_header.html',
+			    pageParam: {
+			        userid: $api.getStorage('userId')
+			    }
+			});
+
+
+			var recv_id = $api.getStorage('recv_id');
+			
+			if ('undefined' == typeof recv_id) {
+				return;
+			}
+			    
+			var c_body = {
+                    "order_no":order_id,
+                    "userid":user_id,
+                    "pay_time":pay_date,
+                    "amount":buy_num,
+                    "order_status":"1",
+                    "order_source":0,
+                    "consignee":recv_id
+                };
+
+			init.ajax(order_url,'POST',JSON.stringify(c_body),function(ret,err){
+			
+				if (ret) {
+					
+					var init_d = new Init(1);
+					var deatil_url = '/mall_order_detail';
+					var cur_price =document.getElementById("prices9").innerHTML;
+					c_body = {
+	                    "order_no":order_id,
+	                    "good_id":api.pageParam.good_id, //比如： {"name" : "tans-con"}
+	                    "pay_time":pay_date,
+	                    "good_name":good_name,
+	                    "good_price":cur_price,
+	                    "good_image":api.pageParam.good_img
+               		 };
+
+					init_d.ajax(deatil_url,'POST',JSON.stringify(c_body),function(ret,err){
+						if (ret) {
+							api.toast({
+								    msg: '下单成功,我们配送中......！',
+								    duration: 2000,
+								    location: 'bottom'
+								});
+						}
+						else{
+							alert('下单失败:'+JSON.stringify(err));
+						}
+					});
+					
+				}
+				else
+				{
+					api.alert({
+					    title: '购物',
+					    msg: '下单失败:' + JSON.stringify(err),
+					}, function(ret, err){});
+				}
+			});
+			
+		}
+	</script>
+</html>

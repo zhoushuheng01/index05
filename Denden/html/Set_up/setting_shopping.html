@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>购物车</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+    	body,html{
+            height:100%;
+    	}
+        input[type=checkbox] {
+            width:25px;
+            height:25px;
+           /* visibility: hidden;*/
+        }
+        .checkbox{
+            /*width:30px;*/
+            /*height:30px;*/
+            /*border-radius: 50%;*/
+            /*background-color: #fff;*/
+            /*border:1px solid #ccc;*/
+        }
+       /* .checkbox label{
+            width:20px;
+            height:20px;
+            background-color: #00AAEE;
+            left:5px;
+            top:5px;
+            border-radius: 50%;
+            position: absolute;
+        }*/
+
+        /*
+            css3购物车样式设置
+        */
+        .item{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+        }
+
+        .item .left{
+            position: relative;
+            min-width: 45px;
+            text-align: center;
+        }
+        .item .left > .body{
+            position: absolute;
+            top:31%;
+            left:20%;
+        }
+        .item .left > .body input[type=checkbox]{
+            position: absolute;
+            left: 5px;
+            top: 5px;
+        }
+        .item .right{
+            display: -webkit-flex;
+            display: flex;
+            width:100%;
+            border-bottom: 1px solid rgba(0,0,0,0.16);
+        }
+
+
+        .item .item_header{
+            display: -webkit-flex;
+            display: flex;
+            height: 40px;
+            line-height: 40px;
+        }
+        .item .item_header .content{
+            -webkit-flex: 1;
+            flex:1;
+        }
+
+        .item .item_header .edit{
+            margin-right:10px;
+        }
+        .item .item_header .checkbox{
+            position: absolute;
+            left:20%;
+            top:20%;
+        }
+
+
+
+
+
+        /*
+            购物车列表信息
+        */
+        .item_ul{
+
+        }
+        .item_ul li{
+            display: -webkit-flex;
+            display: flex;
+            height:100px;
+            line-height: 100px;
+        }
+        .item_ul li .checkbox{
+            top:30%;
+        }
+        .item_ul li .checkbox input[ type = "checkbox" ]{
+            position: relative;
+            z-index: 55;
+        }
+        .item_ul li .Product{
+            padding: 10px 0;
+        }
+        .item_ul li .Product_left{
+
+        }
+        .item_ul li .Product_left img{
+            width:100px;
+            height:80px;
+            background-size: cover;
+            display: block;
+        }
+
+        .item_ul li .Product_right{
+            -webkit-flex:1;
+            flex:1;
+            padding: 0 0 0 5px;
+            display: -webkit-flex;
+            display: flex;
+            width:100%;
+            line-height: normal;
+        }
+        .Product_right .P_left{
+            -webkit-flex:1;
+            flex:1;
+        }
+        .Product_right .P_left .title{
+            margin:10px 0;
+            color: rgba(0,0,0,0.43);
+            font-size: 0.65rem;
+        }
+        .Product_right .P_right{
+            width:65px;
+            padding-right: 10px;
+            text-align: right;
+
+        }
+        .Product_right .P_right{
+
+        }
+
+        .Product_right .P_right_btn {
+            width:50px;
+            padding: 0 10px;
+            background-color: red;
+            position: relative;
+            display: -webkit-flex;
+            display: flex;
+            margin-left:5px;
+
+
+        }
+        .Product_right .P_right_btn .btn_text{
+            margin-top: 50%;
+            text-align: center;
+        }
+        .Product_right .P_right_btn:before{
+            content: "";
+            display: block;
+            width: 50px;
+            height:10px;
+            position: absolute;
+            left:0;
+            top:-10px;
+            background-color: red;
+        }
+        .Product_right .P_right_btn:after{
+            content: "";
+            display: block;
+            width: 50px;
+            height:10px;
+            position: absolute;
+            left:0;
+            bottom:-10px;
+            background-color: red;
+        }
+        i{
+            font-style: normal;
+        }
+        .price{
+            font-size:0.63rem;
+            color: red;
+        }
+        .price i{
+            font-size:0.77rem;
+        }
+        
+        
+        /*
+        
+                按钮的样式
+        */
+        .btn_groud{
+            display: -webkit-flex;
+            display: flex;
+            height:40px;
+            line-height: 40px;
+            border:1px solid #ccc;
+        }
+
+        .btn_groud .btn_sm{
+            width:50px;
+            text-align: center;
+        }
+
+        .btn_groud .btn_sm_g{
+            border-right:1px solid #ccc;
+            border-left: 1px solid #ccc;
+            flex:1;
+            text-align: center;
+        }
+        
+        #btn1{
+        	margin-top:30px;
+        	width: 50px;
+        	height: 50px;
+        	border: 1px solid #ccc;
+        }
+		#text{
+			margin-left:50px;
+		}
+
+        .Quantity{
+            margin-top: 15px;
+        }
+
+        #footer{
+            display: -webkit-flex;
+            display: flex;
+            height:50px;
+            line-height: 50px;
+            position: fixed;
+            bottom: 0;
+            left:0;
+            right:0;
+        }
+        #footer .left{
+            -webkit-flex: 1;
+            flex:1;
+            display: -webkit-flex;
+            justify-content: space-between;
+            display: flex;
+
+        }
+        #footer .left .l_left{
+            margin-top: 7px;
+            margin-left:10px;
+        }
+        #footer .left .l_right{
+            width:120px;
+        }
+        #footer .right{
+            width:70px;
+            background-color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+	<div id="index">
+
+        <div id="item_list">
+            <div class="item">
+                <div class="item_header">
+                    <div class="left">
+
+                    </div>
+                    <div class="right">
+                        <div class="content">
+                            旗舰店
+                        </div>
+                        <div class="edit">
+                            <span ></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item_body">
+                    <ul class="item_ul">
+                        <li class="item_li">
+                            <div class="left">
+                                <div class="body">
+                                    <div class="checkbox" onchange="Liorice()" data-li-pirce="" data-Quantity="">
+                                        <input type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right Product">
+                                <div class="Product_left">
+                                    <img src="../../image/face/m32.gif" alt="">
+                                </div>
+                                <div class="Product_right">
+                                    <div class="P_left">
+                                        <h3>店铺</h3>
+                                        <div class="title">
+                                            <span>商品...</span>
+                                        </div>
+                                    </div>
+                                    <div class="P_right">
+                                        <div class="title">
+                                            <span class="iconfont-app ">&#xe68e;<i class="price">50.1</i></span>
+                                        </div>
+                                        <div class="">x<span class="Quantity">1</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item_li">
+                            <div class="left">
+                                <div class="body">
+                                    <div class="checkbox" onchange="Liorice()" data-li-pirce="" data-Quantity="">
+                                        <input type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right Product">
+                                <div class="Product_left">
+                                    <img src="../../image/face/m32.gif" alt="">
+                                </div>
+                                <div class="Product_right">
+                                    <div class="P_left">
+                                        <h3>店铺</h3>
+                                        <div class="title">
+                                            <span>商品...</span>
+                                        </div>
+                                    </div>
+                                    <div class="P_right">
+                                        <div class="title">
+                                            <span class="iconfont-app ">&#xe68e;<i class="price">50.1</i></span>
+                                        </div>
+                                        <div class="">x<span class="Quantity">1</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item_li">
+                            <div class="left">
+                                <div class="body">
+                                    <div class="checkbox" onchange="Liorice()" data-li-pirce="" data-Quantity="">
+                                        <input type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right Product">
+                                <div class="Product_left">
+                                    <img src="../../image/face/m32.gif" alt="">
+                                </div>
+                                <div class="Product_right">
+                                    <div class="P_left">
+                                        <h3>店铺</h3>
+                                        <div class="title">
+                                            <span>商品...</span>
+                                        </div>
+                                    </div>
+                                    <div class="P_right">
+                                        <div class="title">
+                                            <span class="iconfont-app ">&#xe68e;<i class="price">50.1</i></span>
+                                        </div>
+                                        <div class="">x<span class="Quantity">1</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+<footer id="footer">
+    <div class="left">
+        <div class="l_left">
+            <div class="checkbox" id="selectAllor" onchange="selectAllor()" >
+                <input type="checkbox" id="checkboxThreeInp">
+                <label for="checkboxThreeInput"></label>
+                </div>
+</div>
+<div class="l_right">
+    总额：<span id="oldoirce">0.0</span>
+</div>
+</div>
+<div class="right">结算</div>
+</footer>
+
+</body>
+<script src="../../script/api.js"></script>
+
+<script src="../../script/vue.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script type="text/javascript">
+
+apiready = function(){
+
+api.addEventListener({
+    name: 'price'
+}, function(ret, err) {
+
+    $api.text($api.byId("oldoirce"), 'str');;
+});
+};
+
+
+
+function addevt(){
+//发送事件用来处理价格
+//建议页面完全重新写
+var index = $api.byId("index");
+
+
+
+api.sendEvent({
+    name: 'price',
+    extra: {
+    }
+});
+
+
+};
+
+    function selectAllor(event){
+        var event = event || window.event;
+
+        event.preventDefault();
+        var parEvent = event.target.parentNode; //获取当前元素的父亲节点
+
+        var index = $api.byId("index");
+
+        var array = [];
+
+        if(  $(parEvent).find("input[type=checkbox]").is(":checked") )
+        {
+           // $("#index").find("input[type=checkbox]").prop("checked",true);
+            var aItem = $api.domAll(index,".item");
+
+            for ( var i=0; i<aItem.length;i++ ){
+                var aCheckbox = $api.domAll(aItem[i],".checkbox");
+
+                for (var j=0; j < aCheckbox.length;j++){
+                    //alert($api.attr(aCheckbox[j],"data-Quantity"));
+
+
+                    if( !$(aCheckbox[j]).find("input[type=checkbox]").is(":checked")){
+                        $(aCheckbox[j]).find("input[type=checkbox]").prop("checked",true);
+                        array.push({
+                            price : $(aCheckbox[j]).parents(".item_li").find(".P_right .price").text(),
+                            Quantity : $(aCheckbox[j]).parents(".item_li").find(".P_right .Quantity").text()
+                        })
+                    }
+
+
+
+
+                }
+
+
+            }
+
+            var jiaq = 0;
+
+
+            for ( var k in array ){
+
+                jiaq += parseFloat(array[k].price) * parseFloat(array[k].Quantity);
+
+
+            }
+
+            if( jiaq != 0 ){
+                var oldoircePrice = parseFloat($api.text(oldoirce));
+                jiaq += oldoircePrice;
+                $api.text($api.byId("oldoirce"), jiaq);
+            }
+
+
+
+        }else{
+            $("#index").find("input[type=checkbox]").prop("checked",false);
+            $api.text($api.byId("oldoirce"), 0);
+        }
+
+    }
+
+
+/*
+计算价格
+*/
+
+function Liorice(event) {
+    //var add = 0;
+    var event = event || window.event;
+    event.preventDefault();
+
+    var parEvent = event.target.parentNode;
+
+//alert(.css("background","red"));
+    var Li = $(parEvent).parents(".item_li");
+
+    var item = $(Li).parents(".item");
+
+//、价钱
+    var price = 0;
+    var oldoirce = $api.byId("oldoirce");
+    var oldoircePrice = parseFloat($api.text(oldoirce));
+
+
+
+    if ($(parEvent).find("input[type=checkbox]").is(":checked")) {
+
+        if ( $(Li).find("input[type=checkbox]").is(":checked") ){
+            Li.find("input[type=checkbox]").prop("checked", true);
+            price += parseFloat( $(Li).find(".Quantity").text() ) * parseFloat( $(Li).find(".price").text() );
+
+
+            oldoircePrice += price;
+
+
+        }else{
+
+        }
+
+
+    } else {
+        Li.find("input[type=checkbox]").prop("checked", false);
+        var price_t = parseFloat($(Li).find(".Quantity").text()) * (parseFloat($(Li).find(".price ").text()));
+
+
+
+       
+
+        oldoircePrice = oldoircePrice -parseFloat(price_t);
+
+    }
+
+    $api.text(oldoirce, oldoircePrice.toFixed(1));
+
+
+};
+
+</script>
+</html>

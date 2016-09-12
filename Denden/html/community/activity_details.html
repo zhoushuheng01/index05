@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
+    }
+    
+    #list {}
+    
+    #list .item_list {
+        display: -webkit-flex;
+        display: flex;
+        padding: 10px 0 10px 10px;
+    }
+    
+    #list .item_list > .left {
+        width: 90px;
+    }
+    
+    #list .item_list > .left img {
+        width: 60px;
+        height: 60px;
+        background-size: cover;
+        border-radius: 50%;
+        display: block;
+    }
+    
+    #list .item_list > .right {
+        width: 100%;
+        border-bottom: 1px solid #e6e6e6;
+    }
+    
+    #list .item_list > .right .username {
+        height: 35px;
+        line-height: 35px;
+        display: -webkit-flex;
+        display: flex;
+        font-size: 0.76rem;
+    }
+    
+    #list .item_list > .right .username .left {
+        -webkit-flex: 1;
+        flex: 1;
+    }
+    
+    #list .item_list > .right .username .right {
+        width: 50px;
+        margin-right: 10px;
+        color: #00BCD4;
+        text-align: center;
+    }
+    #list .item_list > .right .title{
+      padding-bottom: 10px;
+      padding-right: 5px;
+    }
+     .list_header {
+      height:40px;
+      line-height: 40px;
+      background-color: #fff;
+      padding-left: 5px;
+    }
+    
+     .list_header h4 span{
+      display: initial;
+      font-size: 0.86rem;
+      padding-left: 5px;
+      border-left: 3px solid #00BCD4;
+    }
+    
+
+    .top-header{
+      width: 100%;
+    }
+    .top-header .top{
+      height: 200px;
+    }
+    .top-header .top img{
+      height: 100%;
+      width: 100%;
+      display: block;
+      background-size: cover;
+    }
+    .top-header .title{
+      padding:10px;
+      line-height: 1rem;
+      background-color: #fff;
+    }
+
+    .information{
+      margin: 10px 0;
+      background-color: #fff;
+    }
+    .information .list_header{
+     border-bottom: 1px solid #f5f5f5;
+    }
+    .information .body{
+      
+    }
+    .information .body .user{
+        display: -webkit-flex;
+        display: flex;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 10px;
+    }
+    .information .body .user .image{
+       display: -webkit-flex;
+       display: flex;
+       width: 50px;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .information .body .user .image img{
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: block;
+      background-size: contain;
+    }
+    .information .body .user .title{
+      width: 100%;
+      font-size: 0.7rem;
+    }
+    .information .body .user .title span{
+      font-size: 0.63rem;
+      color: rgba(0,0,0,0.5);
+    }
+    .information .body .user .title{
+      
+    }
+    .information .body{
+
+    }
+
+
+    #ul_list{
+      
+    }
+    #ul_list ul{
+      margin-top: 5px;
+    }
+    #ul_list ul li{
+      display: -webkit-flex;
+      display: flex;
+      padding-left: 20px;
+      height: 35px;
+      line-height: 34px;
+    }
+    #ul_list ul li .left{
+      width: 20px;
+    }
+    #ul_list ul li .left span{
+      font-size: 1rem;
+    }
+    #ul_list ul .right{
+      flex:1;
+      display: -webkit-flex;
+      display: flex;
+      margin-left: 5px;
+      font-size:0.69rem;
+    }
+    #ul_list ul .right .num{
+      
+    }
+    #ul_list ul .right .span{
+      margin-left: 10px;
+    }
+    #ul_list ul .right .span span{
+      display: initial;
+      border-radius: 3px;
+      padding:3px 3px 2px 3px;
+      color: #00BCD4;
+      font-size:13px;
+      border:1px solid #00BCD4;
+    }
+    #ul_list ul .right{
+      
+    }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+       <div id="content">
+	        <script id="assn_map_list" type="text/x-dot-template">
+                {{ for(var i in it){ }}
+                    <header class="top-header">
+      			          <div class="top">
+      			            <img src="{{= it[i].introduction.url}}">
+      			          </div>
+      			          <div class="title">{{= it[i].Active_content}}</div>
+      			        </header>
+      			        <div class="information">
+      			            <div class="list_header">
+      			                <h4><span>活动信息</span></h4>
+      			            </div>
+      			            <div class="body">
+      			              <div class="user">
+      			                <div class="image">
+      			                  <img src="{{= it[i].user_id.icon.url}}">
+      			                </div>
+      			                <div class="title">
+      			                  {{= it[i].user_id.name}} <span>{{= it[i].publisher}}</span>
+      			                </div>
+      			              </div>
+      			
+      			              <div id="ul_list">
+      			                <ul>
+      			                  <li>
+      			                    <div class="left">
+      			                      <span class="iconfont-app">&#xe61e;</span>
+      			                    </div>
+      			                    <div class="right">
+      			                      {{= it[i].address}}
+      			                    </div>
+      			                  </li>
+      			                  <li>
+      			                    <div class="left">
+      			                      <span class="iconfont-app">&#xe6b3;</span>
+      			                    </div>
+      			                    <div class="right">
+      			                      {{= it[i].start_date}}
+      			                    </div>
+      			                  </li>
+      			                </ul>
+      			              </div>
+      			            </div>
+      			        </div>
+                {{ } }}
+            </script>
+       </div> 
+       
+        <div id="list">
+            
+        </div>
+        
+        <script id="comment_list" type="text/x-dot-template">
+                  {{ if(it){ }}
+                  	
+                      <div class="list_header">
+                        <h4><span>讨论区</span></h4>
+                      </div>
+                       <div id="Event">
+                        {{ for(var i in it){ }}
+                          <div class="item_list">
+                              <div class="left">
+                                  <img src="{{= it[i].comment_usr.icon.url}}">
+                              </div>
+                              <div class="right">
+                                  <div class="username">
+                                      <div class="left">{{= it[i].comment_usr.name}}</div>
+                                  </div>
+                                  <div class="title">{{= it[i].comment_msg}}</div>
+                              </div>
+                          </div>
+                        {{ } }}
+                        
+                        </div>
+					 </div>
+                  {{ } }}
+
+            </script>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var header, headerPos, main, mainPos;
+var pageNum = 1;
+var last;//返回的数据是否为0，，，如为0则停止下拉刷新
+
+var activity_id;
+var assn_id;
+apiready = function() {
+    header = $api.byId('header');
+    main = $api.byId('main');
+    headerPos = $api.offset(header);
+    
+    activity_id = $api.getStorage('activity_id');
+    assn_id = $api.getStorage("assn_id");
+
+    var init = new Init(1);
+    /*
+     assn_map  对应数据库的表名
+
+     */
+    
+    var assn_map_Url = '/assn_map?filter=';
+    var assn_map_UrlParam = {
+        'fields':{
+            'id':0,
+            'createdAt':0,
+            'updatedAt':0
+        },
+        'where':{
+            "assn_id":assn_id,
+            "activity_id":activity_id
+        },
+        'skip':init.skip,
+        'limit':init.limit,
+        "include":{
+            "mem_idPointer":"",
+            "user_idPointer":""
+        },
+        'order':"updatedAt ASC"
+    };
+
+    /*
+        活动信息
+    */
+    init.ajax(assn_map_Url + JSON.stringify(assn_map_UrlParam),'GET',{},function(ret,err){
+        if( ret ){
+            var evalText = doT.template($("#assn_map_list").text());
+            $("#content").html(evalText(ret));
+        }else{
+            api.alert({ msg: 'activity_deatils:-->328' + JSON.stringify(err) });
+        }
+    });
+
+    //alert(activity_id);
+
+
+    /*
+         评论列表
+     */
+
+  
+	
+	Update_list(pageNum);
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+    	
+    	//下拉加载
+
+
+	   api.addEventListener({
+		    name: 'scrolltobottom',
+		    extra:{
+		        threshold:0            //设置距离底部多少距离时触发，默认值为0，数字类型
+		    }
+		}, function(ret, err) {
+    	   
+    	      pageNum++;
+    	      Update_list(pageNum,function(ret,err){
+				if( ret ){
+					var html = '';
+		            for(var i=0;i<ret.length;i++){
+		                html += '<div class="item_list">';
+		                html +=      '<div class="left">';
+		                html +=            '<img src="'+ret[i].comment_usr.icon.url+'">';
+		                html +=        '</div>';
+		                html +=        '<div class="right">';
+		                html +=            '<div class="username">';
+		                html +=                '<div class="left">'+ret[i].comment_usr.name+'</div>';
+		                html +=            '</div>';
+		                html +=            '<div class="title">'+ret[i].comment_msg+'</div>';
+		                html +=        '</div>';
+		                html +=    '</div>';
+		            };
+		           $("#list").append(html);
+				}
+				
+				if( ret.length < 10 ){
+    				//$api.html(view_more, "没有数据了");
+    				
+    				api.toast({
+					    msg: '亲，到底了！没有更多数据了',
+					    duration: 2000,
+					    location: 'bottom'
+					});
+    				
+    				
+    			}
+				
+			});
+		});
+    
+  		
+  		//监听发布评论重新获取数据
+    	   
+			api.addEventListener({
+			    name: 'EventComments'
+			}, function(ret, err) {
+			    var Event_id = ret.value.Event_id;  //     从评论页面返回回来的    评论id    用来更新数据
+			 // alert(JSON.stringify(Event_id));
+			   
+			    var comment_Url = '/comment?filter=';
+			    var comment_UrlParam = {
+			        'fields':{
+			        },
+			        'where':{
+			            "id":Event_id
+			        },
+			        'skip':0,
+			        'limit':1,
+			        "include":{
+	                    "comment_usrPointer":""
+	                }
+			    };
+			    
+			    //如果元素不存在，，，，，就获取数据更新
+			    var men = $("#Event").size();
+			    
+			    if( men ){
+			      init.ajax(comment_Url + JSON.stringify(comment_UrlParam),"GET",{},function(ret,err){
+				   	var html = "";
+				   	for( var i=0;i<ret.length;i++ ){
+				   		    html += '<div class="item_list">';
+			                html +=      '<div class="left">';
+			                html +=            '<img src="'+ret[i].comment_usr.icon.url+'">';
+			                html +=        '</div>';
+			                html +=        '<div class="right">';
+			                html +=            '<div class="username">';
+			                html +=                '<div class="left">'+ret[i].comment_usr.name+'</div>';
+			                html +=            '</div>';
+			                html +=            '<div class="title">'+ret[i].comment_msg+'</div>';
+			                html +=        '</div>';
+			                html +=    '</div>';
+				   	}
+				   	
+				   	$("#Event").prepend(html);
+				   
+				   });
+			    }else{
+			    	Update_list(pageNum);
+			    }
+			   
+			   
+			   	
+			  
+			});
+  		
+
+};
+
+
+function Update_list(num,callback){
+    var init = new Init(1);
+    
+    var limit = 10;
+    var skip = ( num - 1 ) * limit;
+ 
+        var comment_Url = '/comment?filter=';
+	    var comment_UrlParam = {
+	        'fields':{
+	            'id':0,
+	            'createdAt':0,
+	            'updatedAt':0
+	        },
+	        'where':{
+	            "ment_type":7,
+	            "assn_id":assn_id,
+	            "activity_id":activity_id
+	        },
+	        'skip':skip,
+	        'limit':limit,
+	        "include":{
+	            'comment_usrPointer':''
+	        }
+	    };
+	
+	    /*
+	         评论列表
+	     */
+	
+	    init.ajax(comment_Url + JSON.stringify(comment_UrlParam),'GET',{},function(ret,err){
+	        if( ret ){
+	        
+	        	if( typeof callback == "function" ){
+	    			callback(ret,err);
+	    			return;
+	    		}
+	            var evalText = doT.template($("#comment_list").text());
+	            $("#list").html(evalText(ret));
+	        }else{
+	            api.alert({ msg: 'activity_deatils:-->366' + JSON.stringify(err) });
+	        }
+	    });
+
+    
+  };  
+  
+  
+  /*
+   * 
+   */
+</script>
+</html>

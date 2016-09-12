@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+    <style type="text/css">
+    #index header {
+        border-bottom: 1px solid #ccc;
+    }
+    
+    #tab > div {
+        cursor: pointer;
+    }
+    
+   #content section.header {
+        padding: 10px;
+    }
+    
+    .con section.header .span span {
+        font-size: 12px;
+        display: inline-block;
+        font-weight: 600;
+    }
+    
+    .con section.header .span span i {
+        margin: 3px;
+    }
+    
+    .con section.header .span span:nth-child(1) i {
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        background: url(../../image/3.png) no-repeat;
+        background-size: 12px 12px;
+    }
+    
+    .con section.header .span span:nth-child(2) i {
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        background: url(../../image/1.png) no-repeat;
+        background-size: 15px 15px;
+    }
+    
+    .con section.header .span span:nth-child(3) i {
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        background: url(../../image/5.png) no-repeat;
+        position: relative;
+        top: 2px;
+        background-size: 12px 12px;
+    }
+    
+    .con section.header .footer {
+        margin-top: 3px;
+    }
+    
+    .con section.header .footer .footer_left {
+        float: left;
+    }
+    
+    .con section.header .footer .footer_left h4 {
+        color: red;
+        font-weight: 600;
+        display: inline-block;
+        font-size: 12px;
+    }
+    
+    .con section.header .footer .footer_left h4 sup {
+        margin-left: 3px;
+    }
+    
+    .con section.header .footer .footer_left span {
+        color: #000;
+        margin-left: 7px;
+        font-size: 11px;
+        text-decoration: line-through;
+    }
+    
+    .con section.header .footer .footer_right {
+        float: right;
+        color: #666;
+        font-size: 12px;
+        position: relative;
+        top: 6px;
+    }
+    
+    .con section:nth-child(2) {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        display: flex;
+        display: -webkit-flex;
+        padding: 10px 0;
+    }
+    
+    .con section:nth-child(2) .grid_body {
+        flex: 1;
+        padding-top: 0.7 rem;
+        padding-bottom: 0.7 rem;
+        display: flex;
+        display: -webkit-flex;
+    }
+    
+    .con section:nth-child(2) .grid_body img {
+        display: block;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-left: 0.6 rem;
+    }
+    
+    .con section:nth-child(2) .grid_b_left {
+        margin: 0 10px;
+    }
+    
+    .con section:nth-child(2) .grid_b_right {
+        margin: 0 15px 0 20px;
+        width: 100%;
+    }
+    
+    .con section:nth-child(2) .grid_b_right .title {
+        display: flex;
+        display: -webkit-flex;
+    }
+    
+    .con section:nth-child(2) .grid_b_right .title h4 {
+        flex: 1;
+    }
+    
+    .con section:nth-child(2) .grid_b_right .title span {
+        float: right;
+        font-size: 16px;
+        position: relative;
+        top: 5px;
+        color: #336;
+    }
+    
+    .con section:nth-child(2) .grid_b_right .title span i {
+        color: red;
+        font-style: normal;
+        margin-left: 3px;
+    }
+    .con section:nth-child(2) .grid_b_right p{
+        font-size:17px; 
+    }
+    .con section:nth-child(2) .aui-row .aui-col-xs-9 p {
+        width: 100px;
+    }
+    
+    .con .secs-3 h4 {
+        font-size: 15px;
+        color: #666;
+        margin-bottom: 3px;
+    }
+    
+    .con .secs-3 .header {
+        padding-left: 5px;
+    }
+    
+    .con .secs-3 .header a {
+        border-radius: 30px;
+        display: inline-block;
+        padding: 3px 15px;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px;
+        margin: 3px 5px;
+        border: 2px solid blanchedalmond;
+    }
+    
+    .con .secs-3 .header a i {}
+    
+    .secs-3,
+    .secs-4,
+    .secs-5,
+    .secs-6 {
+        padding: 0 10px;
+    }
+    
+    .secs-3 h4,
+    .secs-4 h4,
+    .secs-5 h4,
+    .secs-6 h4 {
+        border-left: 10px solid rgba(0, 0, 0, 0.59);
+        text-indent: 0.23 rem;
+    }
+    
+    .con .secs-4 {
+        width: 100%;
+        overflow: hidden;
+        word-wrap: break-word;
+        word-break: normal;
+    }
+    
+    .con .secs-s h4 {
+        font-size: 15px;
+        color: #666;
+        margin: 3px 0;
+    }
+    
+    .con .secs-s {
+        width: 100%;
+        overflow: hidden;
+        word-wrap: break-word;
+        word-break: normal;
+    }
+    
+    .con section {}
+    
+    .con .secs-7 {
+        position: relative;
+    }
+    
+    .con .secs-7 > ul {
+        margin-bottom: 0;
+    }
+    
+    .con .secs-7 .title {
+        margin: 10px 0;
+        display: flex;
+        height: 50px;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        overflow: hidden;
+    }
+    
+    .con .secs-7 .title h4 {
+        flex: 1;
+        text-indent: 0.5 rem;
+        line-height: 30px;
+    }
+    
+    .con .secs-7 .title a {
+        float: right;
+        margin: 5px;
+        width: 30px;
+        line-height: 60px;
+        color: #666;
+        font-size: 13px;
+        background: url(../../image/7.png) no-repeat;
+        background-size: 25px 25px;
+    }
+    
+    .con .secs-7 .title span {
+        position: relative;
+        top: 3px;
+    }
+    
+    .con .secs-7 .ul_body {
+        padding: 0;
+    }
+    
+    .con .secs-7 .ul_body li {
+        position: relative;
+        display: flex;
+        padding: 10px 10px 10px 10px;
+        display: -webkit-flex;
+        border-bottom: 1px solid #ccc;
+    }
+    .con .secs-7 .ul_body li:last-child{
+        border-bottom: none;
+    }
+    .con .secs-7 .connet {
+        display: flex;
+    }
+    
+    .con .secs-7 .connet .left {
+        margin-left: 7px;
+        margin-right: 10px;
+        height: 80px;
+    }
+    
+    .con .secs-7 .connet .left img {
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        float: left;
+        display: block;
+        background-size: contain;
+    }
+    
+    .con .secs-7 .connet .right {
+        flex: 1;
+        word-wrap: break-word;
+        word-break: normal;
+    }
+    
+    .con .secs-7 .connet .right_p {
+        margin-bottom: 5px;
+        font-size: 18px;
+
+    }
+    
+    .con .secs-7 .connet .right_b {
+        display: flex;
+        display: -webkit-flex;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        height: 20px;
+        position: absolute;
+        bottom: 5px;
+    }
+
+     .Nodata{
+        text-align: center;
+        width: 100%;
+        height: 100px;
+        line-height:100px;
+        font-size: 1rem;
+    }
+    /*.
+             .con .secs-7 .body li:first-child{
+             margin-top: 0;
+             }
+             .con .secs-7 .body li .left{
+             flex: 1;
+             width: 100%;
+             display: flex;
+             display: -webkit-flex;
+             }
+             }*/
+    
+    .laset {
+        position: relative;
+        background: url(../../image/5.png) no-repeat;
+        display: inline-block;
+        width: 60px;
+        padding-left: 20px;
+        height: 50px;
+        bottom: -1px;
+        background-size: 15px 15px;
+    }
+    
+    .laset i {
+        position: relative;
+        top: -2px;
+    }
+    
+    .simulated_box {
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        right: 10px;
+        background: transparent;
+    }
+    
+    .simulated_box .footer {
+        margin-top: 15px;
+    }
+    
+    .simulated_box .footer span:first-child {
+        margin-right: -3px;
+    }
+    
+    .simulated_box .footer span {
+        width: 50px;
+        cursor: pointer;
+        padding: 5px 0;
+        color: #fff;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+        display: inline-block;
+    }
+    
+    .directory {}
+    
+    .directory ul {}
+    
+    .directory li {
+        width: 100%;
+        padding: 0;
+        position: relative;
+        font-size: 15px;
+        padding: 10px 0 3px 8px;
+    }
+    
+    .directory li span {
+        width: 3%;
+        position: absolute;
+        top: 16px;
+    }
+    
+    .directory li p {
+        width: 80%;
+        padding-left: 3%;
+        right: 80px;
+        display: inline-block;
+        margin-left: 3px;
+    }
+    
+    .directory li i {
+        width: 15%;
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        font-style: inherit;
+    }
+    
+    .directory li.active1 {
+        background: #fff;
+        color: blue;
+    }
+    
+    .directory li.active1 p {
+        color: blue;
+    }
+    /*js效果样式*/
+    
+    .none {
+        display: none;
+    }
+    
+    h3 {
+        margin-top: 0;
+    }
+    
+    
+    .secs-s > p{
+    	font-size: 18px;
+    	text-indent: 1em;
+    	
+    }
+    </style>
+</head>
+
+<body>
+    <div id="index" class="aui-content">
+        <div class="content">
+            <header>
+                <div class="con" style="display:block;">
+                    <div id="content">
+                        
+                    </div>
+                    <script id="detailed_sender" type="text/x-dot-template">
+                        <!--sender       老师的信息-->
+                        {{ if(it){ }}
+                                <section class="header">
+                                <h3>{{= it.cours_name}}</h3>
+                                <div class="span">
+                                    <span><i></i>老师</span>
+                                    <span><i></i>课程</span>
+                                    <span><i></i>4.4</span>
+                                </div>
+                                <div class="footer clearfix">
+                                    <div class="footer_left">
+                                        <h4><sup></sup></h4>
+                                        <span></span>
+                                    </div>
+                                    <div class="footer_right">
+                                        14000人学习
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="aui-grid aui-margin-b-15">
+                                <div class="grid_body clearfix">
+                                    <div class="grid_b_left">
+                                        <img src="{{= it.sender.icon.url}}" />
+                                    </div>
+                                    <div class="grid_b_right">
+                                        <div class="title">
+                                            <h4>{{= it.sender.mec_link}}</h4>
+                                            <span>好评率:<i>100%</i></span>
+                                        </div>
+                                        <p>{{= it.sender.mec_desc}}</p>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="clearfix secs-3">
+                                <h4>付费特权</h4>
+                                <div class="aui-row header clearfix">
+                                    <a href="#"><i></i>24小时内讲师答疑</a>
+                                    <a href="#"><i></i>所有课时永久观看</a>
+                                    <a href="#"><i></i>购买课程返学分</a>
+                                    <a href="#"><i></i>专属资料下载</a>
+                                </div>
+                            </section>
+                            <section class="clearfix secs-s secs-4">
+                                <h4>适用人群</h4>
+                                <p>{{= it.target_customers}}</p>
+                            </section>
+                            <section class="clearfix secs-s secs-5">
+                                <h4>课程目标</h4>
+                                <p>{{= it.course_goals}}</p>
+                            </section>
+                            <section class="clearfix secs-s secs-6">
+                                <h4>课程简介</h4>
+                                <p>{{= it.course_introduction}}</p>
+                            </section>
+                        {{ } }}
+                    </script>
+
+
+
+                    <section class="clearfix secs-s secs-7">
+                        <div class="title clearfix">
+                            <h4>课程评价</h4>
+                            <a href="#"><span>评论</span></a>
+                        </div>
+                        <ul class="ul_body" id="comments">
+                            <!--评论列表-->
+                             <script id="comments_list" type="text/x-dot-template">
+                                {{ if(it.length > 0){ }}
+                                     {{ for( var i in it ){ }}
+                                        <li>
+                                            <div class="connet">
+                                                <div class="left">
+                                                    <img src="{{= it[i].comment_usr.icon.url}}" />
+                                                </div>
+                                                <div class="right">
+                                                    <h4 class="right_title">{{= it[i].comment_usr.name}}</h4>
+                                                    <p class="right_p">{{= it[i].comment_msg}}</p>
+                                                    <div class="right_b">
+                                                        <span class="first">{{= it[i].createdAt}}</span>
+                                                       <!--  <span class="laset"><i>5</i></span> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                     {{ } }}
+                                 {{ }else{ }}
+                                    <li>
+                                        <div class="Nodata">
+                                            快来抢沙发
+                                        </div>
+                                    </li>
+
+                                 {{ } }}
+                             </script>
+                        </ul>
+                        <div class="simulated_box none">
+                            <div class="title">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="footer">
+                                <div class="body pull-right">
+                                    <span>取消</span>
+                                    <span>发布</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </header>
+            <!--<footer class="aui-bar aui-bar-tab" id="footer">
+                    <div class="aui-bar-tab-item" tapmode>
+                        <i class="aui-iconfont aui-icon-yun"></i>
+                    </div>
+                    <div class="aui-bar-tab-item" tapmode>
+                        <i class="aui-iconfont aui-icon-fx"></i>
+                    </div>
+                    <div class="aui-bar-tab-item" tapmode>
+                        <i class="aui-iconfont aui-icon-xin"></i>
+                    </div>
+                    <div class="aui-bar-tab-item" tapmode>
+                        <i class="aui-iconfont aui-icon-er"></i>
+                    </div>
+                    <div class="aui-bar-tab-item" tapmode>
+                        <a href="./buy.html" class="icon-go">购买</a>
+                    </div>
+                </footer>-->
+        </div>
+    </div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+    <script>
+    var courid; //课程id
+    var model;
+    var query;
+    var relation;
+    var queryId; //句柄id
+
+    apiready = function() {
+        courid = api.pageParam.courid;
+        //配置
+        model = api.require('model');
+        query = api.require('query');
+        relation = api.require('relation');
+        
+
+        //alert("left-->"+courid)
+
+        
+        //query对象的句柄ID
+        query.createQuery(function(ret, err) {
+            if (ret) {
+                queryId = ret.qid;
+            } else {
+                //alert(JSON.stringify(err));
+                api.toast({
+                    msg: '行号:604,对象实例化失败.....'
+                });
+            }
+        });
+
+
+        //以课程id查询数据库
+        var init = new Init(queryId);
+       // init.cour_group("cour_group");
+        init.ajax('/cour_group?filter={"where":{"courid":'+courid+'},"skip":0,"limit":10,"include":{"senderPointer":""}}','get',{},function(ret,err){
+            if(ret){
+                 var evalText = doT.template($("#detailed_sender").text());
+                 
+                $("#content").html(evalText(ret[0]));
+               
+            }else{
+                //alert(JSON.stringify(err));
+            }
+        });
+        init.ajax('/comment?filter={"where":{"target_id":'+courid+'},"skip":0,"limit":20,"include":{"comment_usrPointer":""}}','get',{},function(ret,err){
+            if(ret){
+                 for(var i=0;i<ret.length;i++){
+                    ret[i].createdAt = Datas(ret[i].createdAt);
+                 }
+                  //alert(JSON.stringify(ret));
+                 var evalText = doT.template($("#comments_list").text());
+                 $("#comments").html(evalText(ret));
+            }else{
+                //alert(JSON.stringify(err));
+                api.toast({
+                    msg: '行号634,加载数据失败......'
+                });
+            }
+        });
+
+
+
+    };
+        // 对Date的扩展，将 Date 转化为指定格式的String   
+    // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，   
+    // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)   
+    // 例子：   
+    // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423   
+    // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18   
+    Date.prototype.Format = function(fmt) { //author: meizz   
+      var o = {   
+        "M+" : this.getMonth()+1,                 //月份   
+        "d+" : this.getDate(),                    //日   
+        "h+" : this.getHours(),                   //小时   
+        "m+" : this.getMinutes(),                 //分   
+        "s+" : this.getSeconds(),                 //秒   
+        "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+        "S"  : this.getMilliseconds()             //毫秒   
+      };   
+      if(/(y+)/.test(fmt))   
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+      for(var k in o)   
+        if(new RegExp("("+ k +")").test(fmt))   
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+      return fmt;   
+    }
+
+
+    function Datas(sj){
+        var time = new Date(sj);
+         var timeString = time.Format("yyyy-MM-dd hh:mm:ss");
+        // alert(timeString)
+         return timeString;
+    };
+    function Init(queryId) {
+        this.queryId = queryId;
+
+    }
+    Init.prototype = {
+        constructor: Init,
+        cour_group: function(name) {
+            query.include({
+                qid: this.queryId,
+                column: 'sender'
+            });
+            
+            model.findAll({
+                class: name,
+                qid: this.queryId
+            }, function(ret, err) {
+                if (ret) {
+                    //alert("data->"+JSON.stringify(ret));
+                    //alert(ret[0].sender.id)
+                    var evalText = doT.template($("#detailed_sender").text());
+                   $("#content").html(evalText(ret));
+                } else {
+                    //alert(JSON.stringify(err));
+                    api.toast({
+                        msg: '行号697,加载数据失败......'
+                    });
+                }
+            });
+        },
+        ajax:function(url,moodo,json,callback){
+          ajax(url,moodo,json,callback);
+        }
+    };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+		<style>
+			html,body {
+				height:100%;
+				width: 100%;
+				background-color: #f5f5f5;
+			}
+			#item_ul{
+				display: -webkit-flex;
+				display: flex;
+				flex-direction: column;
+				height:100%;
+			}
+			#item_ul .item{
+				display: -webkit-flex;
+				display: flex;
+				flex-direction: column;
+				padding: 7px 10px 0px;
+				margin-bottom: 10px;
+				border-bottom: 1px solid #dcd3d3;
+				background-color: #ffffff;
+			}
+			#item_ul .item .top{
+				display: -webkit-flex;
+				display: flex;
+			}
+			#item_ul .item .top .left{
+				flex:1;
+				height:60px;
+				position: relative;
+			}
+			#item_ul .item .top .left img{
+				border-radius: 50%;
+				width: 60px;
+				height: 60px;
+				display: block;
+				position: absolute;
+				left:0;
+			}
+			#item_ul .item .top .right{
+				flex:4;
+			}
+			h4{
+				height: 30px;
+				line-height: 30px;
+			}
+
+			#item_ul .item .content{
+				margin: 7px 0;
+			}
+			#item_ul .item .content .content_top img{
+				width: 100%;
+				height: 180px;
+				display: block;
+			}
+			#item_ul .item .content .content_title{
+
+			}
+			#item_ul .item .footer{
+				border-top:1px solid #dcd3d3;
+				height:30px;
+				line-height: 30px;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-justify-content:flex-end;
+				justify-content:flex-end;
+			}
+			#item_ul .item .footer >div{
+
+			}
+			#item_ul .item .footer >div:last-of-type{
+				margin:0 10px
+			}
+			#item_ul .item .footer .iconfont-app{
+				padding: 0 10px;
+				font-size: 1rem;
+				position: relative;
+				z-index: 3;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<ul id="item_ul">
+			</ul>
+		</section>
+
+		<script id="tour_landscape" type="text/x-dot-template">
+			{{ for(var i in it){ }}
+				<li class="item" tapmode ="" id="{{= it[i].id }}" onclick="openWin( '{{= it[i].tour_id}}')">
+					<div class="top">
+						<div class="left">
+							<img src="../../image/face/m32.gif" alt="" id="userid_{{= it[i].user_id.id }}">
+						</div>
+						<div class="right">
+							<h4>{{= it[i].user_id.name}}</h4>
+							<p>发布于: {{= Format(it[i].createdAt) }}</p>
+						</div>
+					</div>
+					<div class="content">
+						<div class="content_top">
+							{{= it[i].image.length }}
+							{{ if(  {{= it[i].image.length }} > 0 ){ }}
+
+							{{ } }}
+						</div>
+
+						<div class="content_title">
+							{{= it[i].text }}
+						</div>
+					</div>
+					<div class="footer">
+						<div class="iconfont-app">&#xe65e;</div>
+						<div class="iconfont-app">&#xe6a3;</div>
+					</div>
+				</li>
+			{{ } }}
+		</script>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/SHA1.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/vue.js"></script>
+	<!---->
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+
+			var init = new Init(1);
+
+			/*
+			 tour_landscape  对应数据库的表名
+
+			 */
+			var tour_landscape_Url = '/tour_landscape?filter=';
+			var tour_landscape_UrlParam = {
+				'fields':{
+					'id':0,
+					'updatedAt':0
+				},
+				'skip':init.skip,
+				'limit':init.limit,
+				"include":{
+					'user_idPointer':''
+				}
+			};
+
+			var images = [];
+
+			init.ajax(tour_landscape_Url + JSON.stringify(tour_landscape_UrlParam),"GET",{},function(ret,err){
+
+				if(ret){
+					//alert(JSON.stringify(ret))
+
+
+
+					var html = '';
+					for ( var j=0;j<ret.length;j++ ){
+						html += '<li class="item" tapmode ="" id="'+ ret[j].id +'" onclick="openWin( '+ ret[j].tour_id + ')">';
+						html += '	<div class="top">';
+						html += '		<div class="left">';
+						html += '';
+										if(ret[j].user_id){
+										
+						html += '			<img src="" alt="" id="userid_'+ ret[j].user_id.id+'">';
+										
+										}else{
+						html += '<img src="../../image/yeke.png" alt="">';				
+										
+										}
+						
+						html += '		</div>';
+						html += '		<div class="right">';
+						html += '			<h4>';
+							if(ret[j].user_id){
+								html += ''+ret[j].user_id.name+'';
+							};
+					    html += '</h4>';
+						
+						html += '			<p>发布于: ' + Format(ret[j].createdAt)  + '</p>';
+						html += '		</div>';
+						html += '	</div>';
+						html += '	<div class="content">';
+						html += '		<div class="content_top">';
+							if( ret[j].image.length > 0 ){
+							
+								html +=		'<img src="../../image/yeke.png" alt="" id="pic_'+ ret[j].image[0].id +'">';
+							}
+						html +=		'</div>';
+						html += '		<div class="content_title">' + ret[j].text + '</div>';
+						html += '	</div>';
+						html += '	<div class="footer">';
+						html += '		<div class="iconfont-app">&#xe65e;</div>';
+						html += '		<div class="iconfont-app">&#xe6a3;</div>';
+						html += '	</div>';
+						html += '</li>';
+					}
+
+					for (var i = 0; i < ret.length; i++) {
+						if( ret[i].user_id ){
+							if( ret[i].user_id.icon.id ){
+								images.push({
+									id : 'userid_' + ret[i].user_id.icon.id,
+									url : ret[i].user_id.icon.url
+								});
+							}
+						}	
+						
+
+						//	alert(typeof  ret[i].image[i])
+
+						if( JSON.stringify( ret[i].image[i]) ){
+							images.push({
+								id : 'pic_' + ret[i].image[i].id,
+								url :ret[i].image[i].url
+							});
+						}
+
+					}
+					
+					//alert(JSON.stringify(images));
+					//var evalText = doT.template($("#tour_landscape").text());
+					$("#item_ul").html(html);
+
+					fnImageCache(images, 0);
+				}else{
+					alert(JSON.stringify(err))
+				}
+
+			})
+		};
+
+		function openWin(tour_id){
+			api.parseTapmode();
+			api.openWin({
+				name: 'Detail_win',
+				url: 'Detail_win.html',
+				pageParam: {"tour_id": tour_id},
+			});
+		};
+
+		function fnImageCache(images, index) {
+			if (index >= images.length) {
+				return;
+			}
+			api.imageCache({
+				url : images[index].url
+			}, function(ret, err) {
+				var image = $api.byId(images[index].id);
+				if (image) {
+					image.src = ret.url;
+				}
+				fnImageCache(images, index + 1);
+			});
+		};
+	</script>
+</html>

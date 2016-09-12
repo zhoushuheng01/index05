@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<title>Document</title>
+	<!-- <link rel="stylesheet" type="text/css" href="../../css/2.css"/> -->
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+	<style type="text/css">
+		
+		.item-img{
+			height: 120px;
+		}
+		.item-img img:first-child{
+			margin:0 1%;
+		}
+		.item-img img{
+			cursor: pointer;
+			width: 49%;
+			height: 120px;
+			display: block;
+			float: left;
+		}
+		.connent{
+			padding: 10px;
+		}
+		.connent .ul_list_s div.input > input[type="text"]{
+			box-sizing: border-box;
+			padding: 10px;
+			border-radius: 7px;
+			border: 1px solid #ccc;
+		}
+		.connent .ul_list_s li{
+			margin-bottom: 10px;
+		}
+		.connent .radio{
+			box-sizing: border-box;
+			border-radius: 7px;
+			padding-left: 10px;
+			border: 1px solid #ccc;
+			height: 40px;
+			line-height: 40px;
+		}
+		.connent .radio label{
+			padding-left: 30px;
+			vertical-align: middle;
+		}
+		.connent .radio >input[type="radio"]{
+			    -webkit-appearance: none;
+    			-webkit-user-select: none;
+    			vertical-align: middle;
+		}
+		.aui-radio,
+		.aui-checkbox {
+		    width: 1.1rem;
+		    height: 1.1rem;
+		    background-color: #ffffff;
+		    border: solid 1px #dddddd;
+		    -webkit-border-radius: 0.6rem;
+		    border-radius: 0.6rem;
+		    font-size: 0.8rem;
+		    margin: 0 0 0 0;
+		    padding: 0;
+		    outline: none;
+		    position: relative;
+		    top: 6px;
+		    display: inline-block;
+		    vertical-align: middle;
+		    cursor: default;
+		    -webkit-appearance: none;
+		    -webkit-user-select: none;
+		    user-select: none;
+		    -webkit-transition: background-color ease 0.1s;
+		    transition: background-color ease 0.1s;
+		}
+	.aui-checkbox {
+	    border-radius: 0.1rem;
+	}
+	.aui-radio:checked,
+	.aui-radio.aui-checked,
+	.aui-checkbox:checked,
+	.aui-checkbox.aui-checked {
+	    background-color: #03a9f4;
+	    border: solid 1px #03a9f4;
+	    text-align: center;
+	    background-clip: padding-box;
+	}
+	.aui-radio:checked:before,
+	.aui-radio.aui-checked:before,
+	.aui-checkbox:checked:before,
+	.aui-checkbox.aui-checked:before,
+	.aui-radio:checked:after,
+	.aui-radio.aui-checked:after,
+	.aui-checkbox:checked:after,
+	.aui-checkbox.aui-checked:after {
+	    content: '';
+	    width: 0.5rem;
+	    height: 0.3rem;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    margin-left: -0.25rem;
+	    margin-top: -0.25rem;
+	    background: transparent;
+	    border: 1px solid #ffffff;
+	    border-top: none;
+	    border-right: none;
+	    z-index: 2;
+	    -webkit-border-radius: 0;
+	            border-radius: 0;
+	    -webkit-transform: rotate(-45deg);
+	            transform: rotate(-45deg);
+	}
+	.aui-radio:disabled,
+	.aui-radio.aui-disabled,
+	.aui-checkbox:disabled,
+	.aui-checkbox.aui-disabled {
+	    background-color: #dddddd;
+	    border: solid 1px #dddddd;
+	}
+	.aui-radio:disabled:before,
+	.aui-radio.aui-disabled:before,
+	.aui-radio:disabled:after,
+	.aui-radio.aui-disabled:after,
+	.aui-checkbox:disabled:before,
+	.aui-checkbox.aui-disabled:before,
+	.aui-checkbox:disabled:after,
+	.aui-checkbox.aui-disabled:after {
+	    content: '';
+	    width: 0.5rem;
+	    height: 0.3rem;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    margin-left: -0.25rem;
+	    margin-top: -0.25rem;
+	    background: transparent;
+	    border: 1px solid #ffffff;
+	    border-top: none;
+	    border-right: none;
+	    z-index: 2;
+	    -webkit-border-radius: 0;
+	            border-radius: 0;
+	    -webkit-transform: rotate(-45deg);
+	            transform: rotate(-45deg);
+	}
+	.aui-switch {
+	    width: 2.3rem;
+	    height: 1.2rem;
+	    position: relative;
+	    vertical-align: top;
+	    border: 1px solid #dddddd;
+	    background-color: #dddddd;
+	    border-radius: 0.6rem;
+	    background-clip: content-box;
+	    display: inline-block;
+	    outline: none;
+	    -webkit-appearance: none;
+	            appearance: none;
+	    -webkit-user-select: none;
+	            user-select: none;
+	    -webkit-box-sizing: border-box;
+	            box-sizing: border-box;
+	    -webkit-background-clip: padding-box;
+	            background-clip: padding-box;
+	    -webkit-transition: all 0.2s linear;
+	            transition: all 0.2s linear;
+	}
+	.form{
+		padding: 0;
+		margin: 0;
+		display: inline-block;
+	}
+	.identity{
+		border-radius: 7px;
+		border: 1px solid #ccc;
+	}
+	.identity .title{
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		text-indent: 10px;
+		font-size: 20px;
+		border-bottom: 1px solid #ccc;
+	}
+	.identity_img{
+		padding: 10px;
+		
+	}
+	.identity_img img{
+		width: 48.7%;
+		height: 200px;
+		margin: 0.3%;
+	}
+	.identity_img img:first-child{
+		
+	}
+	.f_btn{
+		text-align: center;
+	}
+	#header{
+		background: #03A9F4;
+		display: flex;
+		display: -webkit-flex;
+		height: 43px;
+		line-height: 43px;
+	}
+	#header .top_title{
+		padding: 0 15px;
+		color: rgba(0,0,0,0.96);
+	}
+	#header .top_title:hover{
+		text-decoration: none;
+	}
+	#header .body-title{
+		flex: 1;
+		font-size: 1rem;
+		font-weight: normal;
+		margin-right: 3rem;
+		text-align: center;
+	}
+	.aui-bar {
+		position: relative;
+		top: 0;
+		right: 0;
+		left: 0;
+		z-index: 10;
+		width: 100%;
+		min-height: 1.23rem;
+		font-size: 0.9rem;
+		text-align: center;
+		display: table;
+	}
+	.aui-bar-nav {
+		top: 0;
+		line-height: 2.25rem;
+		background-color: #03a9f4;
+		color: #ffffff;
+	}
+	</style>
+</head>
+<body>
+	<div id="index" class="aui-content">
+		<header id="header">
+		    <a class="aui-pull-left top_title">
+		        <span class="aui-iconfont aui-icon-left"></span>
+		    </a>
+		    <div class="body-title">Title</div>
+		    <div class="top_right"></div>
+		</header>
+		
+	<div class="connent">
+		<ul class="ul_list_s">
+			<li>
+				<div class="input">
+					<input type="text" placeholder="学校" />
+				</div>
+			</li>
+			<li>
+				<div class="input">
+					<input type="text" placeholder="手机" />
+				</div>
+			</li>
+			<li>
+				<div class="input">
+					<input type="text" placeholder="姓名" />
+				</div>
+			</li>
+			<li>
+				<div class="input">
+					<input type="text" placeholder="身高 (CM)" />
+				</div>
+			</li>
+			<li class="radio">
+				<div class="input">
+					<span>性别</span>
+					<label><input class="aui-radio" type="radio" name="demo1" checked="checked">&nbsp;&nbsp;男</label>
+                    <label><input class="aui-radio" type="radio" name="demo1">&nbsp;&nbsp;女</label>
+				</div>
+			</li>
+			<li class="radio">
+				<div class="input">
+					<span>纹身</span>
+					<form class="form" action="" method="post">
+						<label><input class="aui-radio" type="radio" name="demo1">&nbsp;&nbsp;有</label>
+                    <label><input class="aui-radio" type="radio" name="demo1" checked>&nbsp;&nbsp;无</label>
+					</form>
+				</div>
+			</li>
+			<li class="identity">
+				<div class="title">身份</div>
+				<div class="identity_img">
+                    <img src="../../image/theme/img1.png" alt="" />
+                    <img src="../../image/theme/img2.png" alt="" />
+                </div>
+			</li>
+			<li class="aui-list-item f_btn">
+        	 <div class="aui-form-s">
+	             <div class="aui-btn-row">
+		            <div class="aui-btn aui-btn-success"">确认</div>&nbsp;
+		            <div class="aui-btn">取消</div>
+		        </div>
+	        </div>
+        </li>
+		</ul>
+	</div>
+
+	<script src="../../script/api.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			
+			
+		}
+	</script>
+</body>
+</html>

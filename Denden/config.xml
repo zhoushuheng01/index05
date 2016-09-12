@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget id="A6919941751589" version="0.0.1" sandbox="yake"> 
+  <name>雅课</name>  
+  <description>Denden For APICloud.</description>  
+  <author email="developer@apicloud.com" href="http://www.apicloud.com">Developer</author>  
+  <content src="index.html"/>  
+  <preference name="pageBounce" value="false"/>  
+  <preference name="appBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>  
+  <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>  
+  <preference name="hScrollBarEnabled" value="false"/>  
+  <preference name="vScrollBarEnabled" value="false"/>  
+  <preference name="autoLaunch" value="true"/>  
+  <preference name="fullScreen" value="false"/>  
+  <preference name="autoUpdate" value="true"/>  
+  <preference name="smartUpdate" value="false"/>  
+  <preference name="debug" value="true"/>  
+  <preference name="statusBarAppearance" value="false"/>  
+  <preference name="iOS7StatusBarAppearance" value="false"/>  
+  <preference name="smartUpdate" value="false"/>  
+  <preference name="softInputMode" value="resize"/>  
+  <permission name="readPhoneState"/>  
+  <permission name="camera"/>  
+  <permission name="record"/>  
+  <permission name="location"/>  
+  <permission name="fileSystem"/>  
+  <permission name="internet"/>  
+  <permission name="bootCompleted"/>  
+  <permission name="hardware"/>  
+  <permission name="call"/>  
+  <access origin="*"/>  
+  <feature name="smsVerify"> 
+    <param name="android_app_key" value="160eb4389a0f9"/>  
+    <param name="android_app_secret" value="29b7a9b253b86673aa7aae781e6cc52d"/> 
+  </feature>  
+  <feature name="weibo"> 
+    <param name="urlScheme" value="wb1362065432"/>  
+    <param name="apiKey" value="1362065432"/>  
+    <param name="registUrl" value="http://www.apicloud.com"/> 
+  </feature>  
+  <feature name="rongCloud2"> 
+    <param name="appKey" value="qf3d5gbj33oah"/> 
+  </feature>  
+  <feature name="baiduLocation"> 
+    <param name="apiKey" value="dPAI6Ph2VXlycxTego1YYgAAUWUMwqIU"/> 
+  </feature> 
+</widget>

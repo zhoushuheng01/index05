@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Denden</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/video-js.min.css"/>
+    <style>
+    #header {
+        text-align: center;
+        background-color: #ccc;
+    }
+    
+    #header h5 {
+        display: inline-block;
+        color: #FFF;
+        line-height: 48px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+    }
+    
+    .header.active {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+    }
+    
+    .top-menu {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        height: 43px;
+    }
+    
+    .btn_box {
+        width: 52px;
+        height: 48px;
+        position: relative;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    
+    .btn_box img {
+        width: 23px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    
+    .btn_box.pull-left {
+        /* background: url(../res/img/cart_tag_tmallsupermarket.png) right center no-repeat;*/
+        /*background-size: 1px 100%;*/
+        position: relative;
+        z-index: 1;
+    }
+    
+    .btn_box.pull-left:active,
+    .btn_box.pull-left.tap-active {
+        background: #00BCD4 url('../../res/img/cart_tag_tmallsupermarket.png') right center no-repeat;
+        background-size: 1px 100%;
+    }
+    
+    .top-menu {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        height: 43px;
+    }
+    
+    .btn {
+        height: 40px;
+        width: 35px;
+    }
+    
+    .add_btn {
+        background: #00BCD4 url('../../image/user_menu_set@2x.png') center center no-repeat;
+        -webkit-background-size: 38px 43px;
+        background-size: 38px 43px;
+    }
+    
+    .content {
+        margin-top: 300px;
+    }
+    .aui-tab-item{
+    	height:3rem;
+    	line-height: 3rem
+    }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div class="content">
+                <header id="header">
+                    <div class="aui-tab" id="tab">
+                        <div class="aui-tab-item aui-active">
+                            介绍
+                        </div>
+                        <div class="aui-tab-item">
+                            目录
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+        <div id="main">
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var tencentPlayer;
+var videoPlayer;
+var courid;
+var height, header, headerPos;
+var mainPos;
+
+//mcm
+var query;
+var model;
+apiready = function() {
+    tencentPlayer = api.require('tencentPlayer');
+    //videoPlayer = api.require('videoPlayer')
+    model = api.require('model');
+    query = api.require('query');
+
+    courid = api.pageParam.courid; //评论id
+
+    header = $api.byId('header');
+    var systemType = api.systemType;
+    var systemVersion = parseFloat(api.systemVersion);
+    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+        if (systemType == "android") {
+
+        }
+        $api.fixStatusBar(header);
+    } else {
+        $api.fixIos7Bar(header);
+    };
+    //openVideoPlayer(video_url)
+    
+    headerPos = $api.offset(header);
+    var main = $api.byId('main');
+    mainPos = $api.offset(main);
+    openFrm(function(index) {});
+	
+    api.addEventListener({
+	    name: 'keyback'
+	}, function(ret, err) {
+	    api.closeWin();
+        api.closeFrame();
+        api.closeFrameGroup({
+	        name: 'edus-menu-main'
+        });
+
+
+		tencentPlayer.close();
+        
+	});
+	
+	
+
+    var init = new Mcm();
+
+var filter = {
+        "where":{"courid":courid},
+        "order": "audibleRange DESC", 
+        "skip":0,
+        "limit": 3,
+        "include":{"senderPointer":""}
+    }
+	
+    ajax('/cours?filter={"where":{"courid":'+courid+'},"order": "audibleRange DESC","skip":0,"limit":20,"include":{"senderPointer":""}}','get',{},function(ret,err){
+        if(ret){
+            openVideo(ret[0].cour_file.url,1);
+           
+            api.addEventListener({
+			    name: 'edus_video'
+			}, function(ret, err) {
+			   if(ret){
+			   	var url;
+			   	 
+			   	 if(ret.value.video_url){
+			   	 	tencentPlayer.close();
+			   	 	
+			   	 	url = ret.value.video_url;
+			   	 };
+			   	 openVideo(url);
+			   }else{
+			   	// alert(JSON.stringify(err))
+			   }
+			});
+        }else{
+           // alert(JSON.stringify(err))
+        }
+    });
+  /*  init.query("cours",1,function(ret,err){
+        var path = [];
+        alert( JSON.stringify( ret ) );
+        for (var i = 0; i < ret.length; i++) {
+            path.push(ret[i].cour_file.url);
+        }
+       openVideo(path[0]);
+    });*/
+}
+
+//Mcm模块
+
+function Mcm(){
+    if(courid){
+        this.courid = courid;
+    }else{
+        api.toast({
+            msg: 'edus-menu-main-header页面-->courid-不存在',
+            duration: 2000,
+            location: 'bottom'
+        });
+    }
+}
+
+Mcm.prototype = {
+    constructor:Mcm,
+    limit:function(age){
+        query.limit({
+            qid: this.queryId, 
+            value: age || 10
+        });
+    },
+    query:function(name,age,callback){
+        this.limit(age);
+
+        query.whereEqual({
+            qid: this.queryId,
+            column: 'courid',
+            value: courid
+        });
+        model.findAll({
+            class: name,
+            qid: this.queryId
+        }, function( ret, err ) {
+            if( ret ){
+                 
+                 if(typeof callback == "function"){
+                    callback(ret,err);
+                 };
+            }else{
+                 //alert("err-->" + JSON.stringify( err ) );
+                 api.toast({
+                     msg: '加载数据失败......'
+                 });
+            }
+		});
+    }
+};
+
+   
+/*发送事件到window(edus_header)页面监听
+function sendDetailsPage(){
+    api.sendEvent({
+        name: 'sendDetailsPage',
+        extra: {
+           value1:1
+        }
+    });
+}*/
+
+function openFrm(callback) {
+    var tab = document.getElementById("tab");
+    var aDiv = tab.getElementsByTagName("div");
+    var ind = 0;
+    openFrameGroup(ind);
+    for (var i = 0, len = aDiv.length; i < len; i++) {
+        aDiv[i].index = i;
+        aDiv[i]["data-courid"] = courid;
+        aDiv[i].onclick = function(i) {
+            $(this).siblings().removeClass('aui-active');
+            $(this).addClass('aui-active');
+            $(this).attr("data-courid", courid);
+            ind = $(this).attr('index');
+            api.setFrameGroupIndex({
+                name: 'edus-menu-main',
+                index: ind
+            });
+        };
+    }
+
+    if (typeof callback == "function") {
+        callback(ind);
+    }
+};
+
+function openFrameGroup(ind) {
+    api.openFrameGroup({
+        name: 'edus-menu-main',
+        scrollEnabled: true,
+        rect: {
+            x: 0,
+            y: headerPos.h,
+            w: 'auto',
+            h: mainPos.h
+        },
+        index: ind,
+        frames: [{
+            name: 'edus-menu-main-left',
+            url: 'edus-menu-main-left.html',
+            pageParam: {
+                courid: courid
+            }
+        }, {
+            name: 'edus-menu-main-right',
+            url: 'edus-menu-main-right.html',
+            pageParam: {
+                courid: courid
+            }
+        }],
+        preload:0
+    }, function(ret, err) {
+        var index = ret.index;
+        var tab = document.getElementById("tab");
+        var aDiv = tab.getElementsByTagName("div");
+        switch (index) {
+            case index:
+                $(aDiv[index]).siblings().removeClass('aui-active');
+                $(aDiv[index]).addClass('aui-active')
+                break;
+        };
+    });
+}
+
+
+
+/*视频播放模块*/
+function openVideo(url,Boolean) {
+    tencentPlayer.open({
+        rect: {
+            x: 0,
+            y: 24,
+            w: api.frameWidth,
+            h: 300
+        },
+        fixedOn: api.frameName,
+        fixed: false
+    }, function(ret, err) {
+        if (ret) {
+            var eventT = ret.eventType;
+            switch (eventT) {
+                case 'show':
+                    tencentPlayer.play({
+                        path: url
+                    });
+                    if(Boolean == 1){
+                    	tencentPlayer.pause();
+                    }else{
+                    	
+                    }
+                    break;
+                case '':
+
+                    break;
+            };
+
+        } else {
+            //alert("err-->" + JSON.stringify(err));
+
+        }
+    });
+}
+</script>
+
+</html>

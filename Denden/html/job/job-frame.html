@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+    html,body{
+        height: 100%;
+        width: 100%;
+    }
+    .header {
+        display: flex;
+        display: -webkit-flex;
+        margin-bottom: 3px;
+    }
+    
+    .header .top_1 {
+        flex: 1;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border-right: 1px solid #ccc;
+        color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(3, 169, 244, 0.89);
+    }
+    
+    .header .top_1:last-child {
+        border: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-media-list" id="offer_base">
+          
+            <script id="offer_base_list" type="text/x-dot-template">
+                {{ for(var i in it){ }}
+                    <li class="aui-list-item aui-list-item-arrow" tapmode onclick="jobdetail('{{= it[i].offer_id}}','{{= it[i].wbo_url}}','{{= it[i].sender.id}}','{{= it[i].offer_title}}')">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media">
+                                <img src="{{= it[i].offer_img.url}}">
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-text">
+                                    <div class="aui-list-item-title">{{= it[i].offer_title}}</div>
+                                    <div class="aui-list-item-right"></div>
+                                </div>
+                                <div class="aui-list-item-text">
+                                    {{= it[i].sender.mec_name}}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {{ } }}
+            </script>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+apiready = function() {
+    var index = api.pageParam.index;
+    var init = new Init(1);
+    var url = '"include":{"senderPointer":""}';
+        switch(index){
+            case index:
+                init.ajax('/offer_base?filter={"fields":{"id":0,"createdAt":0,"updatedAt":0},"where":{"offer_type":"'+index+'"},"skip":0,"limit":10,"include":{"senderPointer":""}}','get',{},function(ret,err){
+                    if (ret) {
+                         //alert(JSON.stringify(ret));
+                         var evalText = doT.template($("#offer_base_list").text());
+                         $("#offer_base").html(evalText(ret));
+                    } else {
+                         alert(JSON.stringify(err));
+                    }
+                });
+                break;
+        }
+};
+
+function jobdetail(id,url,sender_id,offer_title) {
+    var name = "";
+    var html = "";
+    if(url != ""){
+        //openFrm(url,course_id)
+        name = "job-deail_Url";
+    }else{
+        name = "job_deail_Win";
+       // openFrm("job-deail2.html",course_id);
+    }
+
+    api.openWin({
+        name: name,
+        url: './'+name+'.html',//./job_deail_Win.html
+        pageParam: {
+            course_id: id, //课程id
+            url:url,
+            sender_id:sender_id,      //职位机构id
+            offer_title:offer_title  //职位名称
+        },
+        bounces: false,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false
+    });
+}
+</script>
+
+</html>

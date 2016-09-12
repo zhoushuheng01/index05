@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>		
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/icon.css"/>
+		<style type="text/css">
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			.aui-bar-light {
+				color: #03a9f4;
+				background-color: rgba(27,130,225,0.89);
+			}
+			.aui-bar-nav.aui-bar-light .aui-iconfont {
+				color: #fff;
+			}
+			#header_1{
+				background-color: #03a9f4;
+				height: 69px;
+				line-height: 45px;
+				display: -webkit-flex;
+				display: flex;
+				padding-top: 24px;
+			}
+			#header_1 .left{
+				width: 45px;
+				height: 45px;
+				line-height: 45px;
+				text-align: center;
+			}
+			#header_1 .content{
+				-webkit-flex:1;
+				flex: 1;
+				line-height:45px;
+			}
+			#header_1 .content .top{
+				height: 35px;
+				line-height: 35px;
+				margin-top: 6px;
+				border: 1px solid rgba(255,255,255,0.65);
+				border-radius: 3px;
+			}
+			#header_1 .right{
+				width: 45px;
+				text-align: center;
+				margin-right: 5px;
+			}
+			#header_1 .right span{
+				display: block;
+			}
+			#header_1 form input:nth-child(1){
+				
+				box-sizing: border-box;
+				padding: 10px;
+				border: 1px solid rgba(255,255,255,0.7);
+			}
+
+			#search_txt{
+				min-height: 0;
+				box-sizing: border-box;
+				padding-left: 10px
+			}
+
+			#index {
+				position: relative;
+			}
+			#index .header{
+				margin-top: 0%;
+				position: absolute;
+				top: 4px;
+				text-align: center;
+				z-index: 999;
+				color: rgba(255,255,255,0.7);
+			}
+			input::-webkit-input-placeholder {
+			    color: rgba(255,255,255,0.7) !important; 
+			
+			}
+
+			/*#03a9f4*/
+
+		</style>
+	</head>
+	<body>
+		<div id="index">
+			<header id="header_1" class="">
+				    <div class="left">
+				    	 <span class="aui-iconfont aui-icon-left" onclick="api.closeWin()"></span>
+				    </div>
+				    <div class="content">
+			           <!--  <div class="top">
+			            	<input type="text" placeholder="找课程、找老师" id="search_txt">
+			            </div>
+
+			            <span class="iconfont-app">&#xe69f;</span>-->
+				    </div>
+				    <div class="right"  >
+				       <!--  
+						onclick="searchmmo()"
+				       <span>搜索</span>
+
+				       -->
+				    </div> 
+			</header>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		var counter;//上一个页面传过来的index，，以此查询数据
+		apiready = function(){
+		  counter = api.pageParam.name;
+		 
+		 tabulated_data(counter);
+		}
+
+
+		function tabulated_data(index){
+			var headerPos = $api.offset($api.byId('header_1'));
+			switch(index){
+				case index:
+					api.openFrame({
+	                    name: 'edus_cour_menu_frm',
+	                    url: './edus_cour_menu_frm.html',
+	                    rect: {
+		                    x:0,
+		                    y:headerPos.h,
+		                    w:api.frameWidth,
+		                    h:"auto"
+	                    },
+	                    bounces:true,
+	                    pageParam:{
+	                    	index:index   //以此分类 查询数据    --》 cour_group（cour_type）
+	                    }
+                    });
+				break;
+			};
+		}
+
+
+		function searchmmo(){
+			var mmo = document.getElementById("search_txt").value;  
+			if (' ' != mmo) {
+				api.openWin({
+				    name: 'search_cour',
+				    url: './edus_cour_menu.html',
+				    pageParam: {
+				        search_key:mmo
+				    }
+				});
+			}
+		}
+		/*
+          json.id = 
+          json.url
+          json.name
+		*/
+
+		function openstatuscour(index){
+			api.openWin({
+			    name: 'student_cour',
+			    url: './edus-menu.html',
+			    pageParam: {
+			        id: index.id,
+			        name:index.name,
+			        url:index.url
+			    }
+			});
+		}
+	</script>
+</html>

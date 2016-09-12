@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color:#fff;
+
+        }
+        #index{
+            height: 100%;
+            width: 100%;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        #header{
+            display: -webkit-flex;
+            display: flex;
+            height:100px;
+            line-height: 100px;
+            background-color: #fff;
+
+        }
+        #header > .left{
+            width:50px;
+            text-align: center;
+        }
+        #header > .right{
+            -webkit-flex: 1;
+            flex:1;
+            line-height: normal;
+        }
+        #header > .right{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header > .right > .title{
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content:space-between;
+            justify-content:space-between;
+            height:40px;
+            line-height: 40px;
+        }
+        #header > .right > .title .right{
+
+            -webkit-align-self: flex-end;
+            align-self: flex-end;
+
+        }
+        #header > .right > .title{
+
+        }
+        #header > .right > .title{
+
+        }
+
+        #header > .footer_icon{
+            width:35px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="index">
+    
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/db.js"></script>
+<script type="text/javascript" src="../../js/zepto.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../../script/aui-slide.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript">
+    var header,headerPos,main,mainPos;
+
+    apiready = function(){
+
+
+        header = $api.byId("header");
+        main = $api.byId("main");
+        
+
+        headerPos = $api.offset(header);
+        mainPos = $api.offset(main);
+
+        fnInit();
+
+    };
+  ////$api.getStorage('userId')
+
+    function fnInit(){
+        var data_person = {             
+            'where':{
+                "MEMBER_ID": $api.getStorage('userId')
+            }
+            
+        };
+
+        var init = new Init(1);
+
+        var body_html = "";
+        init.ajax('/mall_address?filter='+JSON.stringify(data_person),'get',{},function(ret,err){
+            // alert('ret:'+JSON.stringify(ret) +',err:'+JSON.stringify(err));
+            if (ret) {
+                for(var i in ret ){
+                    if (ret[i].IS_DEFAULT = '1') {
+                        body_html  = '<section>'
+                                    +'    <header id="header">'
+                                    +'        <div class="left">'
+                                    +'           <span class="iconfont-app">&#xe61e;</span>'
+                                    +'        </div>'
+                                    +'        <div class="right">'
+                                    +'           <div class="title">'
+                                    +'               <div class="left">'
+                                    +'                   收货人: <span>'+ret[i].CONSIGNEE+'</span>'
+                                    +'               </div>'
+                                    +'               <div class="right">'
+                                    +'                   电话:<span>'+ret[i].MOBILE+'</span>'
+                                    +'               </div>'
+                                    +'           </div>'
+                                    +'            <div class="body" onclick="cofigaddr(this)" id="'+ret[i].id+'">'
+                                    +'                <div class="left"><span>收货地址: </span>'+ret[i].PROVINCE + ret[i].CITY + ret[i].STREET+'</div>'
+                                    +'            </div>'
+                                    +'        </div>'
+                                    +'        <div class="footer_icon">'
+                                    +'            <span class="iconfont-app">&#xe6ad;</span>'
+                                    +'        </div>'
+                                    +'    </header>'
+                                    +'</section>';
+                                +'';
+                        $("#index").append(body_html);
+                        break;
+                    }
+                }
+
+            }
+            else{
+               api.openWin({
+                   name: 'Adduseraddr',
+                   url: '../../Set_up/new_address_win.html',
+                   pageParam: {
+                       name: 'test'
+                   }
+               });
+            }
+        });
+      }
+
+      function cofigaddr(data){
+         var recv_id = data.id;
+         $api.setStorage('recv_id', recv_id);
+
+         //关闭指定window，若待关闭的window不在最上面，则无动画
+         api.closeWin({
+             name: 'recev_person_header'
+         });
+
+        // alert('configaddr:'+recv_id +',' + recv_id);
+      }
+</script>
+</html>

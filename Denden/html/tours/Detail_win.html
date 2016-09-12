@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        html,body{
+            height:100%;
+            width:100%;
+        }
+        body{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #main{
+            flex:1;
+        }
+        #footer {
+            display: -webkit-flex;
+            display: flex;
+            height: 50px;
+            background-color: #fff;
+            line-height: 50px;
+            box-shadow: 0 -1px 1px 1px rgba(0,0,0,0.17);
+        }
+        #footer .left {
+            -webkit-flex: 1;
+            flex: 1;
+            padding: 0 10px;
+            border-right:1px solid #cccccc;
+        }
+        #footer .right {
+            width: 60px;
+            text-align: center;
+        }
+        .active{
+            background-color: #3b84d0;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="header">
+    <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title"></div>
+    <a class="aui-pull-right" id="btn"></a>
+</header>
+<div id="main">
+
+</div>
+<footer id="footer">
+    <div class="left">
+        <input type="text" id="text" placeholder="写回复">
+    </div>
+    <div class="right">
+        <div class="iconfont-app" id="icon_app">
+            发送
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/swipe.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+
+    var header, headerPos;
+    var main,mainPos;
+    var tour_id;
+    apiready = function(){
+        UIMediaScanner = api.require('UIMediaScanner');
+
+
+
+        header = $api.byId('header');
+        main = $api.byId('main');
+
+        var systemType = api.systemType;
+        var systemVersion = parseFloat(api.systemVersion);
+        if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+            if (systemType == "android") {
+                $api.fixStatusBar(header);
+            }
+        } else {
+            $api.fixIos7Bar(header);
+        };
+
+
+        headerPos = $api.offset(header);
+        mainPos = $api.offset(main);
+
+
+        var init = new Init(1);
+        tour_id = api.pageParam.tour_id; //获取旅游心情id
+
+        var comment_Url = '/comment';
+
+        var userid = $api.getStorage("userid");
+        var t_app = $api.byId("text");
+
+        var text = $api.val(t_app);
+
+        var btn = $api.byId("icon_app");
+
+
+
+
+        $api.addEvt(t_app,"input",function(){
+            if( $api.val(t_app).length > 0 ){
+
+                $api.addCls(btn,"active");
+            }else{
+                $api.removeCls(btn,"active");
+
+            }
+        });
+
+
+        /*
+         点击的时候发送ajax
+         */
+        $api.addEvt(btn,"click",function(){
+
+            if( $api.hasCls(this, 'active') ){
+                var text = $api.val(t_app);
+                var c_body = {
+
+                    "comment_id":tour_id,
+                    "comment_msg":text,
+                    "comment_usr":userid,
+                    "like":0,
+                    "Like_stepping":0
+                };
+
+
+                init.ajax(comment_Url,"POST",JSON.stringify(c_body),function(ret,err){
+
+                    if ( ret ){
+                      // alert(JSON.stringify(ret));
+
+                        //发送事件到评论处更新评论
+
+                        api.sendEvent({
+                            name: 'Detail_frm',
+                            extra: {
+                                "Detail_id":ret.id  //评论的id   用来查找评论数据
+                            }
+                        });
+                    }else{
+
+                    }
+
+                });
+
+
+
+            }
+
+        });
+
+
+       // alert(tour_id)
+        api.openFrame({
+            name: 'Detail_frm',
+            url: 'Detail_frm.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: "auto",
+                h: mainPos.h
+            },
+            pageParam: {"tour_id": tour_id},
+            bounces: false
+        });
+
+
+
+    };
+</script>
+</html>

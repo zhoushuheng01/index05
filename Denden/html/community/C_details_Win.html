@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%; 
+        }
+        body{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .aui-bar-nav{
+            background-color: transparent; /* #00BCD4;*/
+        }
+        #header{
+            width: 100%;
+        }
+        .aui-bar-tab-label{
+            font-size: 13px;
+        }
+    	
+    	#connent{
+    		position: absolute;
+    		width: 100%;
+    		height: 260px;
+    		top:0;
+    	}
+
+        #connent .item{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            -webkit-align-items:center;
+             align-items:center;
+             -webkit-justify-content:center;
+            justify-content:center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .information{
+            -webkit-align-self: center;
+              align-self: center;
+        }
+        .information .img{
+            text-align: center;
+        }
+        .information .title{
+            margin:5px 0;
+            width: 100%;
+            text-align: center;
+        }
+        .information .img img{
+            border-radius: 50%;
+            display: block;
+            background-size: contain;
+
+        }
+
+        .bottom_btn{
+            width: 150px;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-justify-content:space-between;
+            justify-content:space-between;
+        }
+        .bottom_btn .btn{
+            border: 1px solid rgba(255,255,255,0.96);
+            border-radius: 10px;
+            box-shadow: 0 0 1px 1px rgba(0,0,0,0.36) inset;
+            padding: 1px 10px;
+        }
+        #main{
+            position: absolute;
+            top:320px;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5;
+
+        }
+        #join_Btn{
+        	min-width: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+        <header class="aui-bar aui-bar-nav" id="header">
+            <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </a>
+            <div class="aui-title"></div>
+            <a class="aui-pull-right">
+            </a>
+        </header>
+		<div id="connent">
+
+            <script id="assn_base_list" type="text/x-dot-template">
+                {{ for(var i in it){ }}
+                    <div class="item" id="item">
+                        <div class="information">
+                            <div class="img">
+                                <img src="{{= it[i].user_img}}">
+                            </div>
+                            <div class="title">{{= it[i].user_name}}</div>
+                        </div>
+                        <div class="bottom_btn">
+                            <div class="btn" id="join_Btn"></div>
+                            <div class="btn">
+                                提问
+                            </div>
+                        </div>
+                    </div>
+                {{ } }}
+            </script>
+		</div>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var header, headerPos,main,mainPos;
+var assn_id;//社团id
+var user_name;//社团名字
+var user_img;//社团头像
+var user_bg; //社团背景
+apiready = function() {
+    header = $api.byId('header');
+    
+    var systemType = api.systemType;
+    var systemVersion = parseFloat(api.systemVersion);
+    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+        if (systemType == "android") {
+        	$api.fixStatusBar(header);
+        }
+        
+    } else {
+        $api.fixIos7Bar(header);
+    }
+    headerPos = $api.offset(header);
+    main = $api.byId("main");
+    mainPos = $api.offset(main);
+
+
+
+    /*
+        社团id
+    */
+    assn_id = api.pageParam.assn_id;
+    user_name   =  api.pageParam.user_name;
+    user_img = api.pageParam.user_img;
+    user_bg = api.pageParam.user_bg;
+    var data = [
+        {
+            'assn_id':assn_id,
+            'user_name':user_name,
+            'user_img':user_img,
+            'user_bg':user_bg
+        }
+    ];
+    
+    var userName = $api.getStorage('userName');//用户名字
+    
+    
+   
+    //alert('user_name-->'+user_name+'user_img-->'+user_img+'user_bg--->'+user_img);
+    var evalText = doT.template($("#assn_base_list").text());
+    $("#connent").html(evalText(data));
+    $("#item").css("backgroundImage","url("+user_bg+")");
+    var jojnBtn = $api.getStorage('jojnBtn');
+   
+    
+    //加入社团
+    var join_Btn = $api.byId("join_Btn");
+    if(!('undefined' == typeof jojnBtn)){
+    	
+    	
+    }
+   
+    api.addEventListener({
+	    name:'jojnBtn'
+    },function(ret,err){
+    	//coding...
+    	$api.text(jojnBtn, '已加入');
+    });
+	var jojnBtn = $api.byId('join_Btn');
+	var men = 0;
+	
+	 
+	 var init = new Init(1);
+	 
+	 /*
+     assn_record  对应数据库的表名
+
+     */
+    var assn_record_Url = '/assn_record?filter=';
+    var assn_record_UrlParam = {
+        'fields':{
+            'id':0,
+            'createdAt':0,
+            'updatedAt':0
+        },
+        'where':{
+            "assn_id":assn_id,
+            "userid":userName
+        },
+        'skip':init.skip,
+        'limit':init.limit
+    };
+
+    /*
+        查询数据库
+    */
+	 
+	init.ajax( assn_record_Url + JSON.stringify(assn_record_UrlParam),'GET',{},function(ret,err){
+         var _this = this;
+
+         if(ret){
+           //  api.alert({ msg: JSON.stringify(ret) });
+             if( ret.userid == this.userName && ret.length > 0){
+                 $api.text(jojnBtn, '已加入');
+                 $api.setStorage('jojnBtn',ret.apply_status);
+             }else{
+                 api.parseTapmode();
+                 $api.rmStorage('jojnBtn');
+                 $api.text(jojnBtn, '加入');
+
+                 $api.one(jojnBtn,'click',function(){
+                     var time = new Date().toLocaleString();
+					
+					var ajax_init = new ajax_list(1);
+                     var data = {
+                         'userid':userName,
+                         'assn_id':_this.assn_id,
+                         'apply_status':1,
+                         'apply_date':time  //当前时间
+                     };
+                     /*
+                     *
+                     * 加入社团
+                     * */
+                    /* init.ajax('/assn_record','POST',JSON.stringify(data),{},function(ret,err){
+                     	api.alert({ msg: JSON.stringify(ret) });
+                        if (ret){
+                            $api.text(jojnBtn, '已加入');
+                            $api.setStorage('jojnBtn',ret.apply_status);
+                            
+                            
+                        }else{
+                            api.alert({ msg: 'C_details_Win-->行数--》260'+JSON.stringify(err) });
+                        }
+                     });*/
+						$api.one(jojnBtn,'click',function(){
+	    						var time = new Date().toLocaleString();
+    						    
+	    						var data = {
+	    							'userid':userName,
+	    							'assn_id':_this.assn_id,
+	    							'apply_status':1,
+	    							'apply_date':time  //当前时间
+	    						};
+	    						ajax_init.assn_record_join(JSON.stringify(data),function(ret,err){
+	    							
+	    							if(ret){
+	    								$api.text(jojnBtn, '已加入');
+	    								$api.setStorage('jojnBtn',ret.apply_status);
+	    							}else{
+	    								api.alert({ msg: JSON.stringify(err) }+"C_details_Win-->224");
+	    							};
+	    							
+	    							
+	    						});
+    				   	 	  
+	    					});
+       			 });
+             };
+         }else{
+             api.alert({ msg: 'C_details_Win-->267'+JSON.stringify(err)});
+         };
+
+
+     } );
+
+    api.openFrame({
+        name: 'choose',
+        url: 'choose.html',
+        pageParam:{
+            assn_id:assn_id
+        },
+        rect: {
+            x:0,
+            y:headerPos.h+190,
+            w:api.frameWidth,
+            h:'auto'
+        }
+    });
+};
+
+function ajax_list(assn_id,userName) {
+	this.init = new Init(1);
+	this.skip =0;
+    this.limit = 10;
+    this.assn_id = assn_id;//社团id
+    this.userName = userName;//用户名字
+};
+ajax_list.prototype = {
+    constructor: ajax_list,
+    /*
+     * @skip,  跳过多少条数据，用来分页
+     * @limit, 返回几条数据
+     * @Boolean, 为true代表第一次加载，，执行dot，，为false在回调中，处理一下，向页面追加评论
+     * @callback 回调
+     * */
+    comment : function(skip,limit,Boolean,callback){
+    	var skip = skip || this.skip;
+    	var limit = limit || this.limit;
+		 	this.init.ajax('/comment?filter={"fields":{"id":0,"createdAt":0,"updatedAt":0},"where":{"ment_type":7,"assn_id":"'+this.assn_id+'","community_join":"1"},"skip":'+skip+',"limit":'+limit+',"include":{"comment_usrPointer":""}}','get',{},function(ret,err){
+		      if(ret){
+		       // api.alert({ msg: JSON.stringify(ret) });
+		       if(Boolean){
+			        var evalText = doT.template($("#comment_list").text());
+			        $("#ul-item").html(evalText(ret));
+		       }else{
+		       		if(typeof callback == 'function'){
+		       			callback(ret,err);
+		       		}
+		       }
+		        
+		      }else{
+		        api.alert({ msg: JSON.stringify(err)+"C_details_Win-->284-->函数：comment" });
+		      }
+		    });
+    },
+    assn_record_join:function(json,callback){
+    	this.init.ajax('/assn_record','post',json,function(ret,err){
+    		if(typeof callback == 'function'){
+    			callback(ret,err);
+    		}
+    	});
+    }
+    
+};
+</script>
+
+</html>

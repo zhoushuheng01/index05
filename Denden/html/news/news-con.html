@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+        <title>title</title>
+        <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+        <style>
+            html,
+            body {
+                height: 100%;
+                background-color: #f0f0f0;
+            }
+            
+            body {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-orient: vertical;
+                -webkit-flex-flow: column;
+                flex-flow: column;
+            }  
+            .header {
+                height: 43px;
+                width: 100%;
+                display: none;
+                line-height: 43px;
+                background: #d43d3d;
+            }
+            
+            .header.active {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-orient: horizontal;
+                -webkit-flex-flow: row;
+                flex-flow: row;
+            }
+            
+            .top-menu {
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+                height: 43px;
+            }
+            /*按钮*/
+            .btn {
+                height: 40px;
+                width: 35px;
+            }
+            /*首页头部导航*/
+            /*字体颜色*/
+            
+            .header.home>div.active {
+                opacity: 1;
+            }
+            
+            .header.home {
+                
+            }
+            
+            .header.home .top-menu>div {
+                color: #fff;
+                opacity: .8;
+            }
+            
+            .header.home .top-menu>div.active {
+                opacity: 1;
+            }
+            
+            .add_btn {
+                background: url('../../image/head/add.png') center center no-repeat;
+                -webkit-background-size: 38px 43px;
+                background-size: 38px 43px;
+            }
+            
+            
+        </style>
+    </head>
+
+    <body>
+        <header id="header">
+            <div class="header home active">
+                <div class="top-menu"></div>
+                <div class="add_btn btn" id="btn"></div>
+            </div>
+        </header> 
+        <div class="place-holder"></div>
+    </body>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript">
+
+        var headerHeight, footerHeight;
+        var headers, menus;
+        var navigationBar;
+
+        var systemType;
+        var systemVersion;
+        apiready = function() {
+           
+            fnInit();
+
+            fnChange(0);
+
+            var btn = $api.byId("btn");
+
+            $api.addEvt(btn,"click",function(){
+
+                api.actionSheet({
+                    title: '发送新闻到',
+                    cancelTitle: '取消',
+                    buttons: ['校内','校外','视频']
+                }, function (ret, err) {
+                    var index = ret.buttonIndex;
+
+
+                    switch ( index ){
+
+                        case 1:
+                            api.openWin({
+                                name: 'release_win',
+                                url: 'release_win.html',
+                                pageParam: {
+                                    "page":1
+                                }
+                            });
+                            break;
+                        case 2:
+                            api.openWin({
+                                name: 'release_win',
+                                url: 'release_win.html',
+                                pageParam: {
+                                    "page":2
+                                }
+                            });
+                            break;
+                        case 3:
+                            api.openWin({
+                                name: 'release_win',
+                                url: 'release_win.html',
+                                pageParam: {
+                                    "page":3
+                                }
+                            });
+                            break;
+
+                    }
+
+                });
+
+
+            });
+
+
+        };
+
+       
+        
+        
+
+        function fnInit() {
+            var header = $api.byId('header');
+
+            headers = $api.domAll(header, '.header');
+
+            for (var i = 0; i < headers.length; i++) {
+                $api.fixStatusBar(headers[i]);
+            }
+
+            headerHeight = $api.offset(header).h;
+
+            navigationBar = api.require('navigationBar');
+        };
+
+        var homeItems = [{  
+                title: '校内',
+                bg: '#d43d3d'
+            }, {
+                title: '校外',
+                bg: '#d43d3d'
+            }, {
+                title: '社团',
+                bg: '#d43d3d'
+            }, {
+                title: '娱乐',
+                bg: '#d43d3d'
+            }, {
+                title: '视频',
+                bg: '#d43d3d'
+            },{
+                title: '二手',
+                bg: '#d43d3d'
+            }],
+            videoItems = [{
+                title: '萌萌哒',
+                bg: '#fff'
+            }, {
+                title: '逗比剧',
+                bg: '#fff'
+            }];
+
+        var frameNames = ['home_group', 'video_group', 'theme_group', 'my_frame'];
+        
+
+        var homeFrames = [];
+        var frmae_url = './home_frame.html';
+        for (var i = 0; i < homeItems.length; i++) {
+            if('视频'==homeItems[i].title){
+                frmae_url ='./video_frame.html';
+            }
+            if('娱乐'==homeItems[i].title){
+                frmae_url ='./home_frame.html';
+            }
+            if('社团'==homeItems[i].title){
+                frmae_url ='../community/community_Frm.html';
+            }
+            if('二手'==homeItems[i].title){
+                frmae_url ='./second_hand.html';
+            }
+            homeFrames.push({
+                name: 'home_frame_' + i,
+                url: frmae_url,
+                bgColor: '#fff',
+                pageParam: {
+                    id: i
+                }
+            })
+        };
+
+        var videoFrames = [];
+        for (var i = 0; i < videoItems.length; i++) {
+            videoFrames.push({
+                name: 'video_frame_' + i,
+                url: './video_frame.html',
+                bgColor: '#fff',
+                pageParam: {
+                    id: i
+                }
+            })
+        };
+
+        var themeFrames = [{
+            name: 'recommentlist_frame',
+            url: './recommentlist_frame.html',
+            bgColor: '#fff'
+        }, {
+            name: 'themelist_frame',
+            url: './themelist_frame.html',
+            bgColor: '#fff'
+        }];
+
+        var frames = [homeFrames, videoFrames, themeFrames];
+       
+
+        function fnOpen(index) {
+            api.openFrameGroup({
+                name: frameNames[index],
+                scrollEnabled: true,
+                rect: {
+                    x: 0,
+                    y: headerHeight,
+                    w: api.winWidth,
+                    h: api.winHeight - headerHeight
+                },
+                index: 0,
+                softInputMode:"resize",
+                frames: frames[index]
+            }, function(ret, err) {
+                fnSetNav(currentIndex, ret.index);
+            });
+        };
+
+        function fnHide(index) {
+            var attr = 3 == index ? api.setFrameAttr : api.setFrameGroupAttr;
+
+            attr({
+                name: frameNames[index],
+                hidden: true
+            });
+        };
+
+        var currentIndex = 0;
+
+        function fnChange(index) {
+            currentIndex = index;
+            for (var i = 0; i < headers.length; i++) {
+                if (index == i) {
+                    $api.addCls(headers[i], 'active');
+                    fnOpen(i);
+                    fnOpenNav(i);
+                } else {
+                    $api.removeCls(headers[i], 'active');
+                    fnHide(i);
+                    fnHideNav(i);
+                }
+            }
+        };
+
+        var navs = {};
+
+        var bgs = ['#28a8d9', '#fff'];
+
+        var homeFont = {
+                size: 14,
+                sizeSelected: 16,
+                color: '#ddd',
+                colorSelected: '#fff'
+            },
+            videoFont = {
+                size: 14,
+                sizeSelected: 16,
+                color: '#888',
+                colorSelected: '#444'
+            };
+
+        var items = [homeItems, videoItems],
+            fonts = [homeFont, videoFont];
+
+        function fnOpenNav(index) {
+            if (index > 1) {
+                return;
+            }
+
+
+            if ('undefined' != typeof navs['index_' + index]) {
+                navigationBar.show({
+                    id: navs['index_' + index]
+                });
+            } else {
+                
+                var topMenu = $api.dom(headers[index], '.top-menu');
+                var rect = $api.offset(topMenu);
+               
+                rect.x = 0;
+                rect.y = 28;
+                rect.w = api.frameWidth - 38;  // 比如： 320 -68;
+                rect.h = 36;
+               
+                navigationBar.open({
+                    x: rect.x,
+                    y: rect.y,
+                    w: rect.w,
+                    h: rect.h,
+                    style: 'left_to_right',
+                    itemSize: {
+                        w: 60,
+                        h: rect.h
+                    },
+                    items: items[index],
+                    selectedIndex: 0,
+                    font: fonts[index],
+                    bg: bgs[index],
+                }, function(ret, err) {
+                    if ('show' == ret.eventType) {
+                        navs['index_' + currentIndex] = ret.id;
+                    }
+
+                    if ('click' == ret.eventType) {
+                        fnSetFrameGroup(currentIndex, ret.index);
+                    }
+                });
+            }
+        };
+
+        function fnSetFrameGroup(index, menuIndex) {
+            api.setFrameGroupIndex({
+                name: frameNames[index],
+                index: menuIndex,
+                scroll: true
+            });
+        };
+
+        function fnSetNav(index, frameIndex) {
+            if ('undefined' != typeof navs['index_' + index]) {
+                navigationBar.config({
+                    id: navs['index_' + index],
+                    key: 'selectedIndex',
+                    value: frameIndex
+                });
+            }
+        };
+
+        function fnHideNav(index) {
+            if ('undefined' != typeof navs['index_' + index]) {
+                navigationBar.hide({
+                    id: navs['index_' + index]
+                });
+            }
+        };
+
+    </script>
+
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+    html,
+    .body {
+        height: 100%;
+        background-color: rgba(27, 130, 225, 0.89);
+    }
+    
+    #mainS {
+        width: 100%;
+        height: 100%;
+        padding: 0 5%;
+    }
+    
+    #mainS header {
+        height: 7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #mainS header img {
+        width: 100px;
+        align-self: center;
+        height: 100px;
+        border-radius: 50%;
+    }
+    
+    #mainS .list {
+        background: #fff;
+        border-radius: 2px;
+    }
+    
+    #mainS div.getcode-list {
+        position: relative;
+    }
+    
+    #mainS div.getcode-list span {
+        position: absolute;
+        right: 5%;
+        top: 15%;
+    }
+    
+    #mainS div.getcode-list span.getcode {
+        box-sizing: border-box;
+        padding: 3px 7px;
+        border: 1px solid #ccc;
+        /*1d82e0*/
+    }
+    
+    #mainS .list-input:first-child > input,
+    #mainS .list-input:nth-child(2) > input,
+    #mainS .list-input:nth-child(3) > input,
+    #mainS .list-input:nth-child(4) > input {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.17);
+    }
+    
+    #mainS .list-input:nth-child(5) > input {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.17);
+    }
+    
+    #mainS .list-input > input {
+        padding: 10px;
+    }
+    
+    #mainS .list-s .btn {
+        margin: 10px 0 15px;
+    }
+    
+    #mainS .list-s .btn span {
+        display: block;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px 0;
+        color: rgba(255, 255, 255, 0.99);
+    }
+    
+    #mainS .list-s .reg {
+        display: flex;
+        display: -webkit-flex;
+        justify-content: space-between;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.99);
+    }
+    
+    #mainS .list-s .reg .left {
+        color: rgba(255, 255, 255, 0.59);
+    }
+    
+    .agreement {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .agreement input {
+        width: 20px;
+        position: relative;
+        top: 3px;
+        height: 20px;
+    }
+    
+    .agreement i {
+        font-style: normal;
+        color: #c01e90;
+    }
+    </style>
+</head>
+
+<body class="body">
+    <div id="mainS">
+        <header>
+            <img src="../../image/a4.jpg"  onclick="Picture()" />
+        </header>
+        <div class="list-s">
+            <div class="list">
+                <div class="list-input">
+                    <input type="text" id="email-sho" value="" placeholder="输入手机号" />
+                </div>
+                <div class="list-input getcode-list">
+                    <input type="text" id="code-sho" value="" placeholder="验证码" />
+                    <span class="getcode" id="getcode">获取验证码</span>
+                </div>
+                <div class="list-input">
+                    <input type="text" id="name" value="" placeholder="用户名" />
+                </div>
+                <div class="list-input">
+                    <input type="password" id="password-sho" value="" placeholder="密码" />
+                </div>
+                <div class="list-input">
+                    <input type="password" id="re_password-sho" value="" placeholder="确认密码" />
+                </div>
+                <div class="list-input">
+                    <input type="text" id="invitation_code-sho" value="" placeholder="邀请码" />
+                </div>
+            </div>
+            <!--
+                	作者：
+                	时间：2016-08-10
+                	描述：注册协议
+                -->
+            <div class="agreement">
+                <input type="checkbox" value="" checked="checked" /> 
+                <span >同意 <a href="#" onclick="ViewUserAgreement()"><雅客用户协议 ></a></span>
+            </div>
+            <div class="btn" onclick="fnRegUser()">
+                <span>注册</span>
+            </div>
+            <div class="reg">
+                <!--<div class="left">忘记密码?</div>
+					<div class="right">注册账号</div>-->
+            </div>
+        </div>
+    </div>
+</body>
+<!--  <script type="text/javascript" src="../../script/zepto.min.js"></script>-->
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/Zepto.js"></script>
+<script src="../../script/api.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+var mobVerify;
+
+var username, password, mobile, vercode,verify_flag;
+var browser;
+
+apiready = function() {
+    fnInit();
+    getLocal();
+    api.parseTapmode();
+}
+
+function fnInit() {
+    mobVerify = api.require('smsVerify');
+    browser   = api.require('UIWebBrowser');
+    mobVerify.register(function(ret, err) {
+        if (ret.status) {
+
+        } else {
+            api.alert({
+                msg: err.code + ' 注册失败'
+            });
+        }
+    })
+}
+
+
+var countdown=120;
+var code = $("#getcode");
+var set; //定时器
+code.click(function(){
+    clearTimeout(set);
+    var mobile = document.getElementById('email-sho').value;
+    var reg = /^\d{0,2}\w+/gi;
+    
+    var boo = reg.test(code.html())
+    if( boo ){
+    	SendIphone();
+    }else{
+    	SendIphone();
+    	
+      	  mobVerify.sms({
+		        phone: mobile
+		    }, function(ret, err) {
+		        if (err) {
+		            api.alert({
+		                title: '',
+		                msg: '获取验证码失败:' + JSON.stringify(err)
+		            }, function(ret, err) {});
+		        } else {
+		
+		        }
+		    });
+    
+    }
+	
+
+});
+function SendIphone(event) {
+
+    
+
+    var ev = event || window.event;
+
+    
+    
+    if( countdown == 0 ){
+    
+    	
+    	$(code).html("获取验证码")
+    	countdown=120;
+    }else{
+    
+    	countdown--;
+    	$(code).html('(' + countdown +"s)"+"重新获取");
+    	
+        clearTimeout(set);
+    	set = setTimeout(function() {  
+                SendIphone()  
+         },1000);
+    };
+    
+
+}
+
+function verifyCode() {
+    var mobile = document.getElementById('email-sho').value,
+        vercode = document.getElementById('code-sho').value;
+ 
+    alert('vercode:' + vercode);
+    mobVerify.verify({
+        phone: mobile,
+        code: vercode
+    }, function(ret, err) {
+        if (err) {
+            alert('验证码错误!' + JSON.stringify(err));
+            return false;
+        } else {
+            //alert('---验证码正确!------e');
+            return true;
+        }
+    });
+}
+
+function fnRegUser() {
+    if (! verifyCode()) {
+
+    } else {
+        alert('注册失败!');
+        return;
+    }
+
+    var now = Date.now();
+    var appKey = SHA1("A6919941751589" + "UZ" + "EA5B6F20-8019-7DFB-F30B-0DB42BDE6473" + "UZ" + now) + "." + now;
+    var invitation_code = document.getElementById('invitation_code-sho').value;
+
+    api.ajax({
+        "url": "https://d.apicloud.com/mcm/api/user",
+        "cache": false,
+        "headers": {
+            "X-APICloud-AppId": "A6919941751589",
+            "X-APICloud-AppKey": appKey
+        },
+        "data": {
+            "username": mobile,
+            "password": password,
+            "mobile":   mobile,
+            "invite_code":invitation_code
+        },
+        "type": "POST"
+     }).success(function(data, status, header) {
+        api.alert({
+            title: '雅课',
+            msg: '注册成功',
+        }, function(ret, err) {
+            api.closeFrame({
+                name: 'reg'
+            });
+        });
+    }).fail(function(header, status, errorThrown) {
+        api.toast({
+            msg: '用户注册失败!'
+        });
+    });
+}
+/*选择用户头像*/
+function Picture() {
+  
+    api.actionSheet({
+        title: '底部弹出框',
+        cancelTitle: '取消',
+        buttons: ['优雅自拍', '相册选择']
+    }, function(ret, err) {
+        var index = ret.buttonIndex;
+		
+		switch(index){
+			case 1:
+				api.getPicture({
+                    sourceType: 'camera',
+                    encodingType: 'jpg',
+                    mediaValue: 'pic',
+                    destinationType: 'url',
+                    allowEdit: true,
+                    quality: 90,
+                    targetWidth: 100,
+                    targetHeight: 100,
+                    saveToPhotoAlbum: false
+                }, function(ret, err) {
+                    if (ret.data) {
+                        $('#userImg').attr("src",ret.data);
+                    } else {
+                        //alert(JSON.stringify(err));
+                    }
+                });
+				break;
+			case 2:
+				 api.getPicture({
+			        sourceType: 'album',
+			        encodingType: 'jpg',
+			        mediaValue: 'pic',
+			        destinationType: 'url',
+			        allowEdit: true,
+			        quality: 90,
+			        targetWidth: 100,
+			        targetHeight: 100,
+			        saveToPhotoAlbum: false
+			    }, function(ret, err) {
+			        if (ret.data) {
+			            $('#userImg').attr("src",ret.data);
+			        } else {
+			           // alert(JSON.stringify(err));
+			        }
+			    });
+				break;
+		};
+        
+    });
+
+
+};
+
+ function getLocal(){
+    var baiduLocation = api.require('baiduLocation');
+    baiduLocation.startLocation({
+        accuracy: '100m',
+        filter: 1,
+        autoStop: true
+    }, function(ret, err) {
+        if (ret.status) {
+            baiduLocation.getLocal(function(ret,err){
+               return ret;
+            });
+        } else {
+            //alert('startLocation,err:' + JSON.stringify(err));
+        }
+    });
+
+
+ }
+
+ function ViewUserAgreement(){
+    api.openWin({
+        name: 'agreement',
+        url: './myagrement_win.html',
+        pageParam: {
+            name: 'value'
+        }
+    });
+ }
+</script>
+
+</html>

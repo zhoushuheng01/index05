@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%; 
+            background-color: #f5f5f5;
+        }
+
+        .item{
+            padding: 10px;
+            background-color: #fff;
+            display: -webkit-flex;
+            display: flex;
+            margin-top: 10px;
+        }
+        .item .left{
+            position: relative;
+            overflow: hidden;
+        }
+        .item .left .left-img{
+            width: 110px;
+            height: 140px;
+        }
+        .item .left .left-img img{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .item .left .title{
+            position: absolute;
+            top: 7px;
+            left: -16px;
+            width: 90px;
+            text-align: center;
+            transform-origin: center;
+            -webkit-transform: rotate(-37deg);
+            transform: rotate(-37deg);
+            background-color: red;
+            color: rgba(255,255,255,0.86)
+        }
+        .item .left{
+            
+        }
+
+        .item .right{
+            padding-left: 10px;
+            -webkit-flex:1;
+            flex:1;
+        }
+        .item .right{
+            
+        }
+        .item .right .title{
+            margin-bottom: 10px;
+        }
+        .item .right .title h3{
+            height: 35px;
+            line-height: 35px;
+        }
+        .item .body{
+            
+        }
+        .item .body li{
+            color: rgba(0,0,0,0.55);
+            font-size: 0.84rem;
+        }
+        .item .body li:last-child{
+            display: -webkit-flex;
+            display: flex;
+            font-size: 0.78rem;
+        }
+        .item .body li:last-child >div{
+
+        }
+        .item .body li:last-child >div:nth-child(1){
+            float: left;
+            height:30px;
+            line-height: 30px;
+            -webkit-flex:1;
+            flex:1;
+        }
+        .item .body li:last-child >div:nth-child(2){
+           text-align: center;
+            height:30px;
+            line-height: 30px;
+        }
+        .item .body li:last-child >div:nth-child(3){
+           float: right;
+           text-align: center;
+           border-radius: 10px;
+           border:1px solid #ccc;
+           padding: 3px 7px 1px;
+           margin-left: 7px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+        <ul id="ul-item">
+            <!--<li class="item" tapmode  onclick="openWin(1)">
+                <div class="left">
+                    <div class="left-img">
+                        <img src="../../image/face/m35.gif">
+                    </div>
+                    <div class="title">讲座</div>
+                </div>
+                <div class="right">
+                    <div class="title">
+                        <h3>银行里的~~~~~~~~~~....</h3>
+                    </div>
+                    <div class="body">
+                        <ul>
+                            <li>2016年1月17日 10:30至17:30</li>
+                            <li>机器人</li>
+                            <li>中国建设银行</li>
+                            <li>
+                                <div class="b-left">报名人数：1</div>
+                                <div class="b-connent"></div>
+                                <div class="b-right">已结束</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>-->
+            <script id="assn_map_list" type="text/x-dot-template">
+                {{ for(var i in it){ }}
+                    <li class="item" tapmode  onclick="openWin(1,'{{= it[i].activity_id}}')">
+                        <div class="left">
+                            <div class="left-img">
+                                <img src="{{= it[i].map_file.url}}">
+                            </div>
+                            <div class="title">{{= it[i].label}}</div>
+                        </div>
+                        <div class="right">
+                            <div class="title">
+                                <h3>{{= it[i].map_title}}</h3>
+                            </div>
+                            <div class="body">
+                                <ul>
+                                    <li>{{= it[i].start_date}} 至 {{= it[i].end_date}}</li>
+                                    <li>{{= it[i].label}}</li>
+                                    <li>{{= it[i].address}}</li>
+                                    <li>
+                                        <div class="b-left">报名人数：{{= it[i].apply_num}}</div>
+                                        <div class="b-connent"></div>
+                                        <div class="b-right">{{= it[i].map_status}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                {{ } }}
+            </script>
+        </ul>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var header, headerPos,main,mainPos;
+var assn_id;//社团id
+var activity_id;//活动id
+apiready = function() {
+    header = $api.byId('header');
+    main = $api.byId('main');
+    headerPos = $api.offset(header);
+
+
+    assn_id = api.pageParam.assn_id;
+    //alert( assn_id);
+    $api.setStorage('assn_id',assn_id);
+    
+    var init = new Init(1);
+    
+    
+    /*
+     assn_map  对应数据库的表名
+
+     */
+    var assn_map_Url = '/assn_map?filter=';
+    var assn_map_UrlParam = {
+        'fields':{
+            'id':0,
+            'createdAt':0,
+            'updatedAt':0
+        },
+        'where':{
+            "assn_id":assn_id
+        },
+        'skip':init.skip,
+        'limit':init.limit,
+        "include":{
+            'mem_idPointer':'',
+            'user_idPointer':''
+        }
+    };
+
+   init.ajax(assn_map_Url + JSON.stringify(assn_map_UrlParam),'get',{},function(ret,err){
+        if(ret){
+            for( var i=0;i<ret.length;i++ ){
+            	if(ret[i].map_status == 0){
+            		ret[i].map_status = '已结束';
+            	}else{
+            		ret[i].map_status = '进行中';
+            	}
+            };
+            var evalText = doT.template($("#assn_map_list").text());
+            $("#ul-item").html(evalText(ret));
+
+        }else{
+            api.alert({ msg: "228==>"+JSON.stringify(err) });
+
+        }
+   });
+};
+function openWin(num,activity_id){
+	api.openWin({
+	    name: 'choose_Win',
+	    url: 'choose_Win.html',
+	    pageParam:{
+	    	index:num,
+            activity_id:activity_id
+	    }
+    });
+};
+</script>
+
+</html>

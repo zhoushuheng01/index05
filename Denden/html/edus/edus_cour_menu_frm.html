@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>		
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/icon.css"/>
+		<style type="text/css">
+			body,html{
+				padding: 0;
+				margin: 0;
+				height: 100%;
+			}
+			html{
+				height: 100%;
+			}
+			.aui-bar-light {
+				color: #03a9f4;
+				background-color: rgba(27,130,225,0.89);
+			}
+			.aui-bar-nav.aui-bar-light .aui-iconfont {
+				color: #fff;
+			}
+			#index {
+				position: relative;
+				height: 100%;
+			}
+			#index .header{
+				margin-top: 0%;
+				position: absolute;
+				top: 4px;
+				text-align: center;
+				z-index: 999;
+				color: rgba(255,255,255,0.7);
+			}
+			input::-webkit-input-placeholder {
+			    color: rgba(255,255,255,0.7) !important; 
+			
+			}
+
+			.container-2{
+				width: 100%;
+				height: 100%;
+				
+			}
+			.container-2 .list-items{
+				list-style: none;
+				width: 100%;
+				padding: 0;
+				margin: 0;
+				padding: 10px;
+			}
+			.container-2 .list-items .item{
+				position: relative;
+				width: 100%;
+				padding: 0 0px 0 0;
+				margin: 0 0px 10px;
+				background-color: #fff;
+				
+			}
+			.container-2 .list-items .item dl{
+				display: flex;
+				display: -webkit-flex;
+				padding:5px;
+				box-shadow: 0 0 1px 1px rgba(0,0,0,0.25);
+			}
+			.container-2 .list-items .item dl dt{
+				position: relative;
+				text-align: center;
+				display: block;
+				border: 1px solid rgba(0,0,0,0.17);
+				width: 130px;
+				height: 120px;
+					
+			}
+			.container-2 .list-items .item dl dt  img{
+				width: 100%;
+				height: 100%;
+				display: block;
+				background-size: cover;
+			}
+			
+			.container-2 .list-items .item dl dt span{
+				position: absolute;
+				background: rgba(0,0,0,0.16);
+				bottom: 0;
+				left: 0;
+				right: 0;
+				font-size: 0.7rem;
+				height: 30px;
+				line-height: 30px;
+				color: rgba(0,0,0,0.61);
+			}
+			.container-2 .list-items .item dl > dd{
+				margin: 10px 0 0 10px;
+				flex: 1;
+				-webkit-flex:1;
+				
+			}
+			.container-2 .list-items .item dl > dd a{
+				
+				color: #333;
+				font-size: 14px;
+				transition: all 0.5s;
+			}
+			.container-2 .list-items .item dl > dd a:hover{
+				color: rgba(31,5,153,0.7);
+				text-decoration: none;
+			}
+			.container-2 .list-items .item dl > dd .item-body{
+				margin: 10px 0;
+			}
+			.container-2 .list-items .item dl > dd .item-body .left{
+				float: left;
+			}
+			.container-2 .list-items .item dl > dd .item-body .left span{
+				color: rgba(33,16,144,0.8);
+			}
+			.container-2 .list-items .item dl > dd .item-body .right{
+				float: right;
+				margin-right: 10px;
+			}
+			.container-2 .list-items .item dl > dd .item-body .right span{
+				color: red;
+			}
+			.container-2 .list-items .item dl > dd >span i{
+				color: #FFA71E;
+				
+			}
+			.container-2 .list-items .item dl > dd >span i{
+				margin-left: -2px;
+			}
+			#text{
+				border-radius: 9px;
+				margin-top: 5px;
+				height: 34px;
+				width: 100%;
+				line-height: 34px;
+				position: relative;
+				border: 1px solid rgba(255,255,255,0.7);
+			}
+			#text input{
+				height: 34px;
+				padding: 0px 10px 10px 30px;
+				width: 100%;
+				line-height: 34px;
+			}
+			.aui-bar-nav .aui-title {
+				min-height: 2.25rem;
+				position: absolute;
+				margin: 2px 0 0;
+				text-align: center;
+				white-space: nowrap;
+				right: 3rem;
+				left: 3rem;
+				/* width: auto; */
+				overflow: hidden;
+				text-overflow: ellipsis;
+				z-index: 2;
+			}
+			#text input + span{
+				position: absolute;
+				top: -1px;
+				left: 3px;
+				font-size: 1.1rem;
+			}
+			#ul_list{
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="index">
+			    <div class="container-2 clearfix">
+			    	<ul class="list-items clearfix" id="ul_list">
+			    		<!-- <li class="item clearfix" onclick="openstatuscour(index)">
+			    			<dl>
+			    				<dt><img src="../../image/10.png"/><span>共32课时</span></dt>
+			    				<dd class="clearfix">
+			    					<a href="#">高级软件测试工程师（案例实战）职业学习路线图</a>
+			    					<div class="item-body clearfix">
+			    						<div class="left">讲师：<span>何物</span></div>
+			    						<div class="right"><span>50</span>金币</div>
+			    					</div>
+			    					<span>评价: 
+			    						<i class="iconfont-app">&#xe61d;</i>
+			    						<i class="iconfont-app">&#xe61d;</i>
+			    						<i class="iconfont-app">&#xe61d;</i>
+			    						<i class="iconfont-app">&#xe61d;</i>
+			    						<i class="iconfont-app">&#xe61d;</i>
+			    					</span>
+			    				</dd>
+			    			</dl>
+			    		</li>-->
+						<script id="tabulated" type="text/x-dot-template">
+							{{ for(var i=0;i<it.length;i++){ }}
+
+								<li class="item open-Win clearfix" tapmode onclick="openWin('{{= it[i].courid }}')">
+					    			<dl>
+					    				<dt><img src="{{= it[i].preview_img.url}}"/><span>共32课时</span></dt>
+					    				<dd class="clearfix">
+					    					<a href="#">{{= it[i].cours_name}}</a>
+					    					<div class="item-body clearfix">
+					    						<div class="left">讲师：<span>{{= it[i].sender.mec_link}}</span></div>
+					    						{{ if(!it[i].sale_prices == "0"){ }}
+													<div class="right"><span><!-- 50 -->{{= it[i].sale_prices}}</span>元<!-- 金币 --></div>
+													
+					    						{{ }else{ }}
+													<div class="right"><span>免费</span></div>
+					    						{{ } }}
+					    						
+					    					</div>
+					    					<span></span>
+					    				</dd>
+					    			</dl>
+					    		</li>
+
+							{{ } }}
+						</script>
+			    	</ul>
+			    </div>	    
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/aui-slide.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/SHA1.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	
+   <!---->
+  <script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript">
+		var counter;
+		//分页  (page - 1) * limit   1-1 *10 ===（0~10）  ps: 下拉page+1（2-1） *10（10~20）；  
+		var limit = 10;
+		var page = 1;
+		var pageSize = (page - 1) * limit;
+		apiready = function(){
+			counter = api.pageParam.index;
+
+
+		   var init = new Init(1);
+		   init.ajax('/cours?filter={"where":{"coure_type":'+counter+'},"skip":'+pageSize+',"limit":'+limit+',"include":{"senderPointer":""}}', 'get', {}, function(ret,err){
+		   		if(ret){
+		   				//alert(JSON.stringify(ret));
+		   				var evalText = doT.template($("#tabulated").text());
+           				$("#ul_list").html(evalText(ret));
+		   		}else{
+		   			alert(JSON.stringify(err));
+		   		}
+		   });
+		}
+
+		function openstatuscour(index){
+			api.openWin({
+			    name: 'student_cour',
+			    url: './edus-menu.html',
+			    pageParam: {
+			        id: index.id,
+			        name:index.name,
+			        url:index.url
+			    }
+			});
+		}
+
+
+		function openWin(courid) {
+
+		    api.parseTapmode();
+		    api.openWin({
+		        name: "edus-menu-header",
+		        url: 'edus-menu-header.html',
+		        pageParam: {
+		            courid: courid
+		        }
+		    });
+
+
+		}
+	</script>
+</html>

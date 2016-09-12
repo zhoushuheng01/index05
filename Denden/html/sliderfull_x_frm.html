@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" href="../css/aui.2.0.css"/>
+	<link rel="stylesheet" href="../css/aui-slider-full.css" />
+	<link rel="stylesheet" href="../css/aui-flex.css" />
+	<style type="text/css">
+		.text h1 {
+			margin-top: 180px;
+			color: #ffffff;
+			font-size: 30px;
+		}
+		.text p {
+			color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<!-- <div class="aui-slider-close" tapmode onclick="closeWin()">关闭</div> -->
+	<div class="aui-slider-full">
+		<div id="news" class="aui-slider-list text aui-bg-primary aui-text-center" onclick="ListenById(0)">
+			<h1>雅课</h1>
+			<p>你还有很多未完成的梦</p>
+		 <p>还有什么理由停下脚步</p>
+			<p>—— { www.yakecc.com } ——</p>
+		</div>
+		
+		<!---2-->
+		<div id="edu" class="aui-slider-list text aui-bg-primary aui-flex-middle" onclick="ListenById(1)">
+			<img src="../image/peixun.jpg" alt=""/> 		
+		</div>
+		<!---3-->
+		<div id="mall" class="aui-slider-list aui-flex-col aui-flex-middle" onclick="ListenById(2)">  
+			<img src="../image/gowu.jpg" alt=""/>
+		</div>
+		<!--4-jobs-->
+		<div id="jobs" class="aui-slider-list aui-flex-col aui-flex-middle" onclick="ListenById(3)">  
+			<img src="../image/jobs.jpg" alt=""/>
+		</div>
+		<!---5tour-->
+		<div id="tour" class="aui-slider-list aui-flex-col aui-flex-middle" onclick="ListenById(4)">
+			<img src="../image/lvyou.jpg" alt=""/>
+		</div>
+		<!--aui-slider-list aui-flex-col aui-flex-middle-->
+		<div id="my" class="aui-slider-list aui-flex-col aui-flex-middle" onclick="ListenById(5)">
+			<img src="../image/my.png" alt=""/>
+		</div>
+		
+		<span class="aui-slider-up">
+			<i class="aui-iconfont aui-icon-fold"></i>
+		</span>
+		<!-- </ul> -->
+		<span class="aui-slider-right">
+			<i class="aui-iconfont aui-icon-right"></i>
+		</span>
+	</div>
+	<script src="../script/api.js"></script>
+	<script src="../script/aui-slider-full.js"></script>
+	<!-- <script src="../script/aui-slider.js"></script> -->
+	<script type="text/javascript">
+		apiready = function(){
+			api.parseTapmode();
+		}
+		var sliderFull = new auiSliderFull({
+			direction:'x'
+		});
+		function closeWin(){
+	        api.closeWin({
+	        	name:'slider_full_win',
+	        	animation:{
+	        		type:'push',
+	                subType:'from_top'
+	            }
+	        });
+	    }
+	    
+	    var winmodule = ['news','edus','malls','job','tours','my'];
+	    var wintitle  = ['资讯','职业/认证','嗨购','兼职/实习','旅游','我的'];
+	    var header = $api.byId("header");
+	   
+	    var url =  '../html/common.html';
+	    function ListenById(index){
+			api.setWinAttr({
+				bounces: false
+			});
+			api.openWin({
+				name: winmodule[index],
+				url: url,
+				pageParam:{
+				title:wintitle[index],
+				name:winmodule[index]
+			 }
+			});
+			api.setWinAttr({
+				bounces: true
+			});
+		}
+	   
+	</script>
+</body>
+</html>

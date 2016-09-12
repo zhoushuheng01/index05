@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        html,body{
+            height:100%;
+            width:100%;
+        }
+        section{
+
+            background-color: #fff;
+        }
+        #textplay{
+            padding: 10px;
+        }
+        #section1 ul {
+            display: -webkit-flex;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #section1 ul > li{
+            width:31%;
+            height:100px;
+            margin:0 0px 10px 5px;
+        }
+        #section1 ul > li img{
+            width:100%;
+            height:100%;
+            display: block;
+        }
+        #lastLi{
+            border:1px solid #ccc;
+        }
+        .input{
+            background: #fff;
+            margin:5px 0;
+        }
+        .input input[ type = "text" ]{
+            padding:0 10px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+        .aui-bar-nav .aui-pull-right{
+            color:rgba(255,255,255,0.51);
+        }
+        .aui-bar-nav .active{
+            color: #fff;
+        }
+
+        #img{
+            width:100%;
+            height:100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="header">
+    <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title"></div>
+    <a class="aui-pull-right" id="btn">发布</a>
+</header>
+<div class="input">
+    <input type="text" id="title" placeholder="标题">
+</div>
+<section id="section1">
+    <div id="textplay">
+        <textarea id="textarea" placeholder="说点什么吧" rows="5"></textarea>
+    </div>
+    <footer>
+        <ul id="ul">
+            <li id="lastLi"><img src="../../image/tours/jiahao.png" alt=""></li>
+        </ul>
+    </footer>
+</section>
+<!--<img id="img" src="" alt="">-->
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/swipe.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+
+    var header, headerPos;
+
+
+    var init;
+
+
+    var oSection = $api.byId("section1");
+    var oUl = $api.dom(oSection, 'ul');
+    var lastLi =  $api.dom(oUl, '#lastLi');
+
+
+
+    //   var image = [];
+
+    var images = [];//多张图片
+    var imageUrl = [];
+
+    var video = [];//视频
+    var videoUrl = [];
+
+    var btn = $api.byId("btn");
+
+
+    var page; //根据这个发布不同的内容
+
+
+    var UIMediaScanner;
+
+    apiready = function(){
+        UIMediaScanner = api.require('UIMediaScanner');
+
+
+        header = $api.byId('header');
+        var model = api.require('model');
+
+        var systemType = api.systemType;
+        var systemVersion = parseFloat(api.systemVersion);
+        if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+            if (systemType == "android") {
+                $api.fixStatusBar(header);
+            }
+        } else {
+            $api.fixIos7Bar(header);
+        };
+
+
+        headerPos = $api.offset(header);
+
+        page = api.pageParam.page;
+
+
+
+        ///////////////////////////////////////////////////////
+
+        init = new Init(1);
+
+
+
+
+        switch (page){
+
+            case page:
+
+                    if (page ==1 || page == 2){
+
+                        $api.addEvt(lastLi, 'click', function () {
+                            //do something
+                            api.actionSheet({
+                                title: '底部弹出框测试',
+                                cancelTitle: '取消',
+                                buttons: ["优雅自拍","相册选择"]
+                            }, function(ret, err) {
+                                var index = ret.buttonIndex;
+
+                                var aLi = $api.domAll(oUl,"li:not(:last-child)");
+
+                                switch (index){
+                                    case 1 :
+                                        api.getPicture({
+                                            sourceType: 'camera',
+                                            encodingType: 'jpg',
+                                            mediaValue: 'pic',
+                                            destinationType: 'url',
+                                            allowEdit: true,
+                                            quality: 90,
+                                            targetWidth: 1080,
+                                            targetHeight: 1280,
+                                            saveToPhotoAlbum: false
+                                        }, function(ret, err) {
+                                            if (ret.data) {
+                                                var html = '';
+                                                images.push({
+                                                    "name":"pic",
+                                                    "url":ret.data
+                                                });
+
+                                          //      alert(JSON.stringify(images));
+                                                html += '<li><img src="'+ ret.data +'" alt=""></li> ';
+
+
+                                                var imageFilter = api.require('imageFilter');
+
+                                                imageFilter.compress({
+                                                    img: 'widget://res/img/apicloud.png',
+                                                    quality: 0.1
+                                                }, function(ret, err) {
+                                                    if (ret.status) {
+                                                        alert(JSON.stringify(ret));
+                                                    } else {
+                                                        alert(JSON.stringify(err));
+                                                    }
+                                                });
+
+                                            //    $("#img").attr("src",ret.data);
+                                                $('#ul').prepend(html);
+                                            } else {
+                                                //alert(JSON.stringify(err));
+                                            }
+                                        });
+                                        break;
+                                    case 2 :
+                                        api.getPicture({
+                                            sourceType: 'album',
+                                            encodingType: 'jpg',
+                                            mediaValue: 'pic',
+                                            destinationType: 'url',
+                                            allowEdit: true,
+                                            quality: 80,
+                                            targetWidth: 1080,
+                                            targetHeight: 1280,
+                                            saveToPhotoAlbum: false
+                                        }, function(ret, err) {
+                                            if (ret.data) {
+                                                var html = '';
+                                                images.push({
+                                                    "name":"pic",
+                                                    "url":ret.data
+                                                });
+                                              //  alert(JSON.stringify(images));
+                                                html += '<li><img src="'+ ret.data +'" alt=""></li>';
+
+                                            //    $("#img").attr("src",ret.data);
+                                                $('#ul').prepend(html);
+                                            } else {
+                                                // alert(JSON.stringify(err));
+                                            }
+                                        });
+
+                                        break;
+                                }
+
+                             //   alert("end---->"+JSON.stringify(images));
+                            });
+                        });
+
+                    }else if( page == 3 ) {
+                        $api.addEvt(lastLi, 'click', function () {
+
+                            api.actionSheet({
+                                title: '底部弹出框测试',
+                                cancelTitle: '取消',
+                                buttons: ["相机拍摄", "相册选择"]
+                            }, function (ret, err) {
+                                var index = ret.buttonIndex;
+
+
+                                switch (index) {
+
+                                    case 1:
+                                        api.getPicture({
+                                            sourceType: 'camera',
+                                            mediaValue: 'video',
+                                            destinationType: 'url',
+                                            allowEdit: true,
+                                            saveToPhotoAlbum: false
+                                        }, function (ret, err) {
+                                            if (ret.data) {
+                                               // alert(JSON.stringify(ret));
+                                                video.push({
+                                                    "name": "video",
+                                                    "url": ret.data
+                                                });
+                                                var html = '';
+
+                                                html += '<li><img src="' + ret.data + '" alt=""></li> ';
+
+
+                                                $('#ul').prepend(html);
+                                            } else {
+                                                // alert(JSON.stringify(err));
+                                            }
+                                        });
+                                        break;
+
+                                    case 2:
+
+
+                                        UIMediaScanner.open({
+                                            type: 'video',
+                                            column: 4,
+                                            classify: true,
+                                            max: 4,
+                                            sort: {
+                                                key: 'time',
+                                                order: 'desc'
+                                            },
+                                            texts: {
+                                                stateText: '已选择*项',
+                                                cancelText: '取消',
+                                                finishText: '完成'
+                                            },
+                                            styles: {
+                                                bg: '#fff',
+                                                mark: {
+                                                    icon: '',
+                                                    position: 'bottom_left',
+                                                    size: 20
+                                                },
+                                                nav: {
+                                                    bg: '#eee',
+                                                    stateColor: '#000',
+                                                    stateSize: 18,
+                                                    cancelBg: 'rgba(0,0,0,0)',
+                                                    cancelColor: '#000',
+                                                    cancelSize: 18,
+                                                    finishBg: 'rgba(0,0,0,0)',
+                                                    finishColor: '#000',
+                                                    finishSize: 18
+                                                }
+                                            },
+                                            exchange: true,
+                                            rotation: true
+                                        }, function (ret) {
+                                            if (ret) {
+                                                var list = ret.list;
+                                                var path = [];
+                                                var thumbPath = [];//缩略图
+
+                                                var html = '';
+
+                                              //  alert(list[0].size)
+                                                var size = (parseFloat(list[0].size) / 1024) /1024;
+
+
+                                            //    alert(size)
+                                                if( size < 100 ){
+                                                    for (var i in list) {
+                                                        video.push({
+                                                            "thumbPath":list[i].thumbPath,
+                                                            "url":list[i].path,
+                                                            "name":"video"
+                                                        });
+                                                        html += ' <li><img src="' + list[i].thumbPath + '" alt=""></li>';
+
+                                                        $('#ul').prepend(html);
+                                                    }
+
+
+                                                    $api.remove(lastLi);
+                                                }else{
+                                                    api.toast({
+                                                        msg: '视频大小不能超过100m',
+                                                        duration: 2000,
+                                                        location: 'bottom'
+                                                    });
+                                                }
+
+
+
+
+
+
+                                               //  alert(JSON.stringify(ret));
+                                            }
+                                        });
+
+
+                                      break;
+                                }
+
+                            });
+
+
+
+                        });
+
+
+                        //
+                    };
+                break;
+        };
+
+
+        /*
+
+            @监控input
+
+        */
+        var btn_text = $api.byId("title");
+
+        var btn_textarea = $api.byId("textarea");
+        $api.addEvt(btn_text,"input",function(){
+            if( $api.val(btn_text).length > 0 ){
+
+                $api.addCls(btn,"active");
+            }else{
+                $api.removeCls(btn,"active");
+
+            }
+        });
+
+        $api.addEvt(btn_textarea,"input",function(){
+            if( $api.val(btn_textarea).length > 0 ){
+
+                $api.addCls(btn,"active");
+            }else{
+                $api.removeCls(btn,"active");
+
+            }
+        });
+
+
+
+        $api.addEvt(btn,"click",function(){
+
+            var userid = $api.getStorage("userid");
+            var userName = $api.getStorage("userName");
+
+            var userImg = $api.getStorage("userImg");
+
+         if( $api.hasCls(this, 'active') ) {
+
+             var userData = {
+                 "name": userName,
+                 icon: {
+                     "id": userid,
+                     "name": "pic",
+                     "url": userImg
+                 }
+             };
+
+             var iconId = null;
+             init.ajax("/publisher", "POST", JSON.stringify(userData), function (ret, err) {
+
+                 if (ret) {
+                     iconId = ret.id;
+                 }
+
+
+             });
+
+             var textVal = $api.val($api.byId("textarea"));
+
+             var headline_Url = '/headline';
+
+             var title = $api.val($api.byId("title"));
+
+
+
+             switch (page) {
+
+                 case 1:
+                     show();//进度条
+
+                     for (var i = 0; i < images.length; i++) {
+
+                         model.uploadFile({
+                             report: false,
+                             data: {
+                                 file: {
+                                     name: images[i].name,
+                                     url: images[i].url
+                                 }
+                             }
+                         }, function (ret, err) {
+                             if (ret) {
+                               //   alert( JSON.stringify( ret ) );
+
+                                 imageUrl.push({
+                                     "id": ret.id,
+                                     "name": ret.name,
+                                     "url": ret.url
+                                 });
+                               //  alert("5555" + JSON.stringify(imageUrl))
+                                 if (imageUrl.length == images.length) {
+
+
+
+
+
+                                     //发送校内新闻
+                                     var headBody = {
+                                         'title': title,
+                                         "text": textVal,
+                                         'type': 0,
+                                         'imagers': imageUrl,
+                                         "from": iconId,
+                                         "commentCount": 0
+                                     };
+                                 //    alert(JSON.stringify(imageUrl) +"-->array" )
+                                     init.ajax(headline_Url, "POST", JSON.stringify(headBody), function (ret, err) {
+                                         if (ret) {
+                                             api.sendEvent({
+                                                 name: 'xiaoN_image',
+                                                 extra: {
+                                                     image_id: ret.id
+                                                 }
+                                             });
+                                         }
+                                     });
+
+
+
+                                     api.hideProgress();
+                                     api.closeWin();
+                                 }
+                             } else {
+                                 alert(JSON.stringify(err));
+                             }
+                         });
+
+                     }
+                     break;
+
+                 case 2:
+                     show();//进度条
+                     for (var i = 0; i < images.length; i++) {
+
+                         model.uploadFile({
+                             report: false,
+                             data: {
+                                 file: {
+                                     name: images[i].name,
+                                     url: images[i].url
+                                 }
+                             }
+                         }, function (ret, err) {
+                             if (ret) {
+                                 //  alert( JSON.stringify( ret ) );
+                                 imageUrl.push({
+                                     "id": ret.id,
+                                     "name": ret.name,
+                                     "url": ret.url
+                                 });
+
+                                 if (imageUrl.length == images.length) {
+
+                                     //   alert(imageUrl)
+
+                                     //发送校外新闻
+
+                                     var headBody = {
+                                         'title': title,
+                                         "text": textVal,
+                                         'type': 1,
+                                         'imagers': imageUrl,
+                                         "from": iconId,
+                                         "commentCount": 0
+
+                                     };
+
+                                     init.ajax(headline_Url, "POST", JSON.stringify(headBody), function (ret, err) {
+                                         if (ret) {
+                                             /*
+                                             @ 发送事件到校外新闻页面更新数据
+                                             */
+                                             api.sendEvent({
+                                                         name: 'xiaoW_image',
+                                                         extra:{
+                                                             image_id: ret.id
+                                                }
+                                            }
+                                             );
+                                        }
+                                    });
+
+
+
+                                     api.hideProgress();
+                                     api.closeWin();
+
+                                }
+                            }else{
+                                alert( JSON.stringify( err ) );
+                            }
+                        })
+
+                         ;
+
+                    }
+                     break;
+
+                case 3:
+                    show();//进度条
+
+
+
+                    for (var i=0; i<video.length;i++){
+
+                        model.uploadFile({
+                            report: false,
+                            data: {
+                                file: {
+                                    name: video[i].name,
+                                    url:video[i].url
+                                }
+                            }
+
+                        }, function(ret, err){
+                            if( ret ){
+                                videoUrl.push({
+                                    "id":ret.id,
+                                    "name":ret.name,
+                                    "url":ret.url
+                                });
+
+                                if(
+                                        videoUrl.length ==
+                                        video.length ){
+                                    var videoData = {
+                                        'video':{
+                                            "id":ret.id,
+                                            "name": "video",
+                                            "url":ret.url
+                                        }, "playCount":0
+                                    };
+                                    var videoId;
+                                    init.ajax("/video",
+                                            "POST",JSON.stringify(videoData),
+
+                                            function(ret,err){
+
+                                        if( ret ){
+                                            videoId = ret.id;
+                                            //发送视频新闻
+
+                                            var headBody = {
+                                                'title':title,
+                                                "text":  textVal,
+                                                'type':3,
+                                                "video": videoId,
+                                                "from":iconId,
+                                                "commentCount": 0
+
+                                            };
+
+                                            init.ajax(headline_Url,"POST",JSON
+                                                    .stringify(headBody
+                                                    ),function(ret,err) {
+                                                if (ret){
+                                                    /*
+                                                       @ 发送事件到视频页面更新数据
+                                                     */
+                                                    api.sendEvent({
+                                                        name: 'news_video',
+                                                        extra:{
+
+                                                            video_id:ret.id
+                                                        }
+                                                    });
+                                                }
+                                            });
+
+                                        }
+
+
+                                    });
+
+
+
+                                    api.hideProgress();
+
+                                    api.closeWin();
+
+
+
+
+                                }
+                            }else{
+                                alert( JSON.stringify( err ) );
+                            }
+                        });
+
+                    }
+                    break;
+            }
+
+            };
+
+
+
+
+        });
+
+
+function show(){
+    api.showProgress({
+        style: 'default',
+        animationType: 'fade',
+        title: '努力发布中.',
+        text: '先喝杯茶...',
+        modal: false
+    });
+}
+
+
+//
+//        api.openFrame({
+//            name: 'release_frm',
+//            url: 'release_frm.html',
+//            rect: {
+//                x: 0,
+//                y: headerPos.h,
+//                w: "auto",
+//                h: "auto"
+//            },
+//            pageParam: {},
+//            bounces: false
+//        });
+
+
+
+    };
+</script>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>订单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+    html,body{
+    	height:100%;
+    }
+        .ul_list > .item{
+            background-color: #fff;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction:column;
+            margin-bottom: 10px;
+        }
+        .ul_list > .item > .top,.ul_list > .item > .bottom{
+            padding: 0 10px;
+        }
+        .ul_list > .item > .bottom{
+            padding:0;
+        }
+        /*头部设置*/
+        .ul_list > .item > .top{
+            display: -webkit-flex;
+            display: flex;
+            height:40px;
+            line-height: 40px;
+        }
+        .ul_list > .item > .top > .left{
+            -webkit-flex: 1;
+            flex:1;
+        }
+        .ul_list > .item > .top > .left > span{
+            position: relative;
+            top:-1px;
+        }
+        /*中部设置*/
+        .ul_list > .item > .body > .information_list li{
+            display: -webkit-flex;
+            display: flex;
+            background-color: #eee;
+            margin-bottom: 5px;
+            padding: 10px;
+        }
+        .ul_list > .item > .body > .information_list li .left img{
+            width:70px;
+            height:70px;
+            display: block;
+        }
+        .ul_list > .item > .body > .information_list li .right{
+            display: -webkit-flex;
+            display: flex;
+            width:100%;
+        }
+        .ul_list > .item > .body > .information_list li  .describe_left{
+            padding-left: 20px;
+            -webkit-flex: 1;
+            flex:1;
+        }
+        .ul_list > .item > .body > .information_list li  .describe_left h3{
+            color: rgba(0,0,0,1);
+            font-size:0.72rem;
+            line-height: 0.92rem;
+        }
+        .ul_list > .item > .body > .information_list li  .describe_left >span{
+            font-size:0.63rem;
+            color: rgba(0,0,0,0.35);
+        }
+        .ul_list > .item > .body > .information_list li  .describe_left >.icon_f{
+
+        }
+        .ul_list > .item > .body > .information_list li  .describe_left >.icon_f span{
+            background-color: red;
+            color: rgba(255,255,255,0.95);
+            padding: 3px;
+            font-size: 0.61rem;
+        }
+        i{
+            font-style: normal;
+        }
+        .ul_list > .item > .body > .information_list li  .describe_right{
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            text-align: right;
+        }
+        .ul_list > .item > .body > .information_list li  .describe_right .number_of{
+            font-size: 0.65rem;
+            font-weight: normal;
+        }
+        .ul_list > .item > .body > .information_list li  .describe_right .line{
+            text-decoration: line-through;
+            color: rgba(0,0,0,0.56);
+            font-size:0.71rem;
+        }
+        .ul_list > .item > .body > .information_list li  .describe_right .number_of i{
+            position: relative;
+            top: -1px;
+            font-size:0.75rem;
+        }
+        /*底部设置*/
+        .ul_list > .item > .bottom{
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+        }
+        .ul_list > .item > .bottom > .b_top{
+            width:100%;
+            height:30px;
+            line-height: 30px;
+            border-bottom: 1px solid #ccc;
+            padding: 0 10px;
+            font-size:0.65rem;
+            text-align: right;
+        }
+        .ul_list > .item  .footer{
+            width:100%;
+            padding:0 10px;
+            text-align: center;
+            height:45px;
+        }
+        .ul_list > .item  .footer .btn{
+            display: inline;
+            background-color: #fff;
+            border:1px solid #ccc;
+            float: right;
+            padding: 3px;
+            margin:5px 10px 0 0;
+            border-radius: 5px;
+        }
+        .ul_list > .item  .footer .btn:first-child{
+            margin-right: 0;
+        }
+        #index{
+        	width: 100%;
+        	height: 100%;
+        	background:url('../../image/03.png') no-repeat;
+        	background-size:cover;
+        }
+    </style>
+</head>
+<body>
+<div id="index">
+<!--<section>
+    <ul class="ul_list">
+        <li class="item">
+            <div class="top">
+                <div class="left">
+                    中国商品旗舰店 <span class="iconfont-app">&#xe6ad;</span>
+                </div>
+                <div class="right">
+                    交易成功
+                </div>
+            </div>
+            <div class="body">
+                <ul class="information_list">
+                    <li>
+                        <div class="left"><img src="../../image/a1.jpg" alt=""></div>
+                        <div class="right">
+                            <div class="describe_left">
+                                <h3>夏季衣服</h3>
+                                <span>颜色分类:红色;尺码:40</span>
+                                <div class="icon_f">
+                                    <span>七天退换</span>
+                                </div>
+                            </div>
+                            <div class="describe_right">
+                                <i class="iconfont-app number">&#xe68e;39</i>
+                                <span class="iconfont-app line">&#xe68e;128</span>
+                                <span class="number_of iconfont-app">&#xe61b;<i>1</i></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><img src="../../image/a1.jpg" alt=""></div>
+                        <div class="right">
+                            <div class="describe_left">
+                                <h3>夏季衣服</h3>
+                                <span>颜色分类:红色;尺码:40</span>
+                                <div class="icon_f">
+                                    <span>七天退换</span>
+                                </div>
+                            </div>
+                            <div class="describe_right">
+                                <i class="iconfont-app number">&#xe68e;39</i>
+                                <span class="iconfont-app line">&#xe68e;128</span>
+                                <span class="number_of iconfont-app">&#xe61b;<i>1</i></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom">
+                <div class="b_top">
+                    共2件商品 <span class="iconfont-app">合计:&#xe68e;39.90(含运费&#xe68e;0.00)</span>
+                </div>
+            </div>
+            <div class="footer">
+                <span class="btn">评价</span>
+                <span class="btn">删除订单</span>
+            </div>
+        </li>
+        <li class="item">
+            <div class="top">
+                <div class="left">
+                    中国商品旗舰店 <span class="iconfont-app">&#xe6ad;</span>
+                </div>
+                <div class="right">
+                    交易成功
+                </div>
+            </div>
+            <div class="body">
+                <ul class="information_list">
+                    <li>
+                        <div class="left"><img src="../../image/a1.jpg" alt=""></div>
+                        <div class="right">
+                            <div class="describe_left">
+                                <h3>夏季衣服</h3>
+                                <span>颜色分类:红色;尺码:40</span>
+                                <div class="icon_f">
+                                    <span>七天退换</span>
+                                </div>
+                            </div>
+                            <div class="describe_right">
+                                <i class="iconfont-app number">&#xe68e;39</i>
+                                <span class="iconfont-app line">&#xe68e;128</span>
+                                <span class="number_of iconfont-app">&#xe61b;<i>1</i></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><img src="../../image/a1.jpg" alt=""></div>
+                        <div class="right">
+                            <div class="describe_left">
+                                <h3>夏季衣服</h3>
+                                <span>颜色分类:红色;尺码:40</span>
+                                <div class="icon_f">
+                                    <span>七天退换</span>
+                                </div>
+                            </div>
+                            <div class="describe_right">
+                                <i class="iconfont-app number">&#xe68e;39</i>
+                                <span class="iconfont-app line">&#xe68e;128</span>
+                                <span class="number_of iconfont-app">&#xe61b;<i>1</i></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom">
+                <div class="b_top">
+                    共2件商品 <span class="iconfont-app">合计:&#xe68e;39.90(含运费&#xe68e;0.00)</span>
+                </div>
+            </div>
+            <div class="footer">
+                <span class="btn">评价</span>
+                <span class="btn">删除订单</span>
+            </div>
+        </li>
+    </ul>
+</section>-->
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    apiready = function(){
+
+    }
+</script>
+</html>

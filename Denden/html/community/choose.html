@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body,#index{
+            width: 100%;
+            height: 100%; 
+            background-color: #f5f5f5;
+        }
+        #choose{
+            display: -webkit-flex;
+            display: flex;
+        }
+        #choose > div{
+            flex:1;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background-color: #f5f5f5;
+            border-bottom: 2px solid rgba(0,0,0,0.15);
+        }
+        #choose > div.active{
+            border-bottom: 2px solid rgba(0,0,0,0.31);
+            transition: 0.1s all;
+        }
+        #main{
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+        <div id="choose">
+            <div class="">日常</div>
+            <div>活动</div>
+            <div>关于我们</div>
+        </div>
+       
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript">
+var choose,choose_btn,choosePos,main,mainPos;
+
+var assn_id;//社团id  对应assn_?*_-->id  查询数据
+var daily_id;
+
+apiready = function() {
+    choose = $api.byId("choose");
+    choose_btn = $api.domAll(choose, "div");
+   // alert(choose_btn.length);
+   main = $api.byId("main");
+   choosePos = $api.offset(choose);
+   choose = $api.byId("choose");
+   mainPos = $api.offset(main);
+    api.setFrameGroupAttr({
+	    name: 'choose',
+	    hidden: true
+	});
+	
+	assn_id = api.pageParam.assn_id;
+	daily_id = api.pageParam.daily_id;
+	
+	openFrm_s(assn_id);
+    for (var i = 0; i < choose_btn.length; i++) {
+    	api.parseTapmode();
+    	$api.attr(choose_btn[i], "data-index", i);
+        $api.addEvt(choose_btn[i],'click',function(){
+        	$(this).siblings().removeClass("active");
+            $api.addCls(this,"active");
+            setFrameGroupIndex($api.attr(this,"data-index"));  
+        });
+    }
+
+
+
+};
+function openFrm_s(assn_id){
+	api.openFrameGroup({
+	    name: 'choose',
+        index:1,
+        rect: {
+            x: 0,
+            y: choosePos.h+260,
+            w: api.winWidth,
+            h: "auto"
+          },
+        frames:[{
+            name:"daily",
+            url:"./daily.html",
+            pageParam:{
+                'assn_id':assn_id
+            },
+            bounces:true
+        },{
+            name:"activity",
+            url:"./activity.html",
+            pageParam:{
+                'assn_id':assn_id
+            },
+            bounces:true
+        },{
+            name:"about",
+            url:"./choose_3.html",
+            pageParam:{
+                'assn_id':assn_id
+            },
+            bounces:true
+        }]
+    },function(ret,err){
+    	//coding...
+        if(ret){
+            var name = ret.name;
+            var index = ret.index;
+            switch(index){
+            	case index:
+                    $(choose_btn[index]).siblings().removeClass("active");
+            		$api.addCls(choose_btn[index],"active");
+            		setFrameGroupIndex(index);
+            		break;
+            }
+            //alert(JSON.stringify(ret));
+        }else{
+            alert(JSON.stringify(err));
+        }
+    });
+	
+};
+
+function setFrameGroupIndex(index){
+	api.setFrameGroupIndex({
+	    name: 'choose',
+	    index: index,
+	    scroll: true
+	});
+
+};
+</script>
+
+</html>

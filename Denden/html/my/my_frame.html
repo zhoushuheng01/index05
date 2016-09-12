@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+        <title>title</title>
+        <link rel="stylesheet" type="text/css" href="../css/api.css" />
+        <style>
+            html,
+            body {
+                height: 100%;
+                background-color: #f0f0f0;
+            }
+            
+            .h10 {
+                height: 10px;
+                background: #f4f5f6;
+                border-top: 1px solid #e8e8e8;
+                border-bottom: 1px solid #e8e8e8;
+            }
+            
+            .h1 {
+                height: 1px;
+                margin-left: 15px;
+                background: #f0f0f0;
+            }
+            
+            .fr {
+                float: right;
+            }
+            
+            .hint {
+                color: #666;
+                font-size: 12px;
+                margin-right: 5px;
+            }
+            
+            .firstblock,
+            .secondblock,
+            .thirdblock {
+                background-color: #fff;
+            }
+            
+            .login {
+                position: relative;
+            }
+            
+            .login .text {
+                width: 100px;
+                height: 28px;
+                position: absolute;
+                bottom: 20%;
+                left: 50%;
+                margin-left: -50px;
+                background-image: url(../image/my/lg.png);
+                background-repeat: no-repeat;
+                background-size: 100px 24px;
+                background-position: center center;
+            }
+            /*设置登录后的头像样式*/
+            
+            #user {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+            }
+            
+            #user .qqLogin {
+                position: absolute;
+                top: 50%;
+                width: 100%;
+                margin-top: -90px;
+            }
+            
+            #user .userIcon {
+                height: 150px;
+                width: 150px;
+                margin: 0 auto;
+            }
+            
+            #user .userIcon img {
+                height: 100%;
+                border-radius: 50%;
+            }
+            
+            #user .userName {
+                height: 30px;
+                width: 100%;
+                margin-top: 5px;
+                line-height: 30px;
+                font-size: 25px;
+                text-align: center;
+                color: #fff;
+            }
+            
+            .loginbg {
+                width: 100%;
+            }
+            
+            .logins {
+                width: 100%;
+                height: 35%;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                box-sizing: border-box;
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+            
+            .login_pic {
+                height: 100%;
+                width: 25%;
+                float: left;
+                background-size: 80%;
+                background-position: center top;
+                background-repeat: no-repeat;
+            }
+            
+            .logins .tel {
+                background-image: url(../image/my/tel.png);
+            }
+            
+            .logins .wx {
+                background-image: url(../image/my/wx.png);
+            }
+            
+            .logins .qq {
+                background-image: url(../image/my/qq.png);
+            }
+            
+            .logins .wb {
+                background-image: url(../image/my/wb.png);
+            }
+            
+            .my_content {
+                height: 64px;
+                display: flex;
+                display: -webkit-flex;
+                display: -webkit-box;
+                flex-flow: row;
+                -webkit-flex-flow: row;
+                -webkit-box-orient: horizontal;
+                background-color: #fff;
+            }
+            
+            .cont {
+                flex: 1;
+                -webkit-flex: 1;
+                -webkit-box-flex: 1;
+                height: 64px;
+                box-sizing: border-box;
+                padding-bottom: 10px;
+                padding-top: 42px;
+                color: #505050;
+                font-size: 10px;
+                text-align: center;
+                background-position: center 9px;
+                background-repeat: no-repeat;
+            }
+            
+            .my_content .collect {
+                border-right: 1px solid #e8e8e8;
+                background-size: 23px 22px;
+                background-image: url(../image/my/collect.png);
+            }
+            
+            .my_content .night {
+                border-right: 1px solid #e8e8e8;
+                background-size: 22px 22px;
+                background-image: url(../image/my/night.png);
+            }
+            
+            .my_content .set {
+                background-size: 23px 23px;
+                background-image: url(../image/my/set.png);
+            }
+            
+            .person_arrow {
+                position: absolute;
+                height: 20px;
+                right: 10px;
+                top: 90px;
+            }
+            
+            .item {
+                height: 50px;
+                line-height: 50px;
+                padding-left: 15px;
+                background-color: #fff;
+            }
+            
+            .item_arrow {
+                float: right;
+                width: 6px;
+                padding: 17px 15px 15px 0;
+            }
+            
+            .item-hov {
+                background-color: #E8E8E8;
+            }
+            
+            .login #userLogin {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 233px;
+                display: none;
+            }
+            
+            .login .avatar {
+                position: relative;
+                top: 65px;
+                width: 100%;
+                height: 80px;
+            }
+            
+            .login .avatar .avatar-image {
+                display: block;
+                margin: 0 auto;
+                width: 60px;
+                height: 60px;
+                border: 4px solid #fff;
+                border-radius: 34px;
+                background-clip: padding-box;
+            }
+            
+            .login .nick {
+                position: relative;
+                top: 65px;
+                width: 100%;
+                height: 18px;
+                color: #fff;
+                font-weight: bold;
+                text-align: center;
+                line-height: 18px;
+                font-size: 18px;
+            }
+            
+            .highlight {
+                opacity: 0.7;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="login">
+            <img src="../image/my/my_bg.png" class="loginbg">
+            <div id="user">
+                <div class="logins">
+                    <div class="login_pic tel open-win" win="login_mobile"></div>
+                    <div class="login_pic wx" tapmode="highlight" onclick="fnChoose()"></div>
+                    <div class="login_pic qq" tapmode="highlight" onclick="fnQQLogin();"></div>
+                    <div class="login_pic wb"></div>
+                </div>
+                <div class="text open-win" win="login_choose"></div>
+            </div>
+            <div id="userLogin">
+                <div class="avatar open-win" win="management">
+                    <img id="avatar" src="../image/default1.jpg" class="avatar-image">
+                </div>
+                <div id="nick" class="nick">秦帅哥</div>
+            </div>
+        </div>
+        <div class="my_content">
+            <div class="cont collect open-win" win="favorite">收藏</div>
+            <div class="cont night">夜间</div>
+            <div class="cont set">设置</div>
+        </div>
+        <div class="h10"></div>
+        <div class="firstblock">
+            <div class="item" tapmode="item-hov">
+                好友动态
+                <img src="../image/my/arrow.png" class="item_arrow">
+            </div>
+        </div>
+        <div class="h10"></div>
+        <div class="secondblock">
+            <div class="item" tapmode="item-hov">
+                通知
+                <img src="../image/my/arrow.png" class="item_arrow">
+            </div>
+            <div class="h1"></div>
+            <div class="item" tapmode="item-hov">
+                离线
+                <img src="../image/my/arrow.png" class="item_arrow">
+            </div>
+            <div class="h1"></div>
+            <div class="item" tapmode="item-hov">
+                活动
+                <img src="../image/my/arrow.png" class="item_arrow">
+            </div>
+            <div class="h1"></div>
+            <div class="item" tapmode="item-hov">
+                商城 <em <link style="font-size:10px; color:#999;">特卖，电影</em>
+                <img src="../image/my/arrow.png" class="item_arrow">
+            </div>
+            <div class="h1"></div>
+            <div class="item" tapmode="item-hov">
+                我要爆料
+                <img src="../image/my/arrow.png" class="item_arrow">
+            </div>
+            <div class="h1"></div>
+            <div class="item" tapmode="item-hov">
+                反馈
+                <img src="../image/my/arrow.png" class="item_arrow">
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/SHA1.js"></script>
+    <script type="text/javascript">
+        apiready = function() {
+            fnReadyOpenWin();
+            fnInit();
+        };
+
+        var qq, user, userLogin, avatar, nick;
+
+        function fnInit() {
+            user = $api.byId('user');
+            userLogin = $api.byId('userLogin');
+            avatar = $api.byId('avatar');
+            nick = $api.byId('nick');
+            qq = api.require('qq');
+        };
+
+        function fnChoose() {
+            var buttons = ['打开相机', '打开相册'];
+            api.actionSheet({
+                title: '请选择',
+                cancelTitle: '取消',
+                buttons: buttons
+            }, function(ret, err) {
+                if (buttons.length + 1 == ret.buttonIndex) {
+                    return;
+                }
+
+                var sourceTypes = ['camera', 'album'];
+
+                api.getPicture({
+                    sourceType: sourceTypes[ret.buttonIndex - 1],
+                    quality: 20,
+                    targetWidth: 100,
+                    targetHeight: 100,
+                    saveToPhotoAlbum: false
+                }, function(ret, err) {
+                    alert(JSON.stringify(ret));
+                });
+            });
+        };
+
+        function fnQQLogin() {
+            api.showProgress({
+                animationType: 'fade',
+                title: '正在前往QQ...',
+                modal: true
+            });
+            qq.login(function(ret, err) {
+                api.hideProgress();
+
+                if (false == ret.status) {
+                    return;
+                }
+
+                api.showProgress({
+                    animationType: 'fade',
+                    title: '正在为您登录...',
+                    modal: true
+                });
+
+                fnCheckUser(ret.openId);
+            });
+        };
+
+        var now = Date.now();
+        var appKey = SHA1("A6918573369588" + "UZ" + "20C93719-0DE5-8C9B-2F05-36D9BB835C02" + "UZ" + now) + "." + now;
+
+        function fnCheckUser(qqId) {
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user?filter={"where":{"qqId":"' + qqId + '"},"skip":0,"limit":1}',
+                method: 'get',
+                cache: true,
+                timeout: 5,
+                headers: {
+                    "X-APICloud-AppId": "A6918573369588",
+                    "X-APICloud-AppKey": appKey
+                }
+            }, function(ret, err) {
+                // alert(JSON.stringify(ret) + ',' + JSON.stringify(err));
+
+                if (!ret) {
+                    return;
+                }
+
+                if (0 < ret.length) {
+                    fnLogin(ret[0].username, qqId);
+                } else {
+                    fnQQRegister(qqId);
+                }
+            });
+        };
+
+        function fnGetQQUser(id, userId) {
+            fnUserControl(true);
+
+            qq.getUserInfo(function(ret, err) {
+                if (ret.status) {
+                    fnUploadQQUser(id, userId, ret.info.nickname, ret.info.figureurl_qq_2);
+                }
+            });
+        };
+
+        function fnUploadQQUser(accessToken, id, nick, avatar) {
+            api.imageCache({
+                url: avatar
+            }, function(ret, err) {
+                api.ajax({
+                    url: 'https://d.apicloud.com/mcm/api/file',
+                    method: 'post',
+                    headers: {
+                        "X-APICloud-AppId": "A6918573369588",
+                        "X-APICloud-AppKey": appKey
+                    },
+                    data: {
+                        values: {
+                            filename: 'user_icon.png'
+                        },
+                        files: {
+                            file: ret.url
+                        }
+                    }
+                }, function(ret, err) {
+                    // alert('file====' + JSON.stringify(ret) + ',' + JSON.stringify(err));
+
+                    fnUpdateUser(accessToken, id, nick, ret.id, ret.name, ret.url);
+                });
+            });
+        };
+
+        function fnUpdateUser(accessToken, id, nick, avatarId, avatarName, avatarUrl) {
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user/' + id,
+                method: 'post',
+                headers: {
+                    "X-APICloud-AppId": "A6918573369588",
+                    "X-APICloud-AppKey": appKey,
+                    'authorization': accessToken
+                },
+                data: {
+                    values: {
+                        nick: nick,
+                        avatar: {
+                            id: avatarId,
+                            name: avatarName,
+                            url: avatarUrl
+                        },
+                        _method:'put'
+                    }
+                }
+            }, function(ret, err) {
+                api.hideProgress();
+                window.nick.innerHTML = nick;
+
+                $api.setStorage('nick', nick);
+
+                api.imageCache({
+                    url: avatarUrl
+                }, function(ret, err) {
+                    avatar.src = ret.url;
+                    $api.setStorage('avatar', ret.url);
+                });
+            });
+        };
+
+        function fnUserControl(flag) {
+            if (flag) {
+                userLogin.style.display = "block";
+                user.style.display = 'none';
+            } else {
+                userLogin.style.display = "none";
+                user.style.display = 'block';
+            }
+        };
+
+        function fnQQRegister(qqId) {
+            var username = 'username_' + new Date().getTime();
+            var body = {
+                username: username,
+                password: qqId,
+                qqId: qqId
+            };
+
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user',
+                method: 'post',
+                cache: false,
+                timeout: 5,
+                headers: {
+                    "X-APICloud-AppId": "A6918573369588",
+                    "X-APICloud-AppKey": appKey,
+                    "Content-Type": "application/json"
+                },
+                data: {
+                    body: JSON.stringify(body)
+                }
+            }, function(ret, err) {
+                // alert('register====' + JSON.stringify(ret) + ',' + JSON.stringify(err));
+                fnLogin(username, qqId);
+            });
+        };
+
+        function fnLogin(username, password) {
+            var body = {
+                username: username,
+                password: password
+            };
+
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/user/login',
+                method: 'post',
+                cache: false,
+                timeout: 5,
+                headers: {
+                    "X-APICloud-AppId": "A6918573369588",
+                    "X-APICloud-AppKey": appKey,
+                    "Content-Type": "application/json"
+                },
+                data: {
+                    body: JSON.stringify(body)
+                }
+            }, function(ret, err) {
+                // alert(JSON.stringify(ret) + ',' + JSON.stringify(err));
+
+                if (ret && ret.id) {
+                    $api.setStorage('loginInfo', ret);
+
+                    fnGetQQUser(ret.id, ret.userId);
+                }
+            });
+        };
+    </script>
+
+</html>

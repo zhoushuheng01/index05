@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	html,body{
+            height:100%;
+            width:100%;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
+    	}
+        #ul{
+            padding:10px;
+            background-color: #fff;
+        }
+        #ul li:not(:last-child){
+            display: -webkit-flex;
+            display: flex;
+            height:45px;
+            line-height: 45px;
+
+            border-bottom: 1px solid rgba(0,0,0,0.23);
+        }
+        #ul li:not(:last-child) .left{
+            width:80px;
+            font-weight: normal;
+        }
+        #ul li:not(:last-child) .right{
+            -webkit-flex: 1;
+            flex:1;
+        }
+        #ul li:not(:last-child) .right input[type = "text"]{
+            width:100%;
+            outline: none;
+        }
+        #ul >  li:nth-last-of-type(2) {
+            min-height: 90px;
+        }
+        #ul >  li:nth-last-of-type(2) .right{
+
+        }
+        #ul >  li:nth-last-of-type(2) .right textarea{
+            outline: none;
+            resize: none;
+            width:100%;
+            line-height: 15px;
+            letter-spacing: 1px;
+            padding: 10px 10px 0 0;
+        }
+        #ul li:last-child h3{
+            margin:5px 0;
+            height:35px;
+            line-height: 35px;
+        }
+        #ul li:last-child ul{
+            display: -webkit-flex;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+
+        }
+
+        #ul li:last-child ul li{
+            width:31.8%;
+            height:100px;
+            margin-right: 5px;
+            padding: 0;
+            float: left;
+            margin-bottom: 5px;
+        }
+        #ul li:last-child ul li img{
+            width:100%;
+            height:100%;
+            display: block;
+        }
+
+
+        #ul li:last-child ul li:last-child{
+            text-align: center;
+            font-size:3rem;
+            line-height: 100px;
+            border:1px solid rgba(0,0,0,0.35);
+
+        }
+        #ul li:last-child ul li:last-child span{
+            font-weight: 100;
+            text-align: center;
+        }
+        #ul li:last-child{
+
+        }
+        #ul li:not(:last-child){
+
+        }
+        footer{
+            position: absolute;
+            left:0;
+            right:0;
+            bottom: 2rem;
+            text-align: center;
+        }
+        footer button{
+            width:97%;
+            height:40px;
+            line-height: 40px;
+            text-align: center;
+            outline: none;
+            border-radius: 3px;
+            letter-spacing: 5px;
+            font-size: 1rem;
+            background-color: #00AAEE;
+        }
+    </style>
+    <script type="text/javascript" src="../../script/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+        <div>
+            <ul id="ul">
+                <li>
+                    <div class="left">
+                        社团名称
+                    </div>
+                    <div class="right">
+                        <input type="text" id="Community_name" placeholder="请输入社团名称  (最多15个字符)" maxlength="15">
+                    </div>
+                </li>
+                <li>
+                    <div class="left">
+                        社团类型
+                    </div>
+                    <div class="right">
+                        <input type="text" id="Type_Associations" :Type_Associations="Type_Associations" placeholder="请添加社团分类">
+                    </div>
+                </li>
+                <li>
+                    <div class="left">
+                        社团标签
+                    </div>
+                    <div class="right">
+                        <input type="text" id="Tags_Associations" placeholder="请添加社团标签">
+                    </div>
+                </li>
+                <li>
+                    <div class="left">
+                        社团口号
+                    </div>
+                    <div class="right">
+                        <input type="text" id="Associations_slogan" placeholder="请输入社团口号  (最多30个字符)" maxlength="30">
+                    </div>
+                </li>
+                <li>
+                    <div class="left">
+                        社团介绍
+                    </div>
+                    <div class="right">
+                       <textarea id="Societies_Introduction" rows="6"></textarea>
+                    </div>
+                </li>
+                <li>
+                   <h3> 社团Logo</h3>
+                    <div class="right">
+                        <ul id="ul_img">
+
+                            <li class="iconfont-app" id="pic">&#xe666;</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <footer>
+            <button id="btn">完成</button>
+        </footer>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+
+    apiready = function () {
+        var Community_name = $api.byId("Community_name");
+        var Type_Associations = $api.byId("Type_Associations");
+        var Tags_Associations = $api.byId("Tags_Associations");
+        var Associations_slogan = $api.byId("Associations_slogan");
+
+
+        /*
+          验证
+         */
+
+        var init = new Init(1);
+
+        var userId = $api.getStorage("userid");
+        var assn_base_Url = '/assn_base';
+
+        var image = [];
+        $api.addEvt($api.byId("pic"),"click",function(){
+
+            api.getPicture({
+                sourceType: 'album',
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                destinationType: 'url',
+                allowEdit: true,
+                quality: 70,
+                targetWidth: 100,
+                targetHeight: 100,
+                saveToPhotoAlbum: false
+            }, function(ret, err) {
+                if (ret.data) {
+                   image.push({
+                       url:ret.data
+                   });
+                    var html = '';
+                        html += '<li>';
+                        html +=   '<img src="'+ ret.data +'" alt="">';
+                        html += '</li>';
+
+
+
+                    $api.prepend($api.byId("ul_img"),html);
+                    var All = $("#ul_img").find("li:not(:last-child)");
+
+                    if( All.size() > 0 ){
+                        $api.remove($api.byId("pic"));
+                    }
+                } else {
+                    //alert(JSON.stringify(err));
+                }
+            });
+
+        });
+
+        var model = api.require('model');
+
+        $api.addEvt($api.byId("btn"),"click",function(){
+            var that = this;
+
+            this.disabled = false;
+            if( $api.val(Community_name).length !=0 ){
+
+                model.uploadFile({
+                    report: false,
+                    data: {
+                        file: {
+                            name: 'pic',
+                            url: image[0].url
+                        }
+                    }
+                }, function(ret, err){
+                    if( ret ){
+
+                        alert( JSON.stringify( ret ) );
+
+                        var time = new Date().getTime();
+                        var data = {
+                            "assn_id":""+ time +"",
+                            "assn_img":{
+                                "id":ret.id,
+                                "name":ret.id,
+                                "url":ret.url
+
+                            },
+                            "organ_type":""+ $api.val(Type_Associations) +"",
+                            "name":"" + $api.val(Community_name) + "",
+                            "introduce":"" + $api.val(Type_Associations) + "",
+                            "creater_user":"" + userId + "",
+                            "slogan":"" + $api.val(Associations_slogan) +  ""
+                        };
+
+                        init.ajax(assn_base_Url,"POST",JSON.stringify(data),function( ret,err ){
+
+                            if( ret ){
+                              //  alert(JSON.stringify(ret))
+                                api.toast({
+                                    msg: '创建成功',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                                that.disabled = true;
+                                setTimeout(function(){
+                                    api.closeWin();
+                                },1500)
+                            }
+                        });
+
+                    }
+                });
+
+
+
+
+
+////////////////////////////////////////
+            }
+        });
+
+
+
+    };
+
+</script>
+</html>

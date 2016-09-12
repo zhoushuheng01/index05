@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+		<style type="text/css">
+			html, body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			body {
+				display: -webkit-flex;
+				display: flex;
+			}
+			.aui-bar-nav {
+				background-color: #00BCD4;
+			}
+			#index {
+				width: 100%;
+				display: -webkit-flex;
+				display: flex;
+				flex-direction: column;
+			}
+			#main {
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			#header {
+				width: 100%;
+			}
+			.aui-bar-tab-label {
+				font-size: 13px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="index">
+			<header class="aui-bar aui-bar-nav" id="header">
+				<a class="aui-pull-left aui-btn" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span>返回 </a>
+				<div class="aui-title">
+					社团
+				</div>
+				<a class="aui-pull-right" onclick="api.openWin({
+				name: 'Search_Win',
+				url: 'Search_Win.html'
+				})"> 搜索 </a>
+			</header>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/SHA1.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		var header, headerPos, main, mainPos;
+		var db;
+		apiready = function() {
+			header = $api.byId('header');
+			main = $api.byId('main');
+			/*
+			* 创建  数据库
+			* 社团  --》 数据表
+			*/
+			//community   社团数据库
+			db = api.require('db');
+			db.openDatabase({
+				name : 'community',
+				path : "fs://res/database/community.db"
+			}, function(ret, err) {
+				if (ret.status) {
+					api.toast({
+						msg : '本地sql数据库打开成功',
+						duration : 2000,
+						location : 'bottom'
+					});
+					
+	var sql = "CREATE TABLE community (id int(5) NOT NULL auto_increment,comment_id varchar(20), comment_msg varchar(50),support_flag int(5),comment_level INT(5),ment_type varchar(10),assn_id varchar(20),target_id varchar(20),activity_id varchar(20),daily_id varchar(20),community_join varchar(10),parent_id varchar(20),comment_usr varchar(20),createdAt varchar(20) ,updatedAt varchar(20) PRIMARY KEY  ('id'))";
+					
+					
+					db.executeSql({
+					    name: 'community',
+					    sql: sql
+					}, function(ret, err) {
+					    if (ret.status) {
+					        alert(JSON.stringify(ret)+"成功");
+					    } else {
+					        alert(JSON.stringify(err)+"错误");
+					    }
+					});
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+			var systemType = api.systemType;
+			var systemVersion = parseFloat(api.systemVersion);
+			if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+				if (systemType == "android") {
+					$api.fixStatusBar(header);
+				}
+			} else {
+				$api.fixIos7Bar(header);
+			}
+			headerPos = $api.offset(header);
+			mainPos = $api.offset(main);
+			openFrm("community_Frm");
+		};
+		function openFrm(name) {
+			api.openFrame({
+				name : name,
+				url : name + '.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					y : headerPos.h,
+					w : api.winWidth,
+					h : mainPos.h
+				}
+			});
+		};
+
+	</script>
+</html>

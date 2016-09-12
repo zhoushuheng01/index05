@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%; 
+            background-color: #f5f5f5;
+        }
+        dt{
+            padding-left: 10px;
+            margin:5px 0;
+        }
+        dt h4{
+            text-indent: 7px;
+            height: 30px;
+            line-height: 30px;
+            border-left: 3px solid rgba(0,0,0,0.65);
+        }
+        dd{
+            padding:10px 7px 10px 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+      <dl id="content">
+          <script id="assn_base_list" type="text/x-dot-template">
+                  {{ if(it){ }}
+                        {{ for(var i in it){ }}
+                          <dt><h4>社团口号</h4></dt>
+                          <dd>{{= it[i].slogan}}</dd>
+                          <dt><h4>社团类型</h4></dt>
+                          <dd>{{= it[i].organ_type}}</dd>
+                          <dt><h4>组织结构</h4></dt>
+                          <dd>暂无组织结构</dd>
+                          <dt><h4>社团简介</h4></dt>
+                          <dd>{{= it[i].introduce}}</dd>
+
+                        {{ } }}
+
+                  {{ } }}
+            </script>
+      </dl>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var header, headerPos,main,mainPos;
+
+apiready = function() {
+    header = $api.byId('header');
+    main = $api.byId('main');
+    headerPos = $api.offset(header);
+    var assn_id = $api.getStorage("assn_id");//社团id
+
+    var init = new Init(1);
+    /*
+     assn_base  对应数据库的表名
+     关于社团
+     */
+    var assn_base_Url = '/assn_base?filter=';
+    var assn_base_UrlParam = {
+        'fields':{
+            'id':0,
+            'createdAt':0,
+            'updatedAt':0
+        },
+        'where':{
+            "assn_id":assn_id,
+        },
+        'skip':init.skip,
+        'limit':init.limit,
+        'include':{
+        }
+    };
+    init.ajax(assn_base_Url+JSON.stringify(assn_base_UrlParam),'get',{},function(ret,err){
+      if(ret){
+        //api.alert({ msg: JSON.stringify(ret) });
+        var evalText = doT.template($("#assn_base_list").text());
+        $("#content").html(evalText(ret));
+      }else{
+        api.alert({ msg: 'about-->100'+JSON.stringify(err) });
+      }
+    });
+};
+
+</script>
+
+</html>

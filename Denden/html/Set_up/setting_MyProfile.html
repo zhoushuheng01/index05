@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的资料</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        .data_list .item{
+            display: -webkit-flex;
+            display: flex;
+            height:30px;
+            line-height: 30px;
+        }
+        .save{
+            border:1px solid rgba(0,0,0,0.26);
+            background-color: #00AAEE;
+            color: rgba(255,255,255,0.93);
+            margin:3rem 10px 0;
+            padding:5px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <!--<ul class="data_list">-->
+        <!--<li class="item">-->
+            <!--<div class="left">姓名</div>-->
+            <!--<div class="right">-->
+                <!--<input type="text" placeholder="姓名">-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+    <ul class="aui-list aui-form-list">
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    昵称
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="昵称">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    旧密码
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="password" placeholder="旧密码">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    新密码
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="password" placeholder="新密码">
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="save">
+        确认修改
+    </div>
+</section>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    apiready = function(){
+
+    }
+</script>
+</html>

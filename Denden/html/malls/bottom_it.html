@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/icon.css"/>
+		<style type="text/css">
+			.Shopping_ul{
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				z-index: 99;
+				background: #fff;
+				border-top: 1px solid #FEB6B6;
+				
+			}
+			.Shopping_list{
+				list-style: none;
+				display: flex;
+				height:50px;
+				line-height:50px;
+				display: -webkit-flex;
+			}
+			.Shopping_list li:nth-child(1){
+				flex: 1;
+			}
+			.Shopping_list li:nth-child(1) span{
+				margin-left: 0.7rem;
+				font-size: 25px;
+				color: #9A9A9A;
+			}
+			 .Shopping_list li:nth-child(2){
+				flex: 2;
+				text-align: center;
+				color: #fff;
+				background-color: #f39800;
+			}
+			.Shopping_list > li:last-child{
+				flex: 2;
+				text-align: center;
+				color: #fff;
+				background: red;
+			}
+			.Shopping_list > li:nth-child(2) > ul{
+				height: 40px;
+				line-height: 40px;
+				margin-top: 5px;
+				width: 50%;
+				display: flex;
+				text-align: center;
+				border-radius: 8px;
+				border: 1px solid #ccc;
+			}
+			.Shopping_list > li:nth-child(2) > ul li:nth-child(1),.Shopping_list > li:nth-child(2) > ul li:nth-child(3){
+				flex: 2;
+			}
+			.Shopping_list > li:nth-child(2) > ul li:nth-child(2){
+				flex: 3;
+				border-left: 2px solid #ccc;
+				border-right: 2px solid #ccc;
+			}
+			#warp header{
+				position: relative;
+				overflow: hidden;
+			}
+			#warp header ul{
+				display: flex;
+				width: 500%;
+				height: 340px;
+			}
+			#warp header ul li{
+				flex: 1;
+				height: 340px;
+				width: 100%;
+				
+			}
+			#warp header ul li img{
+				height: 340px;
+				width: 100%;
+			}
+			#warp header ol{
+				position: absolute;
+				bottom: 3px;
+				left: 50%;
+				margin-left: -3%;
+				
+			}
+			#warp header ol li.active{
+				background: #B2B2B2;
+			}
+			#warp header ol li{
+				display: inline-block;
+				margin: 0 -1px;
+				width: 9px;
+				height: 9px;
+				border-radius: 50%;
+				border: 1px solid #adadad;
+			}
+			#warp .radius{
+				position: absolute;
+				bottom: 0.6rem;
+				right: 0.7rem;
+				text-align: center;
+			}
+			#warp .radius span:nth-child(1){
+				font-size: 20px;
+			}
+			#warp .radius span{
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 50%;
+				color: #FC6350;
+				background: #fff;
+			}
+			#body{
+				
+			}
+			#body .body_title{
+				padding: 5px 10px;
+			}
+			#body .body_title h4{
+				line-height: 0.9rem;;
+			}
+			#body .body_title h4 span{
+				margin: 0 5px;
+				border: 1px solid #FF3C25;
+				color: #FF3C25;
+				padding: 0.06rem;
+				font-size: 0.5rem;
+			}
+			#body .body_footer{
+				display: flex;
+				padding-bottom: 10px;
+				display: -webkit-flex;
+			}
+			#body .body_footer div.body_footer_l{
+				flex: 3;
+			}
+			#body .body_footer div.body_footer_l div{
+				display: inline-block;
+				padding-left: 10px;
+			}
+			#body .body_footer div.body_footer_l div:nth-child(1){
+				color: #FF3C25;
+				font-weight: 700;
+			}
+			#body .body_footer div.body_footer_l div:nth-child(1) span{
+				font-weight: 200;
+			}
+			#body .body_footer div.body_footer_l div:nth-child(2){
+				font-size: 0.6rem;
+				margin-right: 3px;
+			}
+			#body .body_footer div.body_footer_l div:nth-child(2) sup{
+				font-size: 13px;
+				position: relative;
+				top: -4px;
+			}
+			#body .body_footer div.body_footer_l div:nth-child(2) i{
+				
+			}
+			#body .body_footer div.body_footer_l div:nth-child(2){
+				color: #a3a3a3;
+			}
+			
+			
+			#body .body_footer div.body_footer_l >span{
+				background: #F39800;
+				padding: 3px;
+				color: rgba(255,255,255,0.7);
+				border-radius: 5px;
+			}
+			#body .body_footer div.body_footer_r{
+				flex: 1;
+				text-align: right;
+			}
+			#body .body_footer div.body_footer_r span{
+				border: 1px solid #adadad;
+				padding: 7px;
+				font-size: 0.6rem;
+				margin-right: 10px;
+			}
+			#body .ul_list_d{
+				border-top: 1px solid #ccc;
+				display: flex;
+				flex-direction: column;
+			}
+			#body .ul_list_d li{
+				padding: 10px 0;
+				padding-left: 10px;
+				flex: 1;
+				display: flex;
+				vertical-align: middle;
+			}
+			#body .ul_list_d li span{
+				color: #7B7B7B;
+				font-weight: 700;
+				font-size: 0.5rem;
+				line-height: 0.9rem;
+			}
+			#body .ul_list_d li > div{
+				font-size: 0.6rem;
+				flex: 2;
+				color: #000;
+				display: flex;
+				flex-direction: row;
+				margin-left: 20px;
+				
+				padding-bottom: 7px;
+				border-bottom: 1px solid #A3A3A3;
+			}
+			#body .ul_list_d li > div >div{
+				display: inline-block;
+			}
+			#body .ul_list_d li > div >div:first-child{
+				flex: 1;
+			}
+			#body .ul_list_d li > div >div:last-child{
+				margin-right: 0.7rem;
+			}
+			#body .ul_list_d li.fw{
+				
+			}
+			#body .ul_list_d li.fw div{
+				word-break: break-all;
+				word-wrap: break-word;
+			}
+			#body .ul_list_d li.fw div span{
+				vertical-align: middle;
+				color: rgba(0,0,0,0.7);
+				margin:0 9px;
+			}
+			#body .ul_list_d li.fw span i{
+				color: #F5AA2D;
+			}
+			#body .pinJa{
+				margin: 10px 0;
+				padding: 10px;
+			}
+			#body .pinJa i{
+				font-style: normal;
+			}
+			#body .pinJa .pinJa_title{
+				display: flex;
+			}
+			#body .pinJa .pinJa_title h4{
+				flex: 2;
+				margin-top: 4px;
+				color: #000000;
+				font-size: 0.7rem;
+			}
+			#body .pinJa .pinJa_title h4 span{
+				font-weight: 100;
+				color: #adadad;
+			}
+			#body .pinJa .pinJa_title .title_r{
+				font-size: 0.7rem;
+				color: #666;
+				vertical-align: middle;
+			}
+			#body .pinJa .pinJa_title .title_r i{
+				color: #E13228;
+				margin-right: 1px;
+			}
+			#body .pinJa .pinJa_title .title_r span{
+				margin-left: 10px;
+			}
+			#body .pinJa .pinJa_ul{
+				height: 100px;
+				position: relative;
+			}
+			#body .pinJa .pinJa_ul li{
+				position:absolute;
+				height: 100px;
+			}
+			#body .pinJa .pinJa_ul li div.title{
+				color: #B4B4B4;
+				margin-bottom: 3px;
+			}
+			#body .pinJa .pinJa_ul li div.title >span{
+				font-size: 0.7rem;
+			}
+			#body .pinJa .pinJa_ul li div.title i{
+				color: #FF9800;
+				font-size: 0.7rem;
+				margin: 0 0 0 -3px;
+			}
+			#body .pinJa .pinJa_ul li p{
+				color: #B4B4B4;
+			}
+			#body .pinJa .pinJa_content{
+				margin-top: 15px;
+			}
+			#body .pinJa .pinJa_content .pinJa_content_f{
+				display: flex;
+				display: -webkit-flex;
+				text-align: center;
+			}
+			#body .pinJa .pinJa_content .pinJa_content_f span{
+				border: 1px solid #ccc;
+				flex: 1;
+				padding: 5px 0;
+				
+			}
+			#body .pinJa .pinJa_content .pinJa_content_f span i{
+				color: #FFA827;
+				font-size: 0.7rem;
+				margin-right: 5px;
+			}
+			#body .pinJa .pinJa_content .pinJa_content_f span:first-child{
+				margin-right: 10px;
+			}
+			#body .pinJa .pinJa_content .pinJa_content_f{
+				
+			}
+			#body .pinJa .pinJa_content .pinJa_content_t{
+				display: flex;
+				margin-bottom: 10px;
+			}
+			#body .pinJa .pinJa_content .pinJa_content_t div:first-child{
+				text-align: left;
+			}
+			#body .pinJa .pinJa_content .pinJa_content_t div{
+				flex: 1;
+				font-size: 17px;
+				text-align: center;
+				color: #878787;
+				
+			}
+			#body .pinJa .pinJa_content .pinJa_content_t div span{
+				color: #FF6262;
+				margin: 0 5px 0 7px;
+			}
+			#body .pinJa .pinJa_content .pinJa_content_t div i{
+				color: #FF6262;
+				font-weight: 300;
+				font-size: 0.7rem;
+			}
+			.color_f{
+				background: #fff;
+			}
+			
+			
+			
+			#side{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				z-index: 1000;
+				top: 100%;
+			}
+			#side .content{
+				position: relative;
+				height: 100%;
+			}
+			#side .title_rgba{
+				height: 150px;
+				background-color: rgba(0,0,0,0.3);
+			}
+			#side .content .btn{
+				position: absolute;
+				top: 130px;
+				right: 1rem;
+				border-radius: 50%;
+				background: #fff;
+			}
+			#side .content .btn span{
+				display: inline-block;
+				background: #ccc;
+				padding: 3px;
+				border-radius: 50%;
+			}
+			#side .content_body{
+				height: 100%;
+				margin-bottom: 500px;
+				background-color: #fff;
+			}
+			#side .content_body header{
+				display: flex;
+				padding-top: 20px;
+			}
+			#side .content_body header div:nth-child(1){
+				flex: 1;
+			}
+			#side .content_body header div:nth-child(2){
+				flex:3;
+			}
+			#side .content_body header div:first-child{
+				padding: 0 10px;
+				text-align: center;
+			}
+			#side .content_body header div:first-child img{
+				display: block;
+				width: 100px;
+				height: 100px;
+				border: 1px solid rgba(235,159,29,0.7);
+			}
+			#side .content_body section{
+				padding-left: 10px;
+				padding-bottom: 30px;
+			}
+			#side .content_body section:nth-child(2){
+				
+			}
+			#side .content_body section .btn_S{
+				padding-left: 5px;
+			}
+			#side .content_body section .btn_S button{
+				padding: 5px 25px 5px 25px;
+				font-size: 16px;
+				border: none;
+				margin-top: 10px;
+				background: #EEEEEE;
+			}
+			#side .content_body section .btn_S button.active{
+				background-color: #F39800;
+				color: rgba(255,255,255,0.8);
+			}
+			#side .content_body{
+				
+			}
+			#side .content_body .top section:nth-child(4){
+				
+			}
+			#side footer{
+				
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				background: #fff;
+			}
+			.Shopping_ul_go{
+				width: 100%;
+				
+			}
+			
+			.Shopping_list_go li {
+				display: flex;
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				padding-left: 10px;
+				border-top: 1px solid #ccc;
+			}
+			.Shopping_list_go li div{
+				display: inline-block;
+			}
+			
+			.Shopping_list_go li div:first-child{
+				flex: 3;
+			}
+			.Shopping_list_go li div:first-child ul{
+				
+			}
+			.Shopping_list_go li:last-child div:first-child span{
+				color: #FF3C25;
+				font-size: 22px;
+			}
+			.Shopping_list_go li div:last-child{
+				flex: 1;
+			}
+			.Shopping_list_go li:last-child div:last-child{
+				flex: 1;
+				padding: 0 25px;
+				text-align: center;
+				color: rgba(255,255,255,0.9);
+				background: #FF3C25;
+			}
+			.Shopping_list_go li:first-child div:last-child ul{
+				display: flex;
+				height: 40px;
+				line-height: 40px;
+				border: 1px solid #adadad;
+				margin-top: 5px;
+				margin-right: 10px;
+				border-radius: 5px;
+			}
+			.Shopping_list_go li:first-child div:last-child ul li{
+				height: 40px;
+				line-height: 40px;
+				
+				
+			}
+			.Shopping_list_go li:first-child div:last-child ul li:nth-child(1){
+				flex: 2;
+			}
+			.Shopping_list_go li:first-child div:last-child ul li:nth-child(2){
+				flex: 2;
+				border-left: 1px solid #adadad;
+				border-right: 1px solid #adadad;
+			}
+			.Shopping_list_go li:first-child div:last-child ul li:nth-child(3){
+				flex: 2;
+			}
+			
+			#body .ul_list_d .title_r_it{
+				color: #4DB6E7;
+				font-size: 14px;
+			}
+			#body .ul_list_d .title_l_lex h5{
+				color: #989898;
+				vertical-align: middle;
+			}
+			#body .ul_list_d .title_l_lex h5 i{
+				background: #97D054;
+				font-size: 13px;
+				padding: 2px 5px;
+				border-radius: 3px;
+				font-style: normal;
+				color: rgba(255,255,255,0.7);
+			}
+			#body .ul_list_d .title_l_lex h5 span{
+				color: #989898 !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="list"></div>	
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/zepto.js"></script>
+    <script type="text/javascript" src="../../script/swipe.js"></script>
+    <script type="text/javascript" src="../../script/aui-slide.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/SHA1.js"></script>
+    <script type="text/javascript" src="../../script/doT.min.js"></script>
+    <script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var aLi = $(".Shopping_list ul").find("li");
+			var oSide = $("#side");
+			var oAli = oSide.find(".Shopping_list_go").find(".right li");
+			var oLspan = oSide.find(".Shopping_list_go").find(".left_now span");
+			function nowJ(oC){
+				var nOW = 0;
+				oC.eq(0).on("click",function(){
+					
+					if ( nOW === 0 ) {
+						nOW = 0;
+					} else{
+						nOW--;
+					}
+					oC.eq(1).text(nOW);
+					if(oLspan){
+						oLspan.text(nOW)
+					}
+				})
+				oC.eq(2).on("click",function(){
+					
+					nOW++;
+					oC.eq(1).text(nOW);
+					if(oLspan){
+						oLspan.text(nOW)
+					}
+				});
+				
+			}
+			nowJ(aLi);
+			
+			$(".Shopping_list > li:last-child").on("click",function(){
+				alert(aLi.eq(1).text())
+			});
+			
+			
+			nowJ(oAli)
+			oSide.find(".btn").on("click",function(){
+				oSide.css({
+					top:"100%"
+				});
+			});
+			
+			
+			var choose = $("#body .ul_list_d").eq(0).find(".title_l").eq(1);
+			choose.on("click",function(){
+				oSide.css({
+					top:0
+				})
+			})
+		}
+
+		//
+		var good_price =0;
+		apiready = function(){
+		    fnInit();
+		    api.parseTapmode();
+		}
+
+		var good_name ,good_path,good_type;
+		function fnInit(){
+			var init = new Init(1);
+			// alert('api.pageParam.id:'+api.pageParam.good_id);
+			var search_str = {
+		        'where':{
+		            "id":api.pageParam.good_id
+		        },
+		        "include":{
+	            	'senderPointer':''
+	        	}
+			}
+			var body_html;
+
+			init.ajax('/mall_goods?filter='+ JSON.stringify(search_str),'get',{},function(ret,err){
+              
+               if (ret) {
+					good_price = ret[0].price;
+					good_name = ret[0].NAME,
+					good_path = ret[0].img_path.url;
+					good_type = ret[0].GOODS_TYPE;
+					var head_html = '<ul>'
+								+'<li><img src='+ret[0].img_path.url +' alt="" /></li>'
+								+'<li><img src='+ret[0].img_path1.url+' alt="" /></li>'
+								+'<li><img src='+ret[0].img_path2.url+' alt="" /></li>'
+								+'<li><img src='+ret[0].img_path3.url+' alt="" /></li>'
+					        +'</ul>'
+								+'<ol>'
+								+'	<li class="active"></li>'
+								+'	<li></li>'
+								+'	<li></li>'
+								+'</ol>'
+								+'<div class="radius">'
+								+'	<span class="iconfont-app">&#xe68b;</span>'
+								+'	<span class="iconfont-app">&#xe639;</span>'
+								+'</div>';
+				    var body_title ='<div class="body_title color_f">'
+								+'<h4><span>嗨购</span>'+ret[0].NAME+'</h4>'				
+								+'<span style="color: #adadad; font-size: 15px;"></span>'
+								+'</div>'
+								+'<div class="body_footer color_f">'
+								+'	<div class="body_footer_l">'
+								+'		<div><span class="iconfont-app" >&#xe68e;</span>'+ret[0].price+'</div>'
+								+'		<div><sup>参考价:</sup><i  class="iconfont-app">&#xe68e;</i>'+ret[0].reference_price+'</div>'
+								+'		<span class="iconfont-app"><i class="iconfont-app">&#xe691;</i>&#xe68e;4.0</span>'
+								+'	</div>'
+								+'</div>';
+
+				    var body_srv ='<ul class="ul_list_d color_f">';
+				    
+					if (ret[0].promotion=='1'){
+					  	 body_srv += '<li>'
+								+'	<span>促销</span>'
+								+'	<div>'
+								+'		<div class="title_l">'
+								+'			<div class="title_l_lex">'
+								+'				<h5><i>'+ret[0].promotion_title+'</i> <span>'+ret[0].promotion_deatil+'</span></h5>'
+								+'			</div>'
+								+'		</div>'
+								+'		<div class="title_r_it title_r">立即参加</div>'
+								+'	</div>'
+								+'</li>';
+					}
+					
+					body_srv += '<li class="fw">'
+							+'<span>服务</span>'
+							+'<div>'
+							+'	<div class="title_l">'
+							+'		<span><i class="iconfont-app">&#xe692;</i>假一赔三</span>'
+							+'		<span><i class="iconfont-app">&#xe694;</i>按时发货</span>'
+							+'		<span><i class="iconfont-app">&#xe68a;</i>正品保证</span>'
+							+'		<span><i class="iconfont-app">&#xe68d;</i>货到付款</span>'
+							+'		<span><i class="iconfont-app">&#xe637;</i>支持七天无理由退货</span>'
+							+'	</div>'
+							+'</div>'
+							+'</li>'
+							+'</ul>';
+					body_shop = '<div class="pinJa color_f">'
+							+'<div class="pinJa_title">'
+							+'	<h4>'+ret[0].sender.mec_name+'</h4>'
+							+'	<div class="title_r">搜索<span class=" aui-iconfont aui-icon-right"></span></div>'
+							+'</div>'
+							+'</div>'
+							+'<div class="pinJa color_f">'
+							+'	<div class="pinJa_title">'
+							+'		<h4>'+ret[0].sender.mec_name+'</h4>'
+									
+							+'	</div>'
+							+'	<div class="pinJa_content">'
+							+'			<div class="pinJa_content_t">'
+							+'				<div>描述相符<span>5.0</span><i class="iconfont-app">&#xe69d;</i></div>'
+							+'				<div>服务态度<span>5.0</span><i class="iconfont-app">&#xe69d;</i></div>'
+							+'				<div>发货速度<span>5.0</span><i class="iconfont-app">&#xe69d;</i></div>'
+							+'			</div>'
+							+'			<div class="pinJa_content_f">'
+							+'				<span><i class="iconfont-app">&#xe697;</i>联系客服</span>'
+							+'				<span><i class="iconfont-app">&#xe687;</i>进入店铺</span>'
+							+'			</div>'
+							+'		</div>'
+							+'</div>';
+				}
+			
+				body_html = '<div id="warp"><header>' 
+							+ head_html +'</header>'
+							+'<div id="body">'+ body_title +'</div>' + body_srv + body_shop
+						+ '</div>'
+						+ '</div>'
+						+'<div class="Shopping_ul">'
+						+'	<ul class="Shopping_list">'
+						+'		<li><span class="iconfont-app">&#xe606;</span></li>'
+						+'		<li onclick ="SendToShopCar()">加入购物车'
+						//+'			<ul>加入购物车'
+						// +'				<li class="iconfont-app" onclick="downNum()">&#xe667;</li>'
+						// +'				<li id="buyit">2</li>'
+						// +'				<li class="iconfont-app" onclick="AddNum()">&#xe666;</li>'
+
+						//+'			</ul>'
+						+'		</li>'
+						+'		<li onclick ="BuyNow()">立即购买</li>'
+						+'	</ul>'
+						+'</div>';
+			   $("#list").append(body_html);
+			});
+			
+		   
+		}
+
+		function downNum(){
+			var shop_num = document.getElementById("buyit").innerHTML;
+			
+			if (shop_num != "1") {
+				document.getElementById("buyit").innerHTML =  shop_num -1;
+			}
+		}
+
+		function AddNum(){
+			var shop_num = document.getElementById("buyit").innerHTML;			
+			
+			document.getElementById("buyit").innerHTML =  parseInt(shop_num) +1;;
+		
+		}
+
+		function SendToShopCar(){
+			var buy_num = 1;
+			var shop_data ={
+				good_id:api.pageParam.good_id,
+				good_name:good_name,
+				good_price: good_price,
+				good_img:good_path,
+				good_num:buy_num
+			}
+
+			api.sendEvent({
+				name:'add_shop_car',
+				extra:shop_data
+			});
+
+			api.toast({
+			    msg: '已放入购物车',
+			    duration: 2000,
+			    location: 'bottom'
+			});
+		}
+
+		function BuyNow(){
+			api.openWin({
+			    name: 'config_shopping',
+			    url: './confirm_shopping.html',
+			    pageParam: {
+			        good_name: good_name,
+			        good_price:good_price,
+			        good_img : good_path,
+			        good_type:good_type,
+			        good_id:api.pageParam.good_id
+			    }
+			});
+		}
+		    
+	</script>
+</html>
+

@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>详细信息</title>
+   <!--  <link rel="stylesheet" type="text/css" href="../../css/aui.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+</head>
+<style type="text/css">
+</style>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-info">
+        <div class="aui-searchbar" id="search">
+            <div class="aui-searchbar-input aui-border-radius" tapmode onclick="doSearch()">
+                <i class="aui-iconfont aui-icon-search"></i>
+                <form>
+                    <input type="search" placeholder="请输入搜索内容" id="search-input">
+                </form>
+            </div>
+        <div class="aui-searchbar-cancel" tapmod>取消</div>
+    </header>
+
+    <div class="aui-content aui-margin-b-15" id="friendsList"></div>    
+  
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript">
+
+    var page=1,loadLock=false;
+    apiready = function(){
+        fnInit;
+        api.parseTapmode();
+    };
+
+    var list, dot;
+
+    function DisFrend(targetId){
+        alert('targetId:' + targetId);
+        if ('undefined' == typeof targetId) {
+            api.openWin({
+                name: 'friends_deatil',
+                url: './friends_deatil_win.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+        }
+    }
+
+    function fnInit(){
+         list = $api.byId('list');
+    }
+    function doSearch(){
+        
+        var search_value = $api.byId("search-input").value;
+        if ('undefined' == search_value) {
+            api.toast({
+                msg: '好友号码不能为空!',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+        }
+       
+        var now = Date.now();
+        var appKey = SHA1("A6919941751589" + "UZ" + "EA5B6F20-8019-7DFB-F30B-0DB42BDE6473" + "UZ" + now) + "." + now;
+
+        var post_url = 'https://d.apicloud.com/mcm/api/user?filter={"where":{"or":[{"userId":"' + search_value + '"},{"username":"' + search_value + '"},{"mobile":"' 
+                            + search_value +'"}]},"skip":0,"limit":20}';
+
+        api.ajax({
+            url: post_url,
+            method: 'get',
+            cache:true,
+            headers:{
+                "X-APICloud-AppId": "A6919941751589",
+                "X-APICloud-AppKey": appKey
+            }
+        },function(ret, err){
+            if (ret) {
+
+                 var html_body = "";
+                
+                for(var i =0;i < ret.length;i++){
+
+                    var data = ret[i];  ///'<li class="aui-user-view-cell aui-img" tapmode onclick="openChat('+ret[i].fiends_id+')">';
+                    
+                    html_body = '<div class="aui-content aui-margin-b-15">'
+                             +'<ul class="aui-list aui-media-list">'
+                             +'<li class="aui-list-item aui-list-item-middle" tapmode onclick="queryperson(' + data.username +')">'
+                             +'<div class="aui-media-list-item-inner">'
+                             +'<div class="aui-list-item-media" style="width: 3rem;">';
+                    alert(html_body);   
+                    html_body += ' <img src="' + data.icon.url +'" class="aui-img-round aui-list-img-sm" > </div>';
+
+                    html_body += '<div class="aui-list-item-inner aui-list-item-arrow">'
+                              + data.username + '</div>';
+                    
+                    $api.append($api.byId("friendsList"),html_body);
+                    api.parseTapmode();
+                }
+
+            } else {
+                 api.toast({
+                     msg: '查询失败:' + JSON.stringify(err),
+                     duration: 2000,
+                     location: 'bottom'
+                 });
+            }
+        });
+    
+        
+    }
+
+    function queryperson(targ){
+         api.openWin({
+             name: 'friends_deatil_win',
+             url: './friends_deatil_win.html'
+         });
+       
+    }
+
+
+</script>
+</html>

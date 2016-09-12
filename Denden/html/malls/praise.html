@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/icon.css"/>
+		<style type="text/css">
+			.Shopping_ul{
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				z-index: 99;
+				background: #fff;
+				border-top: 1px solid #FEB6B6;
+				
+			}
+			.Shopping_list{
+				list-style: none;
+				display: flex;
+				height:50px;
+				line-height:50px;
+				display: -webkit-flex;
+			}
+			.Shopping_list li:nth-child(1){
+				flex: 1;
+			}
+			.Shopping_list li:nth-child(1) span{
+				margin-left: 0.7rem;
+				font-size: 25px;
+				color: #9A9A9A;
+			}
+			 .Shopping_list li:nth-child(2){
+				flex: 3;
+			}
+			.Shopping_list > li:last-child{
+				flex: 2;
+				text-align: center;
+				color: #fff;
+				background: red;
+			}
+			.Shopping_list > li:nth-child(2) > ul{
+				height: 40px;
+				line-height: 40px;
+				margin-top: 5px;
+				width: 50%;
+				display: flex;
+				text-align: center;
+				border-radius: 8px;
+				border: 1px solid #ccc;
+			}
+			.Shopping_list > li:nth-child(2) > ul li:nth-child(1),.Shopping_list > li:nth-child(2) > ul li:nth-child(3){
+				flex: 2;
+			}
+			.Shopping_list > li:nth-child(2) > ul li:nth-child(2){
+				flex: 3;
+				border-left: 2px solid #ccc;
+				border-right: 2px solid #ccc;
+			}
+			
+			#wrap{
+				width: 100%;
+				overflow: hidden;
+			}
+			#wrap > nav{
+				border-top: 1px solid #ccc;
+				border-bottom: 2px solid #FEB6B6;
+			}
+			#wrap > nav >ul{
+				display: flex;
+				font-size: 15px;
+			}
+			#wrap > nav >ul li{
+				padding: 10px 0;
+				position: relative;
+				flex: 2;
+				text-align: center;
+				line-height: 0.7rem;
+			}
+			#wrap > nav >ul li:last-child:before{
+				border: none;
+			}
+			#wrap > nav >ul li:before{
+				content: "";
+				position: absolute;
+				width: 1px;
+				height: 30px;
+				top: 50%;
+				margin-top: -15%;
+				right: 0;
+				
+				border-right: 1px solid #ccc;
+			}
+			#wrap > nav >ul li.active{
+				color: #FF3C25;
+			}
+			#wrap > nav >ul li.active::after{
+				content: "";
+				width: 100%;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				border-bottom:3px solid #feb6b6;
+			}
+			#wrap > nav >ul li span{
+				
+			}
+			#wrap .wrap_body{
+				display: flex;
+				width: 300%;
+				overflow: hidden;
+				
+			}
+			
+			#wrap .wrap_body section{
+				flex: 1;
+			}
+			#wrap .wrap_body section >ul{
+				margin-top: 5px;
+			}
+			#wrap .wrap_body section >ul >li{
+				border-top: 1px solid #ccc;
+				padding: 10px;
+			}
+			#wrap .wrap_body section >ul >li >h3{
+				height: 32px;
+				vertical-align: middle;
+			}
+			#wrap .wrap_body section >ul >li >h3 img{
+				border-radius: 50%;
+				width: 30px;
+				margin-right: 5px;
+				height: 30px;
+				position: relative;
+				top: -2px;
+			}
+			#wrap .wrap_body section >ul >li >div:nth-child(2){
+				
+				font-size: 15px;
+				vertical-align: middle;
+			}
+			#wrap .wrap_body section >ul >li >div:nth-child(2) span{
+				font-size: 14px;
+				position: relative;
+				top: -1px;
+			}
+			
+			#wrap .wrap_body section >ul >li >div:nth-child(2)  i{
+				color: #FF9800;
+			}
+			#wrap .wrap_body section >ul >li >p{
+				margin: 10px 0 10px;
+			}
+			#wrap .wrap_body section  .p_ul{
+				padding: 5px;
+			}
+			#wrap .wrap_body section .p_ul li{
+				float: left;
+				margin: 5px;
+			}
+			#wrap .wrap_body section .p_ul li img{
+				width: 50px;
+				height: 50px;
+			}
+			#wrap .wrap_body section >ul >li >span {
+				font-size: 15px;
+				color: #adadad;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<nav>
+				<ul>
+					<li class="active">全部<br /><span>(7755)</span></li>
+					<li>好评<br /><span>(655)</span></li>
+					<li>中评<br /><span>(7755)</span></li>
+					<li>差评<br /><span>(7755)</span></li>
+					<li>晒图<br /><span>(7755)</span></li>
+				</ul>
+			</nav>
+			<div class="wrap_body">
+				<section>
+					<ul>
+						<li class="clearfix">
+							<h3><img src="../../image/a3.jpg"/>赵晶</h3>
+							<div>
+								<span>评分</span>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+							</div>
+							<p class="clearfix">
+								不去评价，不知道浪费多少积分，自从1号店积分可以抵现金的时候，才知道积分的重要。后来我就把这段话复制了，走到哪复制到哪，即能赚积分，还非常省事；特别是不用认真的评论了，又健康快乐能么么哒。。。嗯
+								<ul class="p_ul clearfix">
+									<li><img src="../../image/a6.jpg"/></li>
+									<li><img src="../../image/a6.jpg"/></li>
+								</ul>
+							</p>
+							
+							<span>评价时间：2016-7-7 11:00:00</span>
+						</li>
+						<li class="clearfix">
+							<h3><img src="../../image/a3.jpg"/>赵晶</h3>
+							<div>
+								<span>评分</span>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+							</div>
+							<p class="clearfix">
+								不去评价，不知道浪费多少积分，自从1号店积分可以抵现金的时候，才知道积分的重要。后来我就把这段话复制了，走到哪复制到哪，即能赚积分，还非常省事；特别是不用认真的评论了，又健康快乐能么么哒。。。嗯
+								<ul class="p_ul clearfix">
+									<li><img src="../../image/a6.jpg"/></li>
+									<li><img src="../../image/a6.jpg"/></li>
+								</ul>
+							</p>
+							
+							<span>评价时间：2016-7-7 11:00:00</span>
+						</li>
+						<li class="clearfix">
+							<h3><img src="../../image/a3.jpg"/>赵晶</h3>
+							<div>
+								<span>评分</span>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+								<i class="glyphicon glyphicon-star"></i>
+							</div>
+							<p class="clearfix">
+								不去评价，不知道浪费多少积分，自从1号店积分可以抵现金的时候，才知道积分的重要。后来我就把这段话复制了，走到哪复制到哪，即能赚积分，还非常省事；特别是不用认真的评论了，又健康快乐能么么哒。。。嗯
+								<ul class="p_ul clearfix">
+									<li><img src="../../image/a6.jpg"/></li>
+									<li><img src="../../image/a6.jpg"/></li>
+								</ul>
+							</p>
+							
+							<span>评价时间：2016-7-7 11:00:00</span>
+						</li>
+					</ul>
+				</section>
+				<section>
+				2
+				</section>
+				<section>
+				3
+				</section>
+			</div>
+		</div>
+		<div class="Shopping_ul">
+			<ul class="Shopping_list">
+				<li><span class="iconfont-app">&#xe606;</span></li>
+				<li>
+					<ul>
+						<li class="iconfont-app">&#xe667;</li>
+						<li>1</li>
+						<li class="iconfont-app">&#xe666;</li>
+					</ul>
+				</li>
+				<li>加入购物车</li>
+			</ul>
+		</div>
+		
+		<script src="../../../js/zepto.js" type="text/javascript" charset="utf-8"></script>
+</body>
+<script type="text/javascript">
+var oAli = $("#wrap nav ul").find("li");
+
+function active(oA){
+	oA.each(function(index){
+		oA.on("click",function(){
+			var _this = $(this);
+			oA.removeClass("active");
+			_this.addClass("active")
+		})
+	});
+	
+};
+active(oAli);
+
+</script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>收藏分类</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+    #item_s > ul {
+        height: 50px;
+        line-height: 50px;
+        display: -webkit-flex;
+        display: flex;
+    }
+    
+    #item_s > ul > li {
+        -webkit-flex: 1;
+        flex: 1;
+        text-align: center;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    #item_s > ul > li:last-child {
+        border-right: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="item_s">
+        <ul>
+            <li onclick="openFrm(1)">课程</li>
+            <li onclick="openFrm(2)">旅游</li>
+        </ul>
+    </div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+apiready = function() {
+    openFrm(1);
+}
+
+function openFrm(index) {
+    var header = $api.byId("item_s");
+    $api.fixIos7Bar(header);
+    var headerPos = $api.offset(header);
+    var headerPosY = headerPos.h+70;
+    switch (index) {
+        case 0:
+            api.openFrame({
+                name: 'setting_collection_goods',
+                url: 'setting_collection_goods' + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPosY,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: 'setting_collection_goods'
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 1:
+            api.openFrame({
+                name: 'setting_collection_course',
+                url: 'setting_collection_course' + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPosY,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: 'setting_collection_course'
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 2:
+            api.openFrame({
+                name: 'setting_collection_tourism',
+                url: 'setting_collection_tourism' + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPosY,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: 'setting_collection_tourism'
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+    }
+
+};
+</script>
+
+</html>

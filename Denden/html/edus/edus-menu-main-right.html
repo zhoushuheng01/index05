@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>right</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+		<style>
+		/**
+
+		aui
+		*/
+		.aui-list .aui-list-item {
+			    min-height: 40px;
+			    line-height: 40px;
+		}
+			.aui-list-item{
+				display: -webkit-flex;
+				display: flex;
+			}
+			.aui-list-item .left{
+				
+			}
+			.aui-list-item .content{
+				flex: 2;
+				padding-left: 5px;
+			}
+			.aui-list-item .content p{
+
+			}
+			.aui-list-item .right{
+				padding-right: 5px;
+				font-size:14px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="aui-content">
+                    <ul class="aui-list" id="aui_list">
+                        
+                    </ul>
+                </div>
+		</div>
+	</body>
+	<script id="video_list" type="text/x-dot-template">
+		{{ for(var prop in it){ }}
+			<li class="aui-list-item" tapmode onclick="sendVideo('{{= it[prop].cour_file.url}}')">
+            	<div class="left">
+            		 <span class="glyphicon glyphicon-play-circle"></span>
+            	</div>
+            	<div class="content">
+            		 <p>{{= it[prop].cours_name}}</p>
+            	</div>
+            	<div class="right">
+            		<i></i>
+            	</div>
+             </li>
+		{{ } }}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/aui-slide.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/SHA1.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	
+   <!---->
+  <script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript">
+		var courid; //课程id
+        var model; 
+        var query;
+        var queryId; //句柄id
+
+  		apiready = function(){
+  			courid = api.pageParam.courid;
+
+            //配置
+            model = api.require('model');
+            query = api.require('query');
+
+            //query对象的句柄ID
+            query.createQuery(function( ret, err ){
+                if( ret ){
+                     queryId = ret.qid;   
+                }else{
+                     //alert( JSON.stringify(err ) );
+                     api.toast({
+                         msg: '连接服务器失败,行号92.....' 
+                     });
+                }
+            });
+
+	     ajax('/cours?filter={"where":{"courid":'+courid+'},"fields":{"preview_img":false},"skip":0,"limit":20}','get',{},function(ret,err){
+	        if(ret){
+	           
+	            
+	            var evalText = doT.template($("#video_list").text());
+               $("#aui_list").html(evalText(ret));
+	        }else{
+	            //alert(JSON.stringify(err))
+	            api.toast({
+	                msg: '行号106,加载数据失败.....'
+	            });
+	        }
+	    });
+            //以课程id查询数据库
+
+  		};
+  		
+  		
+  		function sendVideo(url){
+  			api.sendEvent({
+			    name: 'edus_video',
+			    extra: {
+			        video_url: url
+			    }
+			});
+  		};
+	</script>
+</html>

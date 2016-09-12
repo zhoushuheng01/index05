@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    
+    <link rel="stylesheet" type="text/css" href=	"../../css/aui.2.0.css" />
+    <style>
+    	html,body{
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            display: -webkit-flex;
+            display: flex;
+            flex-direction:column;
+
+        }
+        #aui-content{
+            width: 100%;
+        }
+        #main{
+            -webkit-flex:1;
+            flex: 1;
+        }
+        #footer{
+            height: 1px;
+        }
+    	#header{
+    		background-color: #00BCD4;
+    	}
+		.header{
+			display: flex;
+			display: -webkit-flex;
+		}
+		.header .top_1{
+			flex: 1;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			color: rgba(255,255,255,0.8);
+			background-color: rgba(0,188,212,0.95);
+		}
+		.header .top_1:last-child{
+			border: none;
+		}
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav" id="header">
+            <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">职位详情</div>
+            <a class="aui-pull-right">
+            </a>
+    </header>
+	<div class="aui-content" id="aui-content">
+        <div class="header" id="Information_list">
+            <div class="top_1" tapmode onclick="openFrm(2)">创业</div>
+            <div class="top_1" tapmode onclick="openFrm(0)">就业</div>
+            <div class="top_1" tapmode onclick="openFrm(1)">兼职</div>
+        </div>
+    </div>
+    <div id="main">
+    	
+    </div>
+    <footer id="footer"></footer>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+    var header;
+    var headerPos;
+    var aTop_l;
+    var aui_content;
+    var aui_content_Pos;
+    var main;
+    var main_Pos;
+    var footer;
+    var footer_Pos;
+	apiready = function(){
+        header = $api.byId('header');
+
+            var systemType = api.systemType;
+            var systemVersion = parseFloat(api.systemVersion);
+             if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+                if (systemType == "android") {}
+                $api.fixStatusBar(header);
+            } else {
+                $api.fixIos7Bar(header);
+            }
+         
+         
+        headerPos = $api.offset(header);
+         
+         openFrm(2);
+       
+	};
+    function openFrm(index){
+        aui_content = $api.byId('aui-content');
+        aui_content_Pos = $api.offset(aui_content);
+
+        main = $api.byId('main');
+        main_Pos = $api.offset(main);
+        footer = $api.byId('footer');
+        footer_Pos = $api.offset(footer);
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '努力加载中...',
+            text: '先喝杯茶...',
+            modal: false
+        });
+
+        api.closeFrame({
+	        name: 'job-frame'
+        });
+        api.openFrame({
+               name: 'job-frame',
+               url: './job-frame.html',
+               pageParam:{
+                    index : index
+               },
+               rect: {
+                   x:0,
+                   y:aui_content_Pos.h+headerPos.h,
+                   w:api.frameWidth,
+                   h:main_Pos.h
+               }
+           });
+
+        api.hideProgress();
+    };
+    function addEvent(){
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            alert('已连接网络');
+        });
+    };
+</script>
+</html>

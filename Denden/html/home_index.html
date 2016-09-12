@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        html,body{
+            height:100%;
+            width:100%;
+        }
+        body{
+            margin:0;
+            padding:0;
+            background-color: rgba(0,188,212,0.89);
+        }
+        #index{
+            display: -webkit-flex;
+            display: flex;
+            height:100%;
+            width:100%;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            position: relative;
+            
+            background: url("../res/APP/shanping.png") no-repeat;
+            background-size: cover;
+
+        }
+        
+    </style>
+</head>
+<body>
+<div id="index" tapmode>
+
+</div>
+</body>
+<script type="text/javascript" src="./../script/api.js"></script>
+<script type="text/javascript" src="./../script/zepto.min.js"></script>
+<script>
+    apiready = function(){
+        api.parseTapmode();
+        var index = $api.byId('index');
+        $api.addEvt(index,'click',function(){
+        	api.openWin({
+	            name: 'news-con',
+	            url: 'news/news-con.html'
+
+            });
+        });  
+    }
+</script>
+</html>

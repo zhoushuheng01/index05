@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>edus</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        header{
+            /*24+45*/
+        	padding-top:24px;
+            display: -webkit-flex;
+            display: flex;
+            height: 69px;
+            line-height: 45px;
+            background: #00BCD4;
+        }
+        header .left{
+            width: 40px;
+            height: 100%;
+            text-align: center;
+        }
+        header .right{
+            width: 40px;
+            height: 100%;
+            text-align: center;
+        }
+        header .left i{
+            display: block;
+        }
+        header .connent{
+            text-align: center;
+            -webkit-flex:1;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+    	<header id="header">
+    		<div class="left iconfont-app" tapmode onclick="api.closeWin();">
+                <i class="aui-iconfont aui-icon-left"></i>      
+            </div>
+    		<div class="connent">嗨购</div>
+    		<div class="right iconfont-app"> </div>
+    	</header>
+    </div>
+
+       
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript">
+
+apiready = function() {
+   openFrm();
+
+   //监听edus-con页面发送的事件
+   api.addEventListener({
+     name: 'sendRemove'
+    }, function(ret, err) {
+        if(ret){
+        	cloerF_or_Win();
+        }
+    });
+}
+
+function openFrm(){
+	var header = $api.byId('header');
+	$api.fixIos7Bar(header);
+	var headerPos = $api.offset(header);
+	
+	api.openFrame({
+	    name: 'mall-con',
+	    url: 'malls-con.html',
+	    rect: {
+		    x:0,
+		    y:headerPos.h,
+		    w:'auto',
+		    h:'auto'
+	    },
+        pageParam:{
+            head_height:headerPos.h
+        }
+    });
+}
+
+function cloerF_or_Win(){
+    //监听还回键
+    api.addEventListener({
+        name: 'keyback'
+    }, function(ret, err) {
+       if(api.winName){
+       	 api.closeWin();
+       }else{
+       	alert("edus_header---->keyback===》"+api.winName)
+       
+       }
+    });
+	
+};
+</script>
+
+</html>

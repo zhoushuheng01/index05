@@ -1,0 +1,238 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%; 
+            overflow: hidden;
+        }
+        body{
+            display: -webkit-flex;
+            display: flex;
+        }
+        .aui-bar-nav{
+            background-color: #00BCD4;
+        }
+        #index{
+            width: 100%;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+        #main{
+            -webkit-flex:1;
+            flex: 1;
+        }
+        #header{
+            width: 100%;
+        }
+        #footer {
+            background: #fff;
+            width: 100%;
+            height: 60px;
+            display: -webkit-flex;
+            display: flex;
+            text-align: center;
+        }
+        #footer .left{
+            -webkit-flex:3;
+            flex: 3;
+            display: -webkit-flex;
+            display: flex;
+        }
+        #footer .left > div{
+            -webkit-flex:1;
+            flex: 1;
+            -webkit-align-self: center;
+            align-self: center;
+            color: #0062cc;
+        }
+        #footer .right{
+            -webkit-flex:4;
+            flex: 4;
+            background-color: #03a9f4;
+            line-height: 60px;
+        }
+        .aui-bar-tab-label{
+            font-size: 13px;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <div id="index">
+        <header class="aui-bar aui-bar-nav" id="header">
+            <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">职位详情</div>
+            <a class="aui-pull-right">
+            </a>
+        </header>
+
+        <div id="main">
+            
+        </div>
+
+       <footer  id="footer">
+            <div class="left">
+                <div class="">
+                        <i class="iconfont-app">&#xe6b6;</i>
+                        <div class="aui-bar-tab-label">查看公司</div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="btn" id="btn">我要申请</div>
+            </div>
+        </footer>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var course_id; //课程id
+var sender_id;//机构id
+var course_name;//机构名称
+var offer_title;//申请哪个职位？
+var url;
+
+var userid; //用户id  申请时候使用
+
+var header, headerPos,main,mainPos;
+apiready = function() {
+    header = $api.byId('header');
+    main = $api.byId('main');
+    var init = new Init(1);
+    
+    
+    
+    var systemType = api.systemType;
+    var systemVersion = parseFloat(api.systemVersion);
+    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+        if (systemType == "android") {}
+        $api.fixStatusBar(header);
+    } else {
+        $api.fixIos7Bar(header);
+    }
+
+
+    headerPos = $api.offset(header);
+    mainPos = $api.offset(main);
+
+    course_id = api.pageParam.course_id;      //课程id
+    url =api.pageParam.url;
+    sender_id =api.pageParam.sender_id;      //机构id
+    offer_title = api.pageParam.offer_title;//申请哪个职位？
+    
+    
+    userid = $api.getStorage("userid");
+   // alert(sender_id);
+    openFrm("job-deail2.html",course_id);
+
+
+   //alert(offer_title);
+    var btn = $api.byId("btn");
+    var men = false;
+    
+    //申请的时候查询数据库申请过没有
+    var offer_record_Url = '/offer_record?filter=';
+    var offer_record_UrlParam = {
+        'fields':{
+            'id':0,
+            'updatedAt':0
+        },
+        'where':{
+            "offer_id":course_id,
+            "offer_sender":sender_id,
+            "apply_user" : userid
+        },
+        'skip':init.skip,
+        'limit':init.limit,
+        "include":{
+      }
+    };
+    
+    
+    $api.addEvt(btn, 'click', function(){
+       // To_apply_for(sender_id);
+       	  init.ajax(offer_record_Url + JSON.stringify(offer_record_UrlParam),"GET",{},function(ret,err){
+       	  	
+       	  	if( ret.length > 0 ){
+       	  		
+       	  		api.toast({
+				    msg: '你已经申请过了',
+				    duration: 2000,
+				    location: 'bottom'
+				});
+       	  		
+       	  	}else{
+       	  		var nows = Format(new Date());
+       	  		//alert(nows);
+       	  		var data = {
+                    "offer_id":course_id,
+                    "offer_sender":sender_id,
+                    "offer_title" :offer_title,
+                    "apply_date":nows,
+                    "apply_user" : userid
+               };
+       	  		init.ajax('/offer_record',"post",JSON.stringify(data),function(ret,err){
+                    if(ret){
+                        api.toast({
+                            msg: '申请成功',
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+
+                    }else{
+                        alert("job_deail_win-err:->201"+JSON.stringify(err));
+                    }
+               });
+       	  	}
+       	  	
+       	  	
+       	  });
+          
+                 
+          
+    });
+
+}
+
+function openFrm(name,id) {
+    api.openFrame({
+        name: name,
+        url: name,//'./'+ name +'.html'
+        rect: {
+            x: 0,
+            y: headerPos.h,
+            w: api.winWidth,
+            h: mainPos.h
+        },
+        pageParam: {
+            course_id: id
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+
+};
+
+</script>
+
+</html>

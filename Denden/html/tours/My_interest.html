@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="header">
+    <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title"></div>
+    <a class="aui-pull-right" id="btn">发布</a>
+</header>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script>
+var header, headerPos;
+
+    apiready = function () {
+    	
+    	header = $api.byId('header');
+    	
+    	var systemType = api.systemType;
+	    var systemVersion = parseFloat(api.systemVersion);
+	    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+	        if (systemType == "android") {
+				$api.fixStatusBar(header);
+	        }
+	    } else {
+	        $api.fixIos7Bar(header);
+	    };
+	    
+	    
+	    headerPos = $api.offset(header);
+	   
+        api.openFrame({
+            name: "My_interest_frm",
+            url: './My_interest_frm.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                h: 'auto',
+                w: 'auto'
+            },
+            pageParam:{
+            }
+        });
+        
+        $api.addEvt($api.byId("btn"),"click",function(){
+        	api.openWin({
+	            name: 'release_win',
+	            url: 'release_win.html'
+            });
+        });
+        
+        
+        
+    };
+</script>
+</body>
+</html>

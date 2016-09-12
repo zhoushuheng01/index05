@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+
+		<style>
+			html,body {
+				height: 100%;
+				display: -webkit-flex;
+				display: flex;
+				flex-direction: column;
+				background-color: #f5f5f5;
+			}
+			#index{
+				height:100%;
+				flex:1;
+				padding:10px;
+			}
+
+			.header{
+				border-bottom: 1px dotted #000;
+				margin-bottom: 10px;
+			}
+			.header > h3{
+				font-size: 1rem;
+			}
+
+			.header .publisher{
+				display: -webkit-flex;
+				display: flex;
+				height:50px;
+				line-height: 50px;
+			}
+			.header .publisher .left{
+				-webkit-flex: 1;
+				flex:1;
+			}
+			.header .publisher .right{
+				width:160px;
+				text-align: center;
+			}
+			p{
+				color: inherit;
+				font-size: 0.93rem;
+				word-break: break-all;
+			}
+			img{
+				display: block;
+			}
+			.connent1 .pic{
+				margin: 10px 0;
+			}
+			.connent1 .pic .img{
+				min-height: 100px;
+				background-size: cover;
+			}
+			.connent1 .pic .img img{
+
+				width: 100%;
+				display: block;
+				height:100%;
+				background-size: cover;
+			}
+			.connent1 .pic .title{
+				color: rgba(0,0,0,0.72);
+			}
+			
+			
+			
+			.connent1 .body p{
+				margin:0 0 10px 0;
+				line-height: 0.96rem;
+			}
+			.connent1 .body p img{
+				min-height:300px;
+				display: block;
+				width: 100%;
+			}
+			
+			
+			/*
+			 * 评论
+			 */
+			#comments{
+				border:1px solid #ccc;
+				border-radius: 5px;
+			}
+			#comments h4{
+				color:red;
+				height:30px;
+				padding-left:10px;
+				line-height: 30px;
+				border-bottom: 1px solid #ccc;
+				
+			}
+			#comments_{
+				margin:10px 0;
+			}
+	        #comments_ .item{
+				display: -webkit-flex;
+				display: flex;
+				padding-top: 10px;
+			}
+			#comments_ .item:last-child .right, #comments_ .item:last-of-type .right{
+				border-bottom: none;
+			}
+			#comments_ .item .left{
+				width: 70px;
+				text-align: center;
+				display: flex;
+
+				justify-content: space-around;
+				
+			}
+			#comments_ .item .left img{
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				
+			}
+			#comments_ .item .right{
+				-webkit-flex: 1;
+				flex:1;
+				border-bottom: 1px solid rgba(0,0,0,0.23);
+			}
+
+			#comments_ .item .right .user{
+				display: -webkit-flex;
+				display: flex;
+			}
+			#comments_ .item .right  .user-left{
+				-webkit-flex:1;
+				flex: 1;
+			}
+			#comments_ .item .right   .name{
+				color: dodgerblue;
+				font-size:0.95rem;
+			}
+			#comments_ .item .right  .user-left .bottom{
+				font-size:0.76rem;
+			}
+			#comments_ .item .right  .user-right{
+				width:55px;
+				text-align: center;
+			}
+
+			#comments_ .item .right .body{
+				margin: 10px 0;
+			}
+			#comments_ .item .right .body p{
+				padding-right: 10px;
+			}
+			#comments > .bottom{
+				border-top: 1px solid #ccc;
+				height:40px;
+				line-height: 40px;
+				text-align: center;
+				color: dodgerblue;
+			}
+
+			#footer{
+				height: 50px;
+			}
+			
+			#pic_body{
+				display: -webkit-flex;
+				display: flex;
+				flex-direction: column;
+			}
+			#view_more{
+				position: relative;
+				z-index: 55;
+			}
+
+
+			.centent_ul{
+				height:50px;
+				position: relative;
+				text-align: center;
+			}
+			.centent_ul:after{
+				display: block;
+				content: "还没有评论，快来抢沙发";
+				line-height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="index">
+			<div id="list">
+				<script id="template" type="text/template">
+					{{~ it:data }} {{? 0==data.type }}
+
+					<div class="connent1">
+						<div class="header">
+							<h3>{{= data.title}}</h3>
+							<div class="publisher">
+								<div class="left">{{= data.from.name}}</div>
+								<div class="right">{{= fnGetDate(data.createdAt) }}</div>
+							</div>
+						</div>
+						<div class="body">
+
+							{{ if( data.imagers[0]  ){ }}
+
+
+								{{ for(var i in  data.imagers){ }}
+
+									<div class="pic">
+										<div class="img">
+											<img src="{{= data.imagers[i].url + '?imageView2/0/h/1280/q/100/interlace/1'}}" id="image_{{= data.imagers[i].id}}" alt="">
+										</div>
+										<div class="title"></div>
+									</div>
+								{{ } }}
+							{{ } }}
+							<p>
+								{{= data.text}}
+							</p>
+						</div>
+					</div>
+
+					{{?? 1==data.type }}
+
+						<div class="connent1">
+							<div class="header">
+								<h3>{{= data.title}}</h3>
+								<div class="publisher">
+									<div class="left">{{= data.from.name}}</div>
+									<div class="right">{{= fnGetDate(data.createdAt) }}</div>
+								</div>
+							</div>
+							<div class="body">
+								{{ if( data.imagers[0]  ){ }}
+
+									{{ for(var i in  data.imagers){ }}
+
+									<div class="pic">
+										<div class="img">
+											<img src="{{= data.imagers[i].url + '?imageView2/0/h/1280/q/60/interlace/1'}}" id="image_{{= data.imagers[i].id}}" alt="">
+										</div>
+										<div class="title"></div>
+									</div>
+									{{ } }}
+								{{ } }}
+								<p>
+									{{= data.text}}
+								</p>
+							</div>
+						</div>
+					{{?? 2==data.type }}
+						
+						<div class="connent1">
+							<div class="header">
+								<h3>{{= data.title}}</h3>
+								<div class="publisher">
+									<div class="left">{{= data.from.name}}</div>
+									<div class="right">{{= fnGetDate(data.createdAt) }}</div>
+								</div>
+							</div>
+							<div class="body" id="pic_body">
+								{{ if( data.imagers[0]  ){ }}
+									{{ for(var i in  data.imagers){ }}
+
+									<div class="pic">
+										<div class="img">
+											<img src="{{= data.imagers[i].url + '?imageView2/0/h/1280/q/60/interlace/1'}}" id="image_{{= data.imagers[i].id}}" alt="">
+										</div>
+										<div class="title"></div>
+									</div>
+									{{ } }}
+								{{ } }}
+								<p>
+									{{= data.text}}
+								</p>
+							</div>
+						</div>
+						
+					{{?}} {{~}}
+				</script>
+			</div>
+
+		   <div id="comments"></div>
+		   <script id="comments_list" type="text/template">
+				    {{ if( it.length > 0 ){ }}
+				       <h4>热门评论</h4>
+		   	 		   <ul id="comments_">
+						{{~ it:data }}
+		
+							<li class="item">
+								  <div class="left">
+								  	
+								  	{{ if( data.comment_usr ){ }}
+									  <img src="{{= data.comment_usr.icon.url}}" alt="" />
+									  
+									 {{ } }} 
+									  
+								  </div>
+								  <div class="right">
+									  <div class="user">
+										  <div class="user-left">
+											  <div class="name">
+											  	{{ if( data.comment_usr ){ }}
+											  	
+												 {{= data.comment_usr.username}}
+												{{ } }} 
+											  </div>
+											  <div class="bottom">
+												  {{= fnGetDate(data.createdAt) }}前
+											  </div>
+										  </div>
+										  <div class="user-right iconfont-app">&#xe67e; {{= data.like }}</div>
+									  </div>
+			
+									  <div class="body">
+										  <p>{{= data.comment_msg }}</p>
+									  </div>
+								  </div>
+							  </li>
+							
+						{{~}}
+						</ul>
+		   	  			<div class="bottom" id="view_more" @click="loader">查看更多</div>
+		   	  			{{ }else{ }}
+					        <h4>热门评论</h4>
+				        	<ul id="comments_" class="centent_ul">
+
+							</ul>
+			   			{{ } }}
+			</script>
+		   
+		   
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/SHA1.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/vue.js"></script>
+	<!---->
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript">
+		/*
+		 * 接收上一个页面的参数    //
+		 */
+		
+		var id;
+		var type;
+
+		
+		var pageNum = 1;
+		
+	
+		/*
+		 * 模版
+		 */
+		var list, dot;
+
+
+		var images_pic = [];
+		apiready = function() {
+			fnInit();
+
+			
+			id = api.pageParam.id;  //帖子id
+            type = api.pageParam.type;	
+			
+		    /*
+		     * 连接   查询数据库
+		     */
+		    
+		    var init = new Init(1);
+		    
+		    //新闻的详细信息
+		    
+		    var headline_Url = '/headline?filter=';
+		    var headline_UrlParam = {
+		        'fields':{
+		        },
+		        'where':{
+		            "id":id,
+		            "type":type
+		        },
+		        'skip':init.skip,
+		        'limit':init.limit,
+		        "include":{
+                    "fromPointer":""
+                }
+		    };
+
+		    init.ajax(headline_Url + JSON.stringify(headline_UrlParam),'get',{},function(ret,err){
+		    	//alert(JSON.stringify(ret) + ',----err--->' + JSON.stringify(err));
+		    	if(ret){
+
+					//"?imageView2/0/h/110/q/60/interlace/1"
+					for (var i = 0; i < ret.length; i++) {
+
+						for ( var j=0; j < ret[i].imagers.length; j++ ){
+
+							if( ret[i].imagers[j] ){
+								/*
+								 */
+								images_pic.push({
+									id: 'image_' + ret[i].id,
+									url: ret[i].imagers[j].url + "?imageView2/0/h/110/q/60/interlace/1"
+								});
+							}
+
+						}
+					}
+
+		    		list.innerHTML = dot(ret);
+
+					fnImageCache(images_pic,0);
+		    	}else{
+		    		
+		    	}
+		   		 
+		    });
+			
+			//获取评论
+			getData(pageNum);
+			
+			
+			
+			//监听发布评论重新获取数据
+			api.addEventListener({
+			    name: 'News_commentary'
+			}, function(ret, err) {
+			    var comment_id = ret.value.comment_id;
+			   // alert(JSON.stringify(ret));
+			   
+			    var comment_Url = '/comment?filter=';
+			    var comment_UrlParam = {
+			        'fields':{
+			        },
+			        'where':{
+			            "id":comment_id
+			        },
+			        'skip':0,
+			        'limit':1,
+			        "include":{
+	                    "comment_usrPointer":""
+	                }
+			    };
+			    
+			    //如果元素不存在，，，，，就获取数据更新
+			    var men = $("#comments_").size();
+			    
+			    if( men ){
+			      init.ajax(comment_Url + JSON.stringify(comment_UrlParam),"GET",{},function(ret,err){
+				   	var html = "";
+				   	for( var i=0;i<ret.length;i++ ){
+				   		         html += ' <li class="item">';
+								 html += '	  <div class="left">';
+								 		if( ret[i].comment_usr ){
+								 html += '		  <img src="'+ret[i].comment_usr.icon.url+'" alt="" />';		
+								 		}else{
+								 		
+								 html += '		  <img src="" alt="" />';		
+								 		
+								 		}
+								 
+								
+							 	 html += '	  </div>';
+								 html += '	  <div class="right">';
+								 html += '		  <div class="user">';
+								 html += '			  <div class="user-left">';
+								 html += '				  <div class="name">';
+								 	if( ret[i].comment_usr ){
+								 html += '					'+ ret[i].comment_usr.username +' ';
+								 	};
+								 html += '				  </div>';
+								 html += '				  <div class="bottom">';
+								 html += '					 '+ fnGetDate(ret[i].createdAt) +'前';
+								 html += '				  </div>';
+								 html += '			  </div>';
+								 html += '			  <div class="user-right iconfont-app">&#xe67e;'+ ret[i].like +'</div>';
+								 html += '		  </div>';
+								 html += '		  <div class="body">';
+								 html += '			  <p>' + ret[i].comment_msg + '</p>';
+								 html += '		  </div>';
+								 html += '	  </div>';
+								 html += ' </li>';
+				   	}
+
+					$("#comments_").removeClass("centent_ul");
+				   	$("#comments_").prepend(html);
+				   
+				   });
+			    }else{
+			    	getData(pageNum);
+			    }
+			   
+			    
+			   	
+			  
+			});
+						
+			var men = $("#comments_").size();
+			
+			
+			api.addEventListener({
+			    name:'scrolltobottom',
+			    extra:{
+			        threshold:0            //设置距离底部多少距离时触发，默认值为0，数字类型
+			    }
+			}, function(ret, err){        
+			    var view_more = $api.byId("view_more");
+			    
+			    if( view_more ){
+			    	pageNum++;
+			    	$api.html(view_more, "加载中");
+			    	getData( pageNum ,function(ret,err){
+			    		
+			    		
+			    		if( ret ){
+			    			var html = "";
+			    				
+			    				for( var i=0; i< ret.length; i++ ){
+
+									if( ret[i].comment_usr ){
+
+										html += ' <li class="item">';
+										html += '	  <div class="left">';
+										
+											if( ret[i].comment_usr ){
+									    html += '	<img src="'+ret[i].comment_usr.icon.url+'" alt="" />';		
+									 		}else{
+									 		
+									    html += '	<img src="" alt="" />';		
+									 		
+									 		}
+										
+										html += '	  </div>';
+										html += '	  <div class="right">';
+										html += '		  <div class="user">';
+										html += '			  <div class="user-left">';
+										html += '				  <div class="name">';
+											if( ret[i].comment_usr ){
+										html += '					'+ ret[i].comment_usr.username +' ';
+											};
+										html += '				  </div>';
+										html += '				  <div class="bottom">';
+										html += '					 '+ fnGetDate(ret[i].createdAt) +'前';
+										html += '				  </div>';
+										html += '			  </div>';
+										html += '			  <div class="user-right iconfont-app">&#xe67e;'+ ret[i].like +'</div>';
+										html += '		  </div>';
+										html += '		  <div class="body">';
+										html += '			  <p>' + ret[i].comment_msg + '</p>';
+										html += '		  </div>';
+										html += '	  </div>';
+										html += ' </li>';
+
+									}
+
+			    					
+			    					
+			    					
+			    				}
+
+			    			$("#comments_").append(html);
+			    			
+			    			if( ret.length < 5 ){
+			    				//$api.html(view_more, "没有数据了");
+			    				
+			    				api.toast({
+								    msg: '亲，到底了！没有更多数据了',
+								    duration: 2000,
+								    location: 'bottom'
+								});
+			    				$api.remove(view_more);
+			    			}else{
+			    				$api.html(view_more, "查看更多");
+			    			}
+			    		}
+			    	});
+			    }
+			});
+		
+		};
+
+		
+		function fnInit() {
+            list = $api.byId('list');
+
+            var template = $api.byId('template');
+            dot = doT.template(template.innerHTML);
+        };
+
+
+		function fnImageCache(images, index) {
+			if (index >= images.length) {
+				return;
+			}
+
+
+			api.imageCache({
+				url: images[index].url
+			}, function (ret, err) {
+				var image = $api.byId(images[index].id);
+				if (image) {
+					image.src = ret.url;
+				}
+
+				fnImageCache(images, index + 1);
+			});
+		};
+
+
+        function getData(num,callback){
+        	var init = new Init(1);
+        	
+        	var limit = 5;
+        	var skip = ( num - 1 ) * limit;
+        	
+        	var comment_Url = '/comment?filter=';
+		    var comment_UrlParam = {
+		        'fields':{
+		        	"id":0
+		        },
+		        'where':{
+		            "comment_id":id
+		        },
+		        'skip':skip,
+		        'limit':limit,
+		        "include":{
+                    "comment_usrPointer":""
+                }
+		    };
+		    
+		    init.ajax(comment_Url + JSON.stringify(comment_UrlParam),'get',{},function(ret,err){
+		    	if( ret ){
+		    		if( typeof callback == "function" ){
+		    			callback(ret,err);
+		    			return;
+		    		}
+		    		
+		    		var evalText = doT.template($("#comments_list").text());
+        			$("#comments").html(evalText(ret));
+		    	}else{
+		    		//api.alert({ msg: api.frameName+"147-->"+JSON.stringify(err) })
+		    	}
+		    });
+        
+        }
+	</script>
+</html>

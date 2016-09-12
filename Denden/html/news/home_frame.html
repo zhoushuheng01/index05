@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+
+
+        .content {
+            box-sizing: border-box;
+            padding: 0 15px;
+            padding-bottom: 10px;
+            background-color: #fff;
+            margin:5px 0;
+
+        }
+
+        .content .text {
+            width: 100%;
+            line-height: 20px;
+            font-size: 16px;
+            color: #444;
+            padding-top: 15px;
+            padding-bottom: 21px;
+        }
+
+        .content .text2 {
+            width: 100%;
+            height: 23px;
+            line-height: 22px;
+            font-size: 12px;
+            color: #888;
+            box-sizing: border-box;
+            padding-left: 33px;
+            background-image: url(../../image/pic3.png);
+            background-size: 16px 16px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .content .arrow {
+            width: 44px;
+            height: 8px;
+            display: inline-block;
+            box-sizing: border-box;
+            padding-right: 6px;
+          /*  background-image: url(../../image/pic5.png);*/
+            background-size: 8px 4px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: absolute;
+            right: 0;
+            bottom: 8px;
+        }
+
+        .content .section1 {
+            width: 100%;
+            height: 130px;
+            position: relative;
+            box-sizing: border-box;
+            padding-right: 123px;
+        }
+
+        .content .section1 .from {
+            float: left;
+            position: relative;
+            width: 100%;
+            height:100%;
+        }
+
+        .content .img {
+            position: absolute;
+            right: 3px;
+            top: 10px;
+        }
+        .content .img img {
+            width: 120px;
+            height: 120px;
+            background-size: cover;
+            display: block;
+        }
+
+        .content .section2 .text2 {
+            width: 100%;
+            height: 24px;
+            line-height: 22px;
+            font-size: 12px;
+            color: #888;
+            box-sizing: border-box;
+            padding-left: 23px;
+            background-image: url(../../image/pic4.png);
+            background-size: 16px 16px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            position: absolute;
+            left:0;
+            right:0;
+            bottom:0;
+        }
+
+
+
+
+
+        .content2,
+        .content3 {
+            box-sizing: border-box;
+            padding: 0 15px;
+        }
+
+        .content2 .section,
+        .content3 .section {
+            width: 100%;
+            box-sizing: border-box;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .content2 .title,
+        .content3 .title {
+            font-size: 16px;
+            color: #444;
+            line-height: 20px;
+            padding-top: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .content2 .pic_ul {
+            display: flex;
+            display: -webkit-flex;
+            display: -webkit-box;
+            flex-flow: row;
+            -webkit-flex-flow: row;
+            -webkit-box-orient: horizontal;
+        }
+
+        .content2 .pic {
+            flex: 1;
+            -webkit-flex: 1;
+            -webkit-box-flex: 1;
+            box-sizing: border-box;
+            width: 33%;
+            margin-right: 3px;
+        }
+
+        .content2 .pic img,
+        .content3 .pic img {
+            width: 100%;
+            height:170px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .content2 .text,
+        .content3 .text {
+            color: #888;
+            font-size: 12px;
+            position: relative;
+            padding-bottom: 8px;
+            line-height: 38px;
+            display: -webkit-flex;
+            display: flex;
+        }
+
+        .content2 .icon,
+        .content3 .icon {
+            width:30px;
+        }
+
+
+        .content2 .icon img,
+        .content3 .icon img {
+            width:25px;
+            height:25px;
+            display: block;
+            background-size: cover;
+            margin-top: 11px;
+        }
+        .content3 .next_title,
+        .content3 .next_title{
+            position: relative;
+            top: 3px;
+        }
+
+
+
+
+        em {
+            padding-right: 4px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div id="list">
+
+</div>
+</body>
+<script id="template" type="text/template">
+    {{~ it:data }} {{? 0==data.type }}
+    <div class="content" tapmode onclick='openWin({
+        	"id" :　"{{= data.id }}" ,
+        	"type":"{{= data.type}}"
+        })'>
+        <div class="section1">
+            <div class="from">
+                <div class="text">{{= data.title }}</div>
+                <div>
+                    <div class="text2">
+                        <em>{{= data.from.name }}</em>
+                        <em>{{= data.commentCount }}评论</em>
+                        <em>{{= fnGetDate(data.createdAt) }}前</em>
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="img">
+                    <img id="image_{{= data.id }}" src="../../image/yekeuser.jpg">
+            </div>
+            <div class="pic"></div>
+        </div>
+    </div>
+    {{?? 1==data.type }}
+    <div class="content3" tapmode onclick='openWin({
+        	"id" :　"{{= data.id }}" ,
+        	"type":"{{= data.type}}"
+        })'>
+        <div class="section">
+            <div class="title">{{= data.title }}</div>
+            <div class="pic">
+                <img id="image_{{= data.id }}" src="../../image/yeke.jpg">
+            </div>
+            <div class="text">
+                <div class="icon"><img id="icon_{{= data.id }}" src="../../image/yekeuser.jpg"></div>
+                <div>
+                    <em>{{= data.from.name }}</em>
+                    <em>{{= data.commentCount }}评论</em>
+                    <em>{{= fnGetDate(data.createdAt) }}前</em>
+                </div>
+                <div class="arrow"></div>
+            </div>
+        </div>
+    </div>
+    {{?? 2==data.type }}
+    <div class="content2" onclick='openWin({
+    "id" :　"{{= data.id }}" ,
+    "type":"{{= data.type}}"
+    })'>
+        <div class="section">
+            <div class="title">{{= data.title }}</div>
+            <div class="pic_ul">
+
+                {{ if( data.imagers.length > 0 ){ }}
+
+                    {{ for( var i in data.imagers ){ }}
+                        <div class="pic">
+                            <img id="thumbnail2_{{= data.imagers[i].id }}" src="../../image/yeke.jpg">
+                        </div>
+                    {{ } }}
+
+                {{ }else{ }}
+                    <div class="pic">
+                        <img  src="../../image/yeke.jpg">
+                    </div>
+                {{ } }}
+            </div>
+            <div class="text">
+                <div class="icon">
+                    <img id="icon_{{= data.id }}" src="../../image/yeke.jpg"></div>
+                <div class="next_title">
+                    <em>{{= data.from.name }}</em>
+                    <em>{{= data.commentCount }}评论</em>
+                    <em>{{= fnGetDate(data.createdAt) }}前</em>
+                </div>
+                <div class="arrow"></div>
+            </div>
+        </div>
+    </div>
+    {{?? 3==data.type }}
+    <div class="content3 open-win" win="photonews" callback="fnGetPhotoNews" callbackParam="{{= data.id }}">
+        <div class="section">
+            <div class="title">{{= data.title }}</div>
+            <div class="pic">
+                <img id="image_{{= data.id }}" src="../../image/yeke.jpg">
+            </div>
+            <div class="text">
+                <div class="icon"><img id="icon_{{= data.id }}" src="../../image/yeke.jpg"></div>
+                <div class="next_title">
+                    <em>{{= data.from.name }}</em>
+                    <em>{{= data.commentCount }}评论</em>
+                    <em>{{= fnGetDate(data.createdAt) }}前</em>
+                </div>
+                <div class="arrow"></div>
+            </div>
+        </div>
+    </div>
+    {{?}} {{~}}
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+    var id;
+    apiready = function () {
+
+        id = api.pageParam.id;
+
+
+        fnReadyOpenWin();
+
+
+        fnInitPullRefresh();
+        fnInitPushRefresh();
+		
+		/* type
+		 * 校内新闻   0
+		 * 校外          1
+		 * 娱乐新闻   2
+		 * 视频         3
+		 * 图片    4
+		 */
+        switch (api.frameName) {
+            case "home_frame_0"://校内新闻
+                id = 0;
+                break;
+            case "home_frame_1"://校外
+                id = 1;
+                break;
+            case "home_frame_3"://娱乐新闻
+                id = 2;
+                break;
+        }
+
+        fnInit();
+
+        // fnGetHeadList();
+        api.refreshHeaderLoading();
+    };
+
+    function fnInitPullRefresh() {
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#f0f0f0',
+            textColor: '#888',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            fnGetHeadList(true);
+           // alert(api.frameName);
+        });
+    }
+    ;
+
+    function fnInitPushRefresh() {
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 200
+            }
+        }, function (ret, err) {
+            fnGetHeadList(false);
+        });
+    }
+    ;
+
+    var list, dot;
+
+    function fnInit() {
+        list = $api.byId('list');
+
+        var template = $api.byId('template');
+        dot = doT.template(template.innerHTML);
+    }
+    ;
+
+    var pageNumber = 0,
+            isEmpty = false,
+            isLoading = false;
+    var LIMIT = 5;
+
+    function fnGetHeadList(isPull) {
+        if (isLoading) {
+            return;
+        }
+
+        if (isPull) {
+            pageNumber = 0;
+            isEmpty = false;
+        } else {
+            pageNumber++;
+        }
+
+        if (isEmpty) {
+            return;
+        }
+
+        skip = pageNumber * LIMIT;
+
+        isLoading = true;
+
+        var init = new Init(1);
+
+        //新闻列表
+        var headline_Url = '/headline?filter=';
+        var headline_UrlParam = {
+            'fields': {},
+            'where': {
+                "type": id
+            },
+            'skip': skip,
+            'limit': LIMIT,
+            "include": {
+                "fromPointer": ""
+            }
+        };
+        init.ajax(headline_Url + JSON.stringify(headline_UrlParam), 'get', {}, function (ret, err) {
+            //alert(JSON.stringify(ret) + ',----err--->' + JSON.stringify(err));
+            if (isPull) {
+                list.innerHTML = dot(ret);
+            } else {
+                $api.append(list, dot(ret));
+            }
+
+            isEmpty = ret.length < LIMIT;
+
+            api.refreshHeaderLoadDone();
+
+            fnReadyOpenWin();
+
+            isLoading = false;
+            var images_icon = [];
+            var images_pic = [];
+            for (var i = 0; i < ret.length; i++) {
+
+                if( ret[i].from.icon.url ){
+                    images_icon.push({
+                        id: 'icon_' + ret[i].id,
+                        url: ret[i].from.icon.url +"?imageView2/0/w/29/h/29/q/87/interlace/1"
+                    });
+                }
+
+
+
+                for ( var j=0; j < ret[i].imagers.length; j++ ){
+
+                    if( ret[i].imagers[j].url ){
+                        /*
+                          循环出来的默认显示最后一张
+                         */
+                        images_pic.push({
+                            id: 'image_' + ret[i].id,
+                            url: ret[i].imagers[j].url + "?imageView2/0/h/1280/q/60/interlace/1"
+                        });
+                    }
+
+                }
+            }
+            
+            
+           // alert(JSON.stringify(images_pic));
+
+
+
+
+           // fnImageCache(images_icon, 0);
+            fnImageCache(images_pic.reverse(), 0);
+
+
+        });
+
+
+    }
+    ;
+
+
+    function fnImageCache(images, index) {
+        if (index >= images.length) {
+            return;
+        }
+
+
+        api.imageCache({
+            url: images[index].url
+        }, function (ret, err) {
+            var image = $api.byId(images[index].id);
+            if (image) {
+                image.src = ret.url;
+            }
+
+            fnImageCache(images, index + 1);
+        });
+    };
+
+    function fnGetDate(date) {
+        var createdAt = new Date(date).getTime(),
+                now = new Date().getTime();
+
+        var timeStamp = now - createdAt;
+
+        var ret = '';
+
+        if (1000 * 60 * 60 * 24 <= timeStamp) {
+            ret = Math.ceil(timeStamp / (1000 * 60 * 60 * 24)) + '天';
+        } else if (1000 * 60 * 60 <= timeStamp) {
+            ret = Math.ceil(timeStamp / (1000 * 60 * 60)) + '小时';
+        } else if (1000 * 60 <= timeStamp) {
+            ret = Math.ceil(timeStamp / (1000 * 60)) + '分钟';
+        } else {
+            ret = Math.ceil(timeStamp / 1000) + '秒';
+        }
+
+        return ret;
+    }
+    ;
+
+    function fnGetPhotoNews(photoNewsId) {
+        return {
+            id: photoNewsId
+        }
+    };
+
+
+    function openWin(json) {
+        api.openWin({
+            name: 'news_Win',
+            url: 'news_Win.html',
+            bounces: false,
+            softInputMode:"resize",
+            pageParam: json
+        });
+
+    }
+    ;
+</script>
+
+</html>

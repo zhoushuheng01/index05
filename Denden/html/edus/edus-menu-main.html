@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title>main</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<header id="header">
+				<div class="aui-tab" id="tab">
+					<div class="aui-tab-item aui-active">
+						介绍
+					</div>
+					<div class="aui-tab-item">
+						目录
+					</div>
+				</div>
+			</header>
+		</div>
+	</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript">
+		var height, header, headerPos;
+		var h;//
+		var courid;
+		apiready = function() {
+			courid = api.pageParam.courid;
+
+			 h = api.pageParam.h;
+			window.header = $api.byId('header');
+//			var systemType = api.systemType;
+//          var systemVersion = parseFloat(api.systemVersion);
+//			if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+//                  if (systemType == "android") {
+//                  
+//                  }
+//                  $api.fixStatusBar(header);
+//              }else{
+//                  $api.fixIos7Bar(header);
+//          };
+            
+            
+			window.headerPos = $api.offset(header);
+			var main = $api.byId('main');
+			window.mainPos = $api.offset(main);
+			
+			height = api.pageParam.h;
+			var video_url = api.pageParam.video_url;
+			var video_id = api.pageParam.video_id;
+			
+			
+			header = $api.byId('header');
+			headerPos = $api.offset(header);
+			openFrm(function(index) {
+			});
+		};
+		function openFrm(callback) {
+			var tab = document.getElementById("tab");
+			var aDiv = tab.getElementsByTagName("div");
+			var ind = 0;
+			openFrameGroup(ind);
+			for (var i = 0, len = aDiv.length; i < len; i++) {
+				aDiv[i].index = i;
+				aDiv[i]["data-courid"] = courid;
+				aDiv[i].onclick = function(i) {
+					$(this).siblings().removeClass('aui-active');
+					$(this).addClass('aui-active');
+					$(this).attr("data-courid",courid);
+					ind = $(this).attr('index');
+					api.setFrameGroupIndex({
+						name : 'edus-menu-main',
+						index : ind
+					});
+				};
+			}
+
+			if ( typeof callback == "function") {
+				callback(ind);
+			}
+		};
+		function openFrameGroup(ind) {
+			api.openFrameGroup({
+				name : 'edus-menu-main',
+				scrollEnabled : true,
+				rect : {
+					x : 0,
+					y : h+headerPos.h,
+					w : 'auto',
+					h : 'auto'
+				},
+				index : ind,
+				frames : [{
+					name : 'edus-menu-main-left',
+					url : 'edus-menu-main-left.html',
+					pageParam:{
+						courid:courid
+					}
+				}, {
+					name : 'edus-menu-main-right',
+					url : 'edus-menu-main-right.html',
+					pageParam:{
+						courid:courid
+					}
+				}]
+			}, function(ret, err) {
+				var index = ret.index;
+				var tab = document.getElementById("tab");
+				var aDiv = tab.getElementsByTagName("div");
+				switch(index) {
+					case index :
+						$(aDiv[index]).siblings().removeClass('aui-active');
+						$(aDiv[index]).addClass('aui-active')
+						break;
+				};
+			});
+		}
+
+
+
+	</script>
+</html>

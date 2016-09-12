@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+    html,
+    body {
+        background-color: #ffffff;
+    }
+    
+    #ul_lists {
+        padding: 0 10px;
+    }
+    
+    #ul_lists li {
+        border: 1px solid #e6e6e6;
+        padding: 10px 12px;
+        margin: 10px 0 0;
+        overflow: hidden;
+    }
+    
+    #ul_lists li:nth-child(7){
+        margin-top: 20px;
+    }
+    
+    #ul_lists li .left {
+        float: left;
+    }
+    
+    #ul_lists li .right {
+        float: right;
+    }
+    .content{
+        margin-top: 220px;
+        padding-top: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <ul id="ul_lists">
+            
+            <li onclick="openWin('setting_order','setting_header')">
+                <div class="left">订单</div>
+                <div class="right">
+                    <span class="aui-icon-right aui-iconfont"></span>
+                </div>
+            </li>
+            <li onclick="openWin('setting_address_win','setting_address_win')">
+                <div class="left">地址</div>
+                <div class="right">
+                    <span class="aui-icon-right aui-iconfont"></span>
+                </div>
+            </li>
+            <li onclick="openWin('Creating_Community','setting_header')">
+                <div class="left">创建社团</div>
+                <div class="right">
+                    <span class="aui-icon-right aui-iconfont"></span>
+                </div>
+            </li>
+            <li onclick="openWin('setting_about','setting_header')">
+                <div class="left">关于</div>
+                <div class="right">
+                    <span class="aui-icon-right aui-iconfont"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="../../script/api.js"></script>
+<script type="text/javascript">
+
+    var personalCenter;
+    var y,count;
+    var fs;
+apiready = function() {
+    fs = api.require('fs');
+    personalCenter = api.require('personalCenter');
+
+    var btnArray = [{
+        'title': '购物车',
+        'count': '5'
+    }, {
+        'title': '发帖',
+        'count': '240'
+    }, {
+        'title': '收藏',
+        'count': '27'
+    }];
+
+    count = 382;
+
+    y = 44;
+
+
+    openPersonalCenter(btnArray);
+
+
+
+};
+    /*
+        打开个人中心
+    */
+    function openPersonalCenter(btnArray){
+        personalCenter.open({
+            "y":0,
+            "h":220,
+            'imgPath':$api.getStorage("userImg"),
+            'placeholderImg': 'widget://image/yeke.jpg',
+            'userName': $api.getStorage("userName"),
+            "userNameSize ":15,
+            fixedOn: api.frameName,
+            'btnArray': btnArray,
+            "fixed":false,
+        }, function(ret, err) {
+            /* 头像修改按钮. */
+
+            switch ( ret.click ){
+
+                case 0:  //购物车
+                    openWin('setting_shopping','setting_header');
+                    break;
+                case 1: //发帖
+
+                    break;
+                case 2:  //收藏
+
+                    openWin('setting_collection_items','setting_header');
+                    break;
+
+            }
+
+
+            /* 修改按钮. */
+            if (btnArray.length + 0 == ret.click) {
+                openWin('setting_MyProfile','setting_header');
+            }
+
+            if (btnArray.length + 1 == ret.click) {
+                openWin('setting_set','setting_header');
+            }
+
+        });
+    }
+function open(){
+api.openWin({
+        name: "setting_address_win",
+        url: "setting_header.html",
+        pageParam: {
+            name: "setting_address_win"
+        },
+        animation: {
+            type: "none", //动画类型（详见动画类型常量）
+            subType: "from_right", //动画子类型（详见动画子类型常量）
+            duration: 300
+        },
+        bgColor:"rgba(0,0,0,0)",
+        bounces: false,
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+
+}
+/*openWin*/
+function openWin(name,url) {
+    api.openWin({
+        name: name,
+        url: url + ".html",
+        pageParam: {
+            name: name
+        },
+        animation: {
+            type: "none", //动画类型（详见动画类型常量）
+            subType: "from_right", //动画子类型（详见动画子类型常量）
+            duration: 300
+        },
+        bgColor:"rgba(0,0,0,0)",
+        bounces: false,
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+}
+</script>
+
+</html>

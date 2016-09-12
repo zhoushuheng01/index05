@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+        <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+        <title>ad</title>
+        <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+        <style type="text/css">
+            html,
+            body {
+                height: 100%;
+            }
+            
+            .content .section {
+                width: 100%;
+                box-sizing: border-box;
+                border-bottom: 1px solid #e8e8e8;
+            }
+            
+            .content .pic img {
+                width: 100%;
+                display: block;
+                margin: 0 auto;
+            }
+            
+            .content .footer {
+                color: #888;
+                font-size: 12px;
+                position: relative;
+                padding-left: 45px;
+                padding-right: 54px;
+                height: 40px;
+                line-height: 40px;
+                box-sizing: border-box;
+            }
+            
+            .content .icon {
+                width: 24px;
+                height: 24px;
+                position: absolute;
+                top: 8px;
+                left: 15px;
+            }
+            
+            .content .icon img {
+                width: 24px;
+            }
+            
+            .content .txt {
+                width: 100%;
+                color: #222;
+                font-size: 12px;
+            }
+            
+            .content .txt em {
+                float: right;
+                color: #a7a7a7;
+            }
+            
+            .content .txt .zan {
+                width: 36px;
+                margin-left: 17px;
+                text-align: right;
+                font-size: 10px;
+                color: #9e9e9e;
+                background-image: url(../image/video/icn1.png);
+                background-size: 18px 16px;
+                background-repeat: no-repeat;
+                background-position: left center;
+            }
+            
+            .content .arrow {
+                position: absolute;
+                bottom: 0px;
+                right: 10px;
+                width: 31px;
+                height: 40px;
+                box-sizing: border-box;
+                background-image: url(../image/video/icn2.png);
+                background-size: 17px 3px;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+            
+            .kye {
+                height: 10px;
+                width: 100%;
+                background-color: #f4f5f6;
+                border-bottom: 1px solid #e8e8e8;
+            }
+            
+            .highlight {
+                opacity: 0.7;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="list" class="content"></div>
+    </body>
+    <script id="template" type="text/template">
+        {{~ it:data }}
+        <div class="section" tapmode="highlight" onclick="fnPlay('{{= data.title }}','{{= data.video.video.url }}')">
+            <div class="pic">
+                <img id="thumbnail0_{{= data.id }}" src="{{= data.video.video.url}}?vframe/jpg/offset/1/w/500/h/340">
+            </div>
+            <div class="footer">
+                <div class="icon">
+                    <img id="icon_{{= data.id }}" src="../../image/yekeuser.jpg" alt="">
+                </div>
+                <div class="txt">{{= data.from.name }} <em>{{= data.video.playCount }}次播放</em></div>
+                <div class="arrow"></div>
+            </div>
+        </div>
+        <div class="kye"></div>
+        {{~}}
+    </script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/SHA1.js"></script>
+    <script type="text/javascript" src="../../script/doT.min.js"></script>
+    
+    <!---->
+   <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript">
+        apiready = function() {
+            fnInitPullRefresh();
+            fnInitPushRefresh();
+
+            fnInit();
+
+            // fnGetHeadList();
+            api.refreshHeaderLoading();
+        };
+
+        function fnInitPullRefresh() {
+            api.setRefreshHeaderInfo({
+                visible: true,
+                loadingImg: 'widget://image/refresh.png',
+                bgColor: '#f0f0f0',
+                textColor: '#888',
+                textDown: '下拉刷新...',
+                textUp: '松开刷新...',
+                showTime: true
+            }, function(ret, err) {
+                fnGetHeadList(true);
+            });
+        };
+
+        function fnInitPushRefresh() {
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold: 200
+                }
+            }, function(ret, err) {
+                fnGetHeadList(false);
+            });
+        };
+
+        var list, dot;
+        var videoPlayer;
+
+        function fnInit() {
+            list = $api.byId('list');
+
+            var template = $api.byId('template');
+            dot = doT.template(template.innerHTML);
+
+            videoPlayer = api.require('videoPlayer');
+        };
+
+        var pageNumber = 0,
+            isEmpty = false,
+            isLoading = false;
+        var LIMIT = 5;
+
+        function fnGetHeadList(isPull) {
+            if (isLoading) {
+                return;
+            }
+
+            if (isPull) {
+                pageNumber = 0;
+                isEmpty = false;
+            } else {
+                pageNumber++;
+            }
+
+            if (isEmpty) {
+                return;
+            }
+
+            skip = pageNumber * LIMIT;
+
+            isLoading = true;
+			
+			
+			var init = new Init(1);
+			
+			//新闻列表
+			var headline_Url = '/headline?filter=';
+		    var headline_UrlParam = {
+		        'fields':{
+		        },
+		        'where':{
+		            "type":3//视频类型
+		        },
+		        'skip':skip,
+		        'limit':LIMIT,
+		        "include":{
+                    "videoPointer":"",
+                    "fromPointer":""
+                }
+		    };
+		    
+			init.ajax(headline_Url + JSON.stringify(headline_UrlParam),'get',{},function(ret,err){
+				//alert(JSON.stringify(ret) + ',----err--->' + JSON.stringify(err));
+				 if (isPull) {
+                    list.innerHTML = dot(ret);
+                } else {
+                    $api.append(list, dot(ret));
+                }
+
+                isEmpty = ret.length < LIMIT;
+
+                api.refreshHeaderLoadDone();
+                
+                isLoading = false;
+
+                var images = [];
+                for (var i = 0; i < ret.length; i++) {
+                    images.push({
+                        id: 'icon_' + ret[i].id,
+                        url: ret[i].from.icon.url
+                    });
+
+                    for ( var j=0; j< ret[i].imagers.length;j++ ){
+                        images.push({
+                            id: 'thumbnail0_' + ret[i].imagers[j].id,
+                            url: ret[i].imagers[j].url
+                        });
+                    }
+                }
+
+                fnImageCache(images, 0);
+			});
+			
+			
+           /* var now = Date.now();
+            var appKey = SHA1("A6918573369588" + "UZ" + "20C93719-0DE5-8C9B-2F05-36D9BB835C02" + "UZ" + now) + "." + now;
+
+            api.ajax({
+                url: 'https://d.apicloud.com/mcm/api/headlist?filter={"where":{"type":1},"skip":' + skip + ',"limit":' + LIMIT + ',"include":["fromPointer","videoPointer"]}',
+                method: 'get',
+                cache: true,
+                timeout: 5,
+                headers: {
+                    "X-APICloud-AppId": "A6918573369588",
+                    "X-APICloud-AppKey": appKey
+                }
+            }, function(ret, err) {
+                // alert(JSON.stringify(ret) + ',' + JSON.stringify(err));
+
+                if (isPull) {
+                    list.innerHTML = dot(ret);
+                } else {
+                    $api.append(list, dot(ret));
+                }
+
+                isEmpty = ret.length < LIMIT;
+
+                api.refreshHeaderLoadDone();
+
+                // api.removeLaunchView({
+                //     animation: {
+                //         type: 'fade',
+                //         duration: 300
+                //     }
+                // });
+
+                isLoading = false;
+
+                var images = [];
+                for (var i = 0; i < ret.length; i++) {
+                    images.push({
+                        id: 'icon_' + ret[i].id,
+                        url: ret[i].from.icon.url
+                    });
+
+                    images.push({
+                        id: 'thumbnail0_' + ret[i].id,
+                        url: ret[i].thumbnail0.url
+                    });
+                }
+
+                fnImageCache(images, 0);
+            });*/
+        };
+
+        function fnImageCache(images, index) {
+            if (index >= images.length) {
+                return;
+            }
+
+            api.imageCache({
+                url: images[index].url
+            }, function(ret, err) {
+                var image = $api.byId(images[index].id);
+                if (image) {
+                    image.src = ret.url;
+                }
+
+                fnImageCache(images, index + 1);
+            });
+        };
+
+        function fnPlay(title, path) {
+            videoPlayer.play({
+                texts: {
+                    head: {
+                        title: title
+                    }
+                },
+                path: path,
+                autoPlay: true
+            });
+        };
+    </script>
+
+</html>

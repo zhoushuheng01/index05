@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        body{
+            display: -webkit-flex;
+            display: flex;
+        }
+        .aui-bar-nav{
+            background-color: #00BCD4;
+        }
+        #index{
+            width: 100%;
+            height:100%;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+        #main{
+            -webkit-flex:1;
+            flex: 1;
+        }
+        #header{
+            width: 100%;
+        }
+        .aui-bar-tab-label{
+            font-size: 13px;
+        }
+
+        #footer{
+                height: 45px;
+                line-height: 45px;
+                background: #00BCD4;
+                text-align: center;
+                color: rgba(255,255,255,0.91);
+        }
+    	.none{
+    		display: none;
+    	}
+    </style>
+</head>
+
+<body id="body">
+    <div id="index">
+        <header class="aui-bar aui-bar-nav" id="header">
+            <a class="aui-pull-left aui-btn" tapmode onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </a>
+            <div class="aui-title"></div>
+            <a class="aui-pull-right">
+               <!--  <span class="aui-iconfont aui-icon-more"></span> -->
+            </a>
+        </header>
+
+        <div id="main">
+            
+        </div>
+        <footer id="footer">
+            <div class="connent" tapmode id="connent">
+                <span class="iconfont-app">&#xe685;</span>
+                <span class="text" id="textBtn"></span>
+            </div>
+        </footer>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var header, headerPos,main,mainPos,body,bodyPos,footer,footerPos;
+var index;//判断显示日常，或者活动页面
+var daily_id;//日常评论id
+var activity_id;//活动id，，活动页面判断数据
+$("#footer").hide();
+apiready = function() {
+    header = $api.byId('header');
+    main = $api.byId('main');
+    body = $api.byId('body');
+    footer = $api.byId('footer');
+    
+    
+    var systemType = api.systemType;
+    var systemVersion = parseFloat(api.systemVersion);
+    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+        if (systemType == "android") {
+        	$api.fixStatusBar(header);
+        }
+        
+    } else {
+        $api.fixIos7Bar(header);
+    }
+    headerPos = $api.offset(header);
+    footerPos = $api.offset(footer);
+    mainPos = $api.offset(main);
+    bodyPos = $api.offset(body);
+    
+    
+    index = api.pageParam.index;
+    activity_id = api.pageParam.activity_id;
+    daily_id = api.pageParam.daily_id;
+
+
+		//alert("活动id--》"+activity_id+"daily_id-->"+daily_id);
+	
+    $api.setStorage('activity_id',activity_id);//活动id
+    $api.setStorage('daily_id',daily_id);//日常id
+    
+    
+    var init = new Init(1);
+    
+    var assn_id = $api.getStorage("assn_id");//社团id
+    var userName = $api.getStorage('userName');//用户名字
+
+	var height = bodyPos.h-(headerPos.h+45);
+	
+    switch(index){
+    	case 0:
+    		var jojnBtn = $api.getStorage('jojnBtn');
+    		//alert(jojnBtn);
+    		
+		     if( 'undefined' == typeof jojnBtn ){
+		     	
+	            if(daily_id){
+	            	$("#footer .text").text('加入社团');
+		            $("#footer").show();
+		            $api.one($api.byId('footer'),'click',function(){
+							var time = new Date().toLocaleString();
+						    
+							var data = {
+								'userid':userName,
+								'assn_id':assn_id,
+								'apply_status':1,
+								'apply_date':time  //当前时间
+							};
+							//alert(JSON.stringify(data));
+							
+	                        init.ajax('/assn_record','post',JSON.stringify(data),function(ret,err){
+	                            if(ret){
+	
+	                                $("#footer .text").text('我要评论');
+	                                $api.setStorage('jojnBtn',1);
+	                                api.sendEvent({
+	                                    name: 'jojnBtn',
+	                                    extra: {
+	                                        'jojnBtn': ret.apply_status
+	                                    }
+	                                });
+	
+	
+	                                $api.addEvt(textBtn,'click',function(){
+	                                    openWin({
+	                                        'pass':'pass_daily_comments',
+	                                        'assn_id':assn_id,
+	                                        'userName':userName,
+	                                        'userid':$api.getStorage('userid'),
+	                                        'community_join':1,
+	                                        'daily_id':daily_id
+	                                    });
+	                                });
+	                            }else{
+	                                api.alert({ msg: JSON.stringify(err)+"choose_Win-->235-->函数：" });
+	                            }
+	                        });
+				   	 	  
+						});
+	            }
+	            
+		     }else{
+		     	$("#footer .text").text('我要评论');
+	            $("#footer").show();
+		     }
+			
+		     
+		     var textBtn = $api.byId('textBtn');///用户评论或者加入社团
+		     if($("#footer .text").text() == "我要评论"){
+		     	$api.addEvt(textBtn,'click',function(){
+		     		openWin({
+		     		    'pass':'pass_daily_comments',
+		     			'assn_id':assn_id,
+		     			'userName':userName,
+		     			'userid':$api.getStorage('userid'),
+		     			'community_join':1,
+		     			'parent_id':daily_id
+		     		});
+		     	});
+		     };
+            openFrm('daily_details',{},height);
+            
+    	break;
+        case 1:
+            //alert(index);
+            $("#footer .iconfont-app").text('');
+            $("#footer .text").text('我要评论');
+            $("#footer").show();
+            var connent = $api.byId('connent');
+            $api.addEvt(connent, 'click', function(){
+                api.openWin({
+	                name: 'comments_Win',
+	                url: 'comments_Win.html'
+                });
+            });
+            openFrm('activity_details',{},height,true);
+        break;
+    }
+
+    
+    
+    
+    
+};
+
+function openWin(json){
+	api.openWin({
+	    name: 'comments_Win',
+	    url: 'comments_Win.html',
+	    pageParam:json
+    });
+}
+function openFrm(name,json,h,reload){
+	api.openFrame({
+	    name: name,
+	    url: name+'.html',
+	    bounces:false,
+	    pageParam:json,
+	    reload:false,
+	    rect: {
+		    x:0,
+		    y:headerPos.h,
+		    w:api.winWidth,
+		    h:h
+	    }
+    });
+};
+</script>
+
+</html>

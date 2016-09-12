@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%; 
+            overflow: hidden;
+        }
+        body{
+            display: -webkit-flex;
+            display: flex;
+        }
+        .aui-bar-nav{
+            background-color: #00BCD4;
+        }
+        #index{
+            width: 100%;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+        }
+        #main{
+            -webkit-flex:1;
+            flex: 1;
+        }
+        #header{
+            width: 100%;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <div id="index">
+        <header class="aui-bar aui-bar-nav" id="header">
+            <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>返回
+            </a>
+            <div class="aui-title">职位详情</div>
+            <a class="aui-pull-right">
+            </a>
+        </header>
+
+        <div id="main">
+            
+        </div>
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var course_id; //课程id
+var course_name;//机构名称
+var url;
+var header, headerPos,main,mainPos;
+apiready = function() {
+    header = $api.byId('header');
+    main = $api.byId('main');
+
+    var systemType = api.systemType;
+    var systemVersion = parseFloat(api.systemVersion);
+    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+        if (systemType == "android") {}
+        $api.fixStatusBar(header);
+    } else {
+        $api.fixIos7Bar(header);
+    }
+
+
+    headerPos = $api.offset(header);
+    mainPos = $api.offset(main);
+
+    course_id = api.pageParam.course_id;
+    url =api.pageParam.url;
+
+    if(url != ""){
+        openFrm(url,course_id)
+    }else{
+       
+        openFrm("job-deail2.html",course_id);
+    }
+    //openFrm("job-deail2",course_id);
+    
+
+}
+
+function openFrm(name,id) {
+    api.openFrame({
+        name: name,
+        url: name,//'./'+ name +'.html'
+        rect: {
+            x: 0,
+            y: headerPos.h,
+            w: api.winWidth,
+            h: mainPos.h
+        },
+        pageParam: {
+            course_id: id
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+
+};
+
+</script>
+
+</html>

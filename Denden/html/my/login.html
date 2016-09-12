@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+        <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title> 
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+	    <style type="text/css">
+			.aui-bar-light {
+				color: #03a9f4;
+				background-color: rgba(27,130,225,0.89);
+			}
+			.aui-bar-nav.aui-bar-light .aui-iconfont {
+				color: #fff;
+			}
+			header{
+				
+			}
+			body{
+				background-color: rgba(27,130,225,0.89);
+			}
+	    </style>
+	</head>
+	<body class="body">
+		<header id="header_1" class="aui-bar aui-bar-nav aui-bar-light">
+		    <a class="aui-pull-left aui-btn" onclick="api.closeWin()">
+		        <span class="aui-iconfont aui-icon-left"></span>
+		    </a>
+		</header>
+	</body>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script src="../../script/api.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	window.apiready = function(){
+		var header = $api.byId("header_1");
+            var systemType = api.systemType;
+		    var systemVersion = parseFloat(api.systemVersion);
+		    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+		        if (systemType == "android") {
+					$api.fixStatusBar(header);
+		        }
+		        
+		    } else {
+		        $api.fixIos7Bar(header);
+		    };
+         var headerPos = $api.offset(header);
+		api.openFrame({
+                name: 'login_frame',
+                url: 'login_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: headerPos.w,
+                    h: "auto"
+                },
+                pageParam: {
+                    name: 'login_frame'
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)'
+            });
+		
+	};
+</script>
+</html>

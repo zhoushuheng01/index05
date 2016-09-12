@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>header头部</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style>
+ /*   #header {
+        width: 100%;
+        display: -webkit-flex;
+        display: flex;
+        text-align: center;
+        background-color: rgba(30, 131, 225, 1);
+       
+    }
+    
+    #header .left {
+        -webkit-flex: 1;
+    }
+    
+    #header .middle {
+        -webkit-flex: 5;
+        flex: 5;
+    }
+    
+    #header .right {
+        -webkit-flex: 1;
+        flex: 1;
+    }*/
+    </style>
+</head>
+
+<body>
+    
+    <header class="aui-bar aui-bar-nav" id="header">
+        <a class="aui-pull-left aui-btn left" onclick="api.closeWin();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title middle"></div>
+        <a class="aui-pull-right right"></a>
+    </header>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+var name = null;
+var header,headerPos;
+apiready = function() {
+    name = api.pageParam.name;
+    header = $api.byId('header');
+    var systemType = api.systemType;
+    var systemVersion = parseFloat(api.systemVersion);
+    if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+        if (systemType == "android") {
+        	$api.fixStatusBar(header);
+        }
+        
+    } else {
+        $api.fixIos7Bar(header);
+    }
+    
+    headerPos = $api.offset(header);
+    
+    openFrm(name);
+}
+
+function openFrm(name) {
+    var header = $api.byId("header");
+    $api.fixIos7Bar(header);
+    var headerPos = $api.offset(header);
+    switch (name) {
+        case 'setting_shopping':
+            $(".middle").text("购物车");
+            $(".right").text("编辑");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 'setting_collection_items':
+        	$(".middle").text("收藏");
+            $(".right").text("编辑");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 'setting_order':
+            $(".middle").text("订单");
+            $(".right").text("");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 'setting_MyProfile':
+            $(".middle").text("我的资料");
+            $(".right").text("");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 'setting_release':
+            $(".middle").text("我要爆料");
+            $(".right").text("发送");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 'setting_set':
+            $(".middle").text("设置");
+            $(".right").text("");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 'Creating_Community':  //创建社团
+            $(".middle").text("创建社团");
+            $(".right").text("");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+        case 'setting_about':
+            $(".middle").text("关于");
+            $(".right").text("");
+            api.openFrame({
+                name: name,
+                url: name + '.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: "auto",
+                    h: "auto"
+                },
+                pageParam: {
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+            break;
+         
+
+    }
+};
+openFrm.prototype.open = function(name) {
+
+}
+</script>
+
+</html>

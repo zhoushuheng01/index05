@@ -1,0 +1,20 @@
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,input,dd,dl,form,th,td,select,textarea{
+	margin: 0;
+	padding: 0;
+}
+body{
+	margin-bottom: 30px;
+	font-size: 12px;font-family: "微软雅黑";
+}
+em{font-style: normal;}
+li{list-style: none;}
+a{text-decoration: none;}
+table{border-collapse: collapse;}
+img{border: none;vertical-align: top;}
+textarea{resize: none;overflow: auto;}
+input,textarea{outline: none;}
+input {border: none;}
+.clearfix{zoom: 1;}
+.clearfix:after{content: '';display: block;clear: both;}
+.fl{float: left;}
+.fr{float: right;}

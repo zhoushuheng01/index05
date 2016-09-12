@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
+    }
+    
+    #index {
+        height: 100%;
+    }
+    
+    #main {
+        display: -webkit-flex;
+        display: flex;
+        flex-wrap: wrap;
+        -webkit-justify-content: space-between;
+    }
+    
+    #main >div {
+        width: 49%;
+    }
+    
+    #main >div:nth-child(2n-1) {
+        margin-right: 1px;
+    }
+    
+    .box {
+        border: solid 2px #eeeeee;
+        border-radius: 4px;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.09);
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    
+    .box .pic {
+        position: relative;
+        height:130px;
+        width:100%;
+    }
+    
+    .box .pic img {
+        width: 100%;
+        height:100%;
+        display: block;
+    }
+    
+    .box .pic_title {
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.86);
+        background-color: rgba(0, 0, 0, 0.39);
+        bottom: 0px;
+    }
+    
+    .box .title {
+        text-align: center;
+        border-top: 1px solid #eeeeee;
+        font-size: 0.86rem;
+        padding: 5px 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+        <div id="main">
+            <script id="assn_base_list" type="text/x-dot-template">
+                {{ for(var i in it){ }}
+                    <div class="box" tapmode onclick="openWin({
+                            'assn_id':'{{= it[i].assn_id}}',
+                            'user_name':'{{= it[i].name}}',
+                            'user_img':'{{= it[i].user_img.url}}',
+                            'user_bg':'{{= it[i].user_bg.url}}'
+                        })">
+                        <div class="pic">
+                            <img src="{{= it[i].assn_img.url}}">
+                            <div class="pic_title">{{= it[i].name}}</div>
+                        </div>
+                    </div>
+                {{ } }}
+            </script>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+apiready = function() {
+
+    var box = $api.domAll($api.byId('main'), ".box");
+
+   
+    var init = new Init(1);
+    
+    /*
+       assn_base  对应数据库的表名
+
+     */
+    
+	var assn_base_Url = '/assn_base?filter=';
+	var assn_base_UrlParam = {
+			"fields":{
+				"id":0,
+				"createdAt":0,
+				"updatedAt":0
+				},
+		    "where":{},
+		    "skip":init.skip,
+		    "limit":init.limit
+	};
+   init.ajax(assn_base_Url + JSON.stringify(assn_base_UrlParam),'get',{},function(ret,err){
+   		if(ret){
+   			//api.alert({ msg: JSON.stringify(ret) });
+   			var evalText = doT.template($("#assn_base_list").text());
+            $("#main").html(evalText(ret));
+
+   		}else{
+   			api.alert({ msg: JSON.stringify(err) });
+
+   		}
+   });
+};
+function openWin(json){
+  api.parseTapmode();
+  api.openWin({
+        name: 'C_details_Win',
+        url: 'C_details_Win.html',
+        pageParam:json
+    });
+};
+
+</script>
+
+</html>

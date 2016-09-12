@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+        html,body{
+            height:100%;
+            width:100%;
+        }
+        section{
+
+            background-color: #fff;
+        }
+        #textplay{
+            padding: 10px;
+        }
+        #section1 ul {
+            display: -webkit-flex;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #section1 ul > li{
+            width:31%;
+            margin:0 0px 10px 5px;
+        }
+        #section1 ul > li img{
+            width:100%;
+            height: 100px;
+            display: block;
+        }
+        #lastLi{
+            border:1px solid #ccc;
+        }
+        .item{
+            display: -webkit-flex;
+            display: flex;
+            padding: 0 10px;
+            height:40px;
+            line-height: 40px;
+            margin-top:10px;
+            border-top:1px solid rgba(0,0,0,0.08);
+        }
+        .item > .right{
+            flex:1;
+            display: flex;
+        }
+        .item > .right .left{
+            flex:1;
+        }
+        .item > .right .right{
+            width:30px;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="header">
+    <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title"></div>
+    <a class="aui-pull-right" id="btn">发布</a>
+</header>
+<section id="section1">
+    <div id="textplay">
+        <textarea id="textarea" placeholder="说点什么吧" rows="5"></textarea>
+    </div>
+    <footer>
+        <ul>
+            <li id="lastLi"><img src="../../image/tours/jiahao.png" alt=""></li>
+        </ul>
+    </footer>
+    <!--<div class="item">-->
+        <!--<div class="left">地点:</div>-->
+        <!--<div class="right">-->
+            <!--<div class="left">555</div>-->
+            <!--<div class="right iconfont-app">&#xe6ad;</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/swipe.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+
+    var oSection = $api.byId("section1");
+    var oUl = $api.dom(oSection, 'ul');
+    var lastLi =  $api.dom(oUl, '#lastLi');
+    var UIMediaScanner;
+	
+
+    var header, headerPos;
+
+	apiready = function(){
+       UIMediaScanner = api.require('UIMediaScanner');
+	 
+
+
+        header = $api.byId('header');
+
+        var systemType = api.systemType;
+        var systemVersion = parseFloat(api.systemVersion);
+        if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+            if (systemType == "android") {
+                $api.fixStatusBar(header);
+            }
+        } else {
+            $api.fixIos7Bar(header);
+        };
+
+
+        headerPos = $api.offset(header);
+
+
+
+        var btn = $api.byId("btn");
+        var init = new Init(1);
+
+        var model = api.require('model');
+
+        /*
+         tour_landscape  对应数据库的表名
+
+         */
+        var tour_landscape_Url = '/tour_landscape';
+
+        $api.addEvt(btn,"click",function(){
+            var imageS = [];
+			
+            var text =$api.val($api.byId("textarea"));
+
+            var aLi = $api.domAll(oUl,"li:not(:last-child)");
+
+            var filesUrl = {};
+            
+            for ( var i=0; i<aLi.length;i++ ){
+
+                imageS.push(  $api.attr($api.dom(aLi[i],"img"),'src') );
+            };
+
+
+            var imageUrl  = [];//保存图片地址
+
+
+			api.showProgress({
+			    style: 'default',
+			    animationType: 'fade',
+			    text: '发布中',
+			    modal: false
+			});
+			
+			
+            function upFile(Callback){
+                for (var j=0; j<imageS.length;j++){
+
+                    model.uploadFile({
+                        report: false,
+                        data: {
+                            file: {
+                                name: imageS[j],
+                                url:imageS[j]
+                            }
+                        }
+                    }, function(ret, err){
+                        if( ret ){
+
+                            imageUrl.push({
+                                "id":ret.id,
+                                "name":ret.url,
+                                "url":ret.url
+                            });
+
+                            if( imageS.length == imageUrl.length ){
+                                api.sendEvent({
+                                    name: 're_image'
+                                });
+                                
+                                
+                                
+                            }
+                            //alert( JSON.stringify( ret ) );
+                        }else{
+                           // alert( JSON.stringify( err ) );
+                        }
+                    });
+
+                };
+
+                if( typeof Callback == "function" ){
+                    Callback();
+                }
+            };
+
+
+
+            upFile(function(){
+            	//alert(1)
+            	
+            	
+            
+	            
+            });
+            //alert(3)
+
+            
+			var userid = $api.getStorage("userid");
+
+            api.addEventListener({
+                name: 're_image'
+            }, function(ret, err) {
+				var dateTime = new Date().getTime();
+                var data = {
+                    "tour_id":dateTime,
+                    "text":text,
+                    "image":imageUrl,
+                    "user_id":userid
+                };
+                init.ajax(tour_landscape_Url,"POST",JSON.stringify(data),function(ret,err){
+					
+                    if(ret){
+                      // alert(JSON.stringify(ret))
+                       
+                       api.hideProgress();
+                       
+                       api.closeWin({
+                       });
+                    }else{
+                       // alert(JSON.stringify(err))
+                    }
+
+                })
+                
+            });
+			
+
+			if( imageS.length == 0 ){
+				var dateTime = new Date().getTime();
+                var data = {
+                    "tour_id":dateTime,
+                    "text":text,
+                    "image":imageUrl,
+                    "user_id":userid
+                };
+                init.ajax(tour_landscape_Url,"POST",JSON.stringify(data),function(ret,err){
+					
+                    if(ret){
+                      // alert(JSON.stringify(ret))
+                       
+                       api.hideProgress();
+                       
+                       api.closeWin({
+                       });
+                    }else{
+                       // alert(JSON.stringify(err))
+                    }
+
+                })
+			}
+			
+
+
+        });
+
+
+
+        $api.addEvt(lastLi,"click",function(){
+           // $api.prepend(oUl,' <li><img src="../../image/face/m10.gif" alt=""></li>');
+
+
+            UIMediaScanner.open({
+                type: 'picture',
+                column: 4,
+                classify: true,
+                max: 4,
+                sort: {
+                    key: 'time',
+                    order: 'desc'
+                },
+                texts: {
+                    stateText: '已选择*项',
+                    cancelText: '取消',
+                    finishText: '完成'
+                },
+                styles: {
+                    bg: '#fff',
+                    mark: {
+                        icon: '',
+                        position: 'bottom_left',
+                        size: 20
+                    },
+                    nav: {
+                        bg: '#eee',
+                        stateColor: '#000',
+                        stateSize: 18,
+                        cancelBg: 'rgba(0,0,0,0)',
+                        cancelColor: '#000',
+                        cancelSize: 18,
+                        finishBg: 'rgba(0,0,0,0)',
+                        finishColor: '#000',
+                        finishSize: 18
+                    }
+                },
+                exchange: true,
+                rotation: true
+            }, function(ret) {
+                if (ret) {
+                	var list = ret.list;
+                	var path = [];
+                	var thumbPath = [];//缩略图
+
+                    var html ='';
+                	for( var i in list ){
+                        path.push(list[i].path);
+                        thumbPath.push(list[i].thumbPath);
+                        html += ' <li><img src="'+list[i].path+'" alt=""></li>';
+                	}
+
+
+                    $api.prepend(oUl,html);
+                   // alert(JSON.stringify(ret));
+                }
+            });
+        });
+
+	};
+</script>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+    html,
+    body {
+        height: 100%;
+    }
+    
+    body {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        
+        -webkit-box-orient: vertical;                   
+        -webkit-flex-flow: column;
+        flex-flow: column;
+    }
+    
+    
+    .header {
+        height: 43px;
+        width: 100%;
+        display: none;
+        line-height: 26px;
+        text-align: center;
+        background: #28a8d9;
+    }
+    
+    .header.active {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+    }
+    
+    .top-menu {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        height: 43px;
+    }
+    /*按钮*/
+    
+    .btn {
+        height: 43px;
+        width: 35px;
+    }
+    /*首页头部导航*/
+    /*字体颜色*/
+    
+    .header.home>div.active {
+        opacity: 1;
+    }
+    
+    .header.home {
+        /*00BCD4*/
+    }   
+    
+    .header h5 {
+        display: inline-block;
+        color: rgba(255,255,255,0.8);
+        line-height: 43px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        
+        font-size:15px;
+        letter-spacing: 7px;
+    }
+    .header h5:after{
+    	content: "";
+    	/*font-size:14px;*/
+    	display:block;
+    	position:absolute;
+    	top:7px;
+    	left:30%;
+    	width:60%;
+    	background:url('./../res/APP/mxyqfx.png') no-repeat;
+        height:36px;
+        background-size:135px 25px;
+    }
+    
+    .header.home .top-menu>div {
+        color: #fff;
+        opacity: .8;
+    }
+    
+    .header.home .top-menu>div.active {
+        opacity: 1;
+    }
+    
+    .add_btn {
+        position: relative;
+        z-index: 99;
+        background:  url('../image/jia.png') center center no-repeat;
+        -webkit-background-size: 20px 20px;
+        background-size: 20px 20px;
+    }  
+    </style>
+</head>
+
+<body id="body">
+    <header id="header">
+        <div class="header home active">
+            <div class="top-menu"></div>
+            <div class="add_btn btn" onclick="fnOpenMy()"></div>
+            <h5></h5>
+        </div>
+    </header>
+    <div class="place-holder" id="place-holder"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/db.js"></script>
+<script type="text/javascript">
+var NVTabBar;
+apiready = function() {
+
+
+	var initdb = new Database();
+	
+
+    /*
+        关闭引导图
+    */
+    api.closeFrameGroup({
+        name: 'Fig_guide'
+    });
+	
+	
+			
+	 var fs = api.require('fs');
+	 
+	 var initdb = new Database();
+		 
+		
+		var dir = api.fsDir;
+		
+		fs.exist({
+		    path: dir+'/res'
+		}, function(ret, err) {
+		    if (ret.exist) {
+		        if (ret.directory) {
+		           // alert(JSON.stringify(ret)+696);
+		            fs.createDir({
+					    path: 'fs://res/database'
+					}, function(ret, err) {
+					    if (ret.status) {
+					      
+					    }
+					});
+		            
+		        } else {
+		           // alert('文件');
+		        }
+		    } else {
+		     
+		      
+		      fs.createDir({
+				    path: 'fs://res'
+				}, function(ret, err) {
+				    if (ret.status) {
+				     //  alert(JSON.stringify(ret));
+				    } else {
+				       
+				    }
+				});
+		    }
+		});
+		
+		
+		fs.readDir({
+			path: dir + '/res/'
+		}, function(ret, err) {
+		
+			if (ret.status) {
+			
+				
+				
+				for( var i in ret.data ){
+					
+					//判断文件夹是否存在,,存在就打开数据库，
+					if( ret.data[i] == "database" ){
+						
+						initdb.databass(function(ret,err){
+						 	 if (ret.status) {
+						     // alert(JSON.stringify(ret));
+						    } else {
+						       // alert(JSON.stringify(err));
+						    }
+						 });
+						
+					}else{
+						//不存在就创建文件夹。在创建数据库
+						fs.createDir({
+						    path: 'fs://res/database'
+						}, function(ret, err) {
+							
+							initdb.databass(function(ret,err){
+								
+								 if (ret.status) {
+							       // alert(JSON.stringify(ret));
+							    } else {
+							       // alert(JSON.stringify(err));
+							    }
+							
+							});
+							
+						});
+						
+					}
+					
+				}
+				
+			} else {
+			
+			}
+		});
+	
+	
+
+    NVTabBar = api.require('NVTabBar');
+    api.removePrefs({
+            key: 'has_showed'
+     });
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    fnInit();
+    NVTabBars();
+    fnInitEventListener();
+};
+
+function NVTabBars() {
+    NVTabBar.open({
+        styles: {
+            bg: '#fff',
+            h: 50,
+            dividingLine: {
+                width: 0.5,
+                color: '#000'
+            },
+            badge: {
+                bgColor: '#ff0',
+                numColor: '#fff',
+                size: 6.0
+            }
+        },
+        items: [{
+            w: api.winWidth / 5.0,
+            bg: {
+                marginB: 20,
+                image: 'rgba(0,0,0,0)'
+            },
+            iconRect: {
+                w: 25.0,
+                h: 25.0,
+            },
+            icon: {
+                normal: 'widget://image/footer/home.png',
+                highlight: 'widget://image/footer/home_act.png',
+                selected: 'widget://image/footer/home_act.png'
+            },
+            title: {
+                text: '资讯',
+                size: 12.0,
+                normal: '#696969',
+                selected: '#696969',
+                marginB: 4.0
+            }
+        }, {
+            w: api.winWidth / 5.0,
+            bg: {
+                marginB: 20,
+                image: 'rgba(0,0,0,0)'
+            },
+            iconRect: {
+                w: 25.0,
+                h: 25.0,
+            },
+            icon: {
+                normal: 'widget://image/footer/peixun.png',
+                highlight: 'widget://image/footer/peixun_act.png',
+                selected: 'widget://image/footer/peixun_act.png'
+            },
+            title: {
+                text: '培训',
+                size: 12.0,
+                normal: '#696969',
+                selected: '#696969',
+                marginB: 4.0
+            }
+        }, {
+            w: api.winWidth / 5.0,
+            bg: {
+                marginB: 20,
+                image: 'rgba(0,0,0,0)'
+            },
+            iconRect: {
+                w: 25.0,
+                h: 25.0,
+            },
+            icon: {
+                normal: 'widget://image/footer/gouwu.png',
+                highlight: 'widget://image/footer/gouwu_act.png',
+                selected: 'widget://image/footer/gouwu_act.png'
+            },
+            title: {
+                text: '嗨购',
+                size: 12.0,
+                normal: '#696969',
+                selected: '#696969',
+                marginB: 4.0
+            }
+        }, {
+            w: api.winWidth / 5.0,
+            bg: {
+                marginB: 20,
+                image: 'rgba(0,0,0,0)'
+            },
+            iconRect: {
+                w: 25.0,
+                h: 25.0,
+            },
+            icon: {
+                normal: 'widget://image/footer/offer.png',
+                highlight: 'widget://image/footer/offer_act.png',
+                selected: 'widget://image/footer/offer_act.png'
+            },
+            title: {
+                text: '就业',
+                size: 12.0,
+                normal: '#696969',
+                selected: '#696969',
+                marginB: 4.0
+            }
+        }, {
+            w: api.winWidth / 5.0,
+            bg: {
+                marginB: 20,
+                image: 'rgba(0,0,0,0)'
+            },
+            iconRect: {
+                w: 25.0,
+                h: 25.0,
+            },
+            icon: {
+                normal: 'widget://image/footer/tour.png',
+                highlight: 'widget://image/footer/tour_act.png',
+                selected: 'widget://image/footer/tour_act.png'
+            },
+            title: {
+                text: '旅游',
+                size: 12.0,
+                normal: '#696969',
+                selected: '#696969',
+                marginB: 4.0
+            }
+        }],
+        selectedIndex: 0
+    }, function(ret, err) {
+        if (ret) {
+            if (ret.eventType == "show") {
+                openFrameGroup();
+            };
+
+            switch (ret.index) {
+                case ret.index:
+                    setFrameGroupIndex(ret.index)
+                    break;
+            };
+        } else {
+           // alert(JSON.stringify(err));
+        }
+    });
+
+};
+
+function openFrameGroup(index) {
+    var header = $api.offset($api.byId('header'));
+    var body = $api.offset($api.byId("body"));
+    var h = body.h - (header.h + 50);
+    api.openFrameGroup({
+        name: 'group1',
+        background: '#fff',
+        scrollEnabled: true,
+        rect: {
+            x: 0,
+            y: header.h,
+            w: 'auto',
+            h: body.h - (header.h + 50)
+        },
+        index: 0,
+        animation: {
+            type: "none",
+            duration: 300
+        },
+        frames: [{
+            //./news/news-img
+            name: 'home_index',
+            url: 'home_index.html',
+            bounces: false,
+            bgColor: '#fff'
+            
+        }, {
+            name: 'edus',
+            url: './edus/edus-img.html',
+            bounces: false,
+            bgColor: '#fff',
+            pageParam: {
+                h: h,
+                header: header.h
+            }
+        }, {
+            name: 'malls',
+            url: './malls/malls-img.html',
+            bounces: false,
+            bgColor: '#fff'
+        }, {
+            name: 'job',
+            url: './job/job-img.html',
+            bounces: false,
+            bgColor: '#fff'
+        }, {
+            name: 'tours',
+            url: './tours/tours-img.html',
+            bounces: false,
+            bgColor: '#fff'
+        }]
+    }, function(ret, err) {
+        var index = ret.index;
+        NVTabBar.setSelect({
+            index: index
+        });
+    });
+}
+
+
+/*设置setFrameGroupIndex*/
+function setFrameGroupIndex(index) {
+    api.setFrameGroupIndex({
+        name: 'group1',
+        index: index,
+        scroll: true
+    });
+}
+
+
+function fnInitEventListener() {
+    var hasOneClick = false;
+    api.addEventListener({
+        name: 'keyback'
+    }, function(ret, err) {
+        if (hasOneClick) {
+            api.closeWidget({
+                silent: true
+            });
+        } else {
+            api.toast({
+                msg: '再按一次退出',
+                duration: 2000,
+                location: 'bottom'
+            });
+
+            setTimeout(function() {
+                hasOneClick = false;
+            }, 2000);
+
+            hasOneClick = true;
+        }
+    });
+};
+
+var headerHeight, footerHeight;
+// menus;
+var navigationBar;
+var headers = $api.domAll(header, '.header');
+
+
+function fnInit() {
+    var header = $api.byId('header'),
+        footer = $api.byId('footer');
+    var systemType = api.systemType;
+    var systemVersion = parseFloat(api.systemVersion);
+    for (var i = 0; i < headers.length; i++) {
+        if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
+            if (systemType == "android") {}
+            $api.fixStatusBar(headers[i]);
+        } else {
+            $api.fixIos7Bar(headers[i]);
+        }
+
+    }
+
+    headerHeight = $api.offset(header).h;
+    // footerHeight = $api.offset(footer).h;
+
+};
+
+
+var setmnPopups;
+var menu_url, menu_name;
+
+function fnOpenMy() {
+    setmnPopups = api.require('MNPopups');
+    setmnPopups.open({
+        rect: {
+            w: 120,
+            h: 220
+        },
+        position: {
+            x: api.winWidth - 10,
+            y: 23
+        },
+        styles: {
+            mask: 'rgba(0,0,0,0.2)',
+            bg: '#eee',
+            cell: {
+                bg: {
+                    normal: '',
+                    highlight: ''
+                },
+                h: 45,
+                title: {
+                    marginL: 45,
+                    color: '#636363',
+                    size: 12,
+                },
+                icon: {
+                    marginL: 10,
+                    w: 25,
+                    h: 25,
+                    corner: 2
+                }
+            },
+            pointer: {
+                size: 7,
+                xPercent: 90,
+                yPercent: 0,
+                orientation: 'downward'
+            }
+        },
+        datas: [{
+            title: '登录'
+        }, {
+            title: 'IM通讯'
+        },{
+            title: '购物车'
+        }, {
+            title: '我的'
+        }],
+        animation: true
+    }, function(ret) {
+        if ('click' == ret.eventType) {
+            switch (ret.index) {
+                case 0:
+                    menu_name = 'login_frame';
+                    menu_url = './my/login.html';
+                    break;
+                case 1:
+                    menu_url = './rong/rongcloud_win.html';
+                    menu_name = 'rongim';
+                    break;
+                case 2:
+                    menu_url = './my/login.html';
+                    menu_name = 'msg_list';
+                    break;
+                case 3:
+                    menu_url = './Set_up/User_Info.html';
+                    menu_name = 'User_Info';
+                    break;
+            };
+
+            api.openWin({
+                name: menu_name,
+                url: menu_url
+            });
+        }
+
+    });
+}
+function fnHide(index) {
+    api.setFrameAttr({
+        name: winmodule[index] + index,
+        hidden: true
+    });
+};
+</script>
+
+</html>

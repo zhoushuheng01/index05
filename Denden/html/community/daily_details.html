@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%; 
+            background-color: #f5f5f5;
+        }
+        .item{
+        	display: -webkit-flex;
+        	display: flex;
+        	flex-direction: column;
+          background-color: #fff;
+          margin:0 0 10px 0;
+        }
+        .item .top{
+          display: -webkit-flex;
+          display: flex;
+          padding: 10px;
+        }
+        .item .top .t-left{
+           width: 130px;
+        }
+        .item .top .t-left img{
+          width: 65px;
+          height: 65px;
+          border-radius: 50%;
+          display: block;
+        }
+        .item .top .t-right{
+        
+        }
+
+        .item .top .t-right .user{
+          height: 30px;
+          line-height: 30px;
+          margin-bottom: 7px;
+        }
+        .item .top .t-right .title{
+          
+        }
+        .item .top .t-right .img{
+          
+        }
+        .item .top .t-right .img{
+        
+        }
+
+        .item .top .t-right .img{
+        
+        }
+        .item .top .t-right .img ul{
+          margin-top: 3px;
+        }
+        .item .top .t-right .img ul > li{
+          width:30.2%;
+          float: left;
+          min-height: 100px;
+          margin: 0 5px 7px 5px;
+        }
+        .item .top .t-right .img ul > li img{
+          display: block;
+          width: 100%;
+          width: 100%;
+          background-size: cover;
+        }
+        
+        
+        
+        .item .bottom{
+          border-top: 1px solid #e6e6e6;
+          display: -webkit-flex;
+          display: flex;
+          height:35px;
+          line-height: 35px;
+          -webkit-justify-content:center;
+          justify-content:center;
+        }
+        .item .bottom .b-content{
+          display: -webkit-flex;
+          display: flex;
+          width: 90%;
+          -webkit-justify-content:space-around;
+          justify-content:space-around;
+        }
+        .item .bottom .b-content > div{
+          height: 100%;
+          width: 30px;
+
+          text-align: center;
+        }
+        .item .bottom .b-content > div{
+          
+        }
+        .item .bottom .b-content > div{
+          
+        }
+
+        #list{}
+
+        #list .item_list{
+          display: -webkit-flex;
+          display: flex;
+          padding:10px 0 10px 10px;
+        }
+        #list .item_list > .left{
+         width:90px;
+        }
+        #list .item_list > .left img{
+          width: 60px;
+          height: 60px;
+          background-size: cover;
+          border-radius: 50%;
+          display: block;
+        }
+        #list .item_list > .right{
+          width: 100%;
+          border-bottom: 1px solid #e6e6e6;
+        }
+        #list .item_list > .right .username{
+          height: 35px;
+          line-height: 35px;
+          display: -webkit-flex;
+          display: flex;
+          font-size: 0.76rem;
+        }
+        #list .item_list > .right .username .left{
+          -webkit-flex:1;
+          flex:1;
+        }
+        #list .item_list > .right .username .right{
+          width:50px;
+          margin-right: 10px;
+          color: #00BCD4;
+          text-align: center;
+        }
+        #list .item_list{}
+        #list .item_list{}
+    </style>
+</head>
+
+<body>
+    <div id="index">
+      <ul id="ul-item">
+        <script id="comment_list" type="text/x-dot-template">
+                  {{ if(it){ }}
+                        {{ for(var i in it){ }}
+                          <li class="item" tapmode>
+					          <div class="top">
+					            <div class="t-left">
+					              <img src="{{= it[i].comment_usr.icon.url}}" alt="" />
+					            </div>
+					            <div class="t-right">
+					              <div class="user">{{= it[i].comment_usr.name}}</div>
+					              <div class="title">{{= it[i].comment_msg}}</div>
+					              <!--<div class="img">
+					                <ul>
+					                  <li><img src="../../image/face/m36.gif" alt="" /></li>
+					                  <li><img src="../../image/face/m36.gif" alt="" /></li>
+					
+					                </ul>
+					              </div>-->
+					            </div>
+					          </div>
+					          <div class="bottom">
+					            <div class="b-content">
+					              <div class="left">
+					                <span class="iconfont-app">&#xe67f;</span>    
+					              </div>
+					              <div class="connent">
+					                <span class="iconfont-app">&#xe628;</span>       
+					              </div>
+					              <div class="right" tapmode onclick="fx()">
+					                <span class="iconfont-app">&#xe635;</span>       
+					              </div>
+					            </div>
+					          </div>
+					        </li>
+                        {{ } }}
+                  {{ } }}
+
+            </script>
+      </ul>
+      
+      <div id="list">
+		
+      </div>
+	  <script id="daily_list" type="text/x-dot-template">
+                  {{ if(it){ }}
+                       <div id="daily">
+                        {{ for(var i in it){ }}
+                         <div class="item_list">
+					          <div class="left">
+					            <img src="{{= it[i].comment_usr.icon.url}}">
+					          </div>
+					          <div class="right">
+					            <div class="username">
+					              <div class="left">{{= it[i].comment_usr.name}}</div>
+					              <!--<div class="right">回复</div>-->
+					            </div>
+					            <div class="title">{{= it[i].comment_msg}}</div>
+					          </div>
+					        </div>
+                        {{ } }}
+                       </div>
+                  {{ } }}
+
+            </script>
+
+    </div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var header, headerPos,main,mainPos;
+
+var pageNum = 1;
+var last;//返回的数据是否为0，，，如为0则停止下拉刷新
+
+
+var assn_id;
+var daily_id;
+apiready = function() {
+    header = $api.byId('header');
+    $api.fixStatusBar(header);
+    main = $api.byId('main');
+    headerPos = $api.offset(header);
+    
+    assn_id = $api.getStorage("assn_id"); //社团id
+    var daily_id = $api.getStorage('daily_id');//日常id
+
+    init  = new Init(1);
+
+    /*
+     comment  对应数据库的表名
+
+     */
+    var comment_Url = '/comment?filter=';
+    var comment_UrlParam = {
+        'fields':{
+            'id':0,
+            'createdAt':0,
+            'updatedAt':0
+        },
+        'where':{
+            "ment_type":7,
+            "assn_id":assn_id,
+            "daily_id":daily_id
+        },
+        'skip':init.skip,
+        'limit':init.limit,
+        "include":{
+            'comment_usrPointer':''
+        }
+    };
+
+    //加载头部详情信息
+    init.ajax(comment_Url + JSON.stringify(comment_UrlParam),'GET',{},function(ret,err){
+        if( ret ){
+            var evalText = doT.template($("#comment_list").text());
+            $("#ul-item").html(evalText(ret));
+        }else{
+            api.alert({ msg: 'daily:-->270' + JSON.stringify(err) });
+        }
+    });
+/////////////////////////////////////////////////////////
+
+		
+		
+		  /*
+     comment  对应数据库的表名     加载评论
+
+     */
+  
+		Update_list(pageNum);
+
+  //////////////////////////////////////////////////////////
+
+    //下拉加载
+	 api.addEventListener({
+		    name: 'scrolltobottom',
+		    extra:{
+		        threshold:0            //设置距离底部多少距离时触发，默认值为0，数字类型
+		    }
+		}, function(ret, err) {
+           pageNum++;
+           
+           Update_list(pageNum,function(ret,err){
+           		
+           		if( ret ){
+           			var html = '';
+                   for(var i=0;i<ret.length;i++){
+                       html += '<div class="item_list">';
+                       html +=        '<div class="left">';
+                       html +=          '<img src="'+ret[i].comment_usr.icon.url+'">';
+                       html +=        '</div>';
+                       html +=        '<div class="right">';
+                       html +=          '<div class="username">';
+                       html +=            '<div class="left">'+ret[i].comment_usr.name+'</div>';
+                       html +=            '<!--<div class="right">回复</div>-->';
+                       html +=          '</div>';
+                       html +=          '<div class="title">'+ret[i].comment_msg+'</div>';
+                       html +=        '</div>';
+                       html +=      '</div>';
+                   };
+                   $("#list").append(html);
+           		}
+           		
+           		
+           		if( ret.length < 10 ){
+    				//$api.html(view_more, "没有数据了");
+    				
+    				api.toast({
+					    msg: '亲，到底了！没有更多数据了',
+					    duration: 2000,
+					    location: 'bottom'
+					});
+    				
+    				
+    			}
+           
+           });
+           
+		});
+    
+    	   //监听发布评论重新获取数据
+    	   
+			api.addEventListener({
+			    name: 'DailyComments'
+			}, function(ret, err) {
+			    var Daily_id = ret.value.Daily_id;  //     从评论页面返回回来的    评论id    用来更新数据
+			  // alert(JSON.stringify(Daily_id));
+			   
+			    var comment_Url = '/comment?filter=';
+			    var comment_UrlParam = {
+			        'fields':{
+			        },
+			        'where':{
+			            "id":Daily_id
+			        },
+			        'skip':0,
+			        'limit':1,
+			        "include":{
+	                    "comment_usrPointer":""
+	                }
+			    };
+			    
+			    //如果元素不存在，，，，，就获取数据更新
+			    var men = $("#daily").size();
+			    
+			    if( men ){
+			      init.ajax(comment_Url + JSON.stringify(comment_UrlParam),"GET",{},function(ret,err){
+				   	var html = "";
+				   	for( var i=0;i<ret.length;i++ ){
+				   		   html +='  <div class="item_list">';
+					       html +='   <div class="left">';
+					       html +='     <img src="'+ ret[i].comment_usr.icon.url + '">';
+					       html +='   </div>';
+					       html +='   <div class="right">';
+					       html +='     <div class="username">';
+					       html +='       <div class="left">'+ ret[i].comment_usr.name +'</div>';
+					       html +='       <!--<div class="right">回复</div>-->';
+					       html +='     </div>';
+					       html +='     <div class="title">'+ ret[i].comment_msg +'</div>';
+					       html +='   </div>';
+					       html +=' </div>';
+				   	}
+				   	
+				   	$("#daily").prepend(html);
+				   
+				   });
+			    }else{
+			    	Update_list(pageNum);
+			    }
+			   
+			   
+			   	
+			  
+			});
+    
+};
+
+
+function Update_list(num,callback){
+    var init = new Init(1);
+    
+    var limit = 10;
+    var skip = ( num - 1 ) * limit;
+ 
+        var comment_Url = '/comment?filter=';
+	    var comment_UrlParam = {
+	        'fields':{
+	            'id':0,
+	            'createdAt':0,
+	            'updatedAt':0
+	        },
+	        'where':{
+	            "ment_type":7,
+	            "assn_id":assn_id,
+	            "parent_id":daily_id,
+	            'daily_id':{
+	            	"ne":daily_id
+	            }
+	        },
+	        'skip':skip,
+	        'limit':limit,
+	        "include":{
+	            'comment_usrPointer':''
+	        }
+	    };
+	
+	    /*
+	         评论列表
+	     */
+	
+	    init.ajax(comment_Url + JSON.stringify(comment_UrlParam),'GET',{},function(ret,err){
+	        if( ret ){
+	        
+	        	if( typeof callback == "function" ){
+	    			callback(ret,err);
+	    			return;
+	    		}
+	            var evalText = doT.template($("#daily_list").text());
+                $("#list").html(evalText(ret));
+	        }else{
+	            api.alert({ msg: 'activity_deatils:-->366' + JSON.stringify(err) });
+	        }
+	    });
+
+    
+  };  
+</script>
+
+</html>

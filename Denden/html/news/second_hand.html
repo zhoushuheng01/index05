@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+    <style>
+    	html,body{
+    		height:100%;
+    		width:100%;
+    		
+    	}
+    	#text{
+    		position:absolute;
+    		left:50%;
+    		top:50%;
+    		text-align: center;
+    		font-size:1.3rem;
+    		margin:-13% 0 0 -10%;
+    	}
+
+		#round{
+			position: fixed;
+			width: 60px;
+			height: 60px;
+			bottom: 90px;
+			right:20px;
+			text-align: center;
+			border-radius: 50%;
+			border: 1px solid rgba(51,180,236,0.86);
+		}
+		#round span{
+			position: absolute;
+			left:0%;
+			top:0px;
+			width: 60px;
+			height:60px;
+			line-height: 60px;
+			font-size: 50px;
+			border-radius: 50%;
+			display: inline-block;
+
+		}
+		.aui-list-item-inner > p{
+			margin:5px 0;
+		}
+		.aui-list .aui-list-item{
+			margin-bottom: 2px;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<my_list></my_list>
+	</div>
+	<template id="my_list">
+		<div class="aui-content aui-margin-b-15">
+			<ul id="te_ul" class="aui-list aui-media-list">
+
+
+				<li class="aui-list-item">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-title">多张图片列表一</div>
+						<p>借助栅格来实现图片列表</p>
+						<div class="aui-row aui-row-padded">
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m01.gif"/>
+							</div>
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m20.gif" />
+							</div>
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m20.gif" />
+							</div>
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m20.gif" />
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="aui-list-item">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-title">多张图片列表一</div>
+						<p>借助栅格来实现图片列表</p>
+						<div class="aui-row aui-row-padded">
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m01.gif"/>
+							</div>
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m20.gif" />
+							</div>
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m20.gif" />
+							</div>
+							<div class="aui-col-xs-4">
+								<img src="../../image/face/m20.gif" />
+							</div>
+						</div>
+					</div>
+				</li>
+
+			</ul>
+		</div>
+	</template>
+	<div id="round" tapmode class="iconfont-app">
+		<span class="">&#xe6b8;</span>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+
+	Vue.component("my_list",{
+		template:"#my_list"
+	});
+	var vm = new Vue({
+		el:"#app",
+		data:{
+
+		}
+	});
+	apiready = function(){
+
+
+
+
+
+
+
+
+
+
+
+
+	//////////////////////////////////////////////////////////////////////////////
+		api.parseTapmode();
+		$api.addEvt($api.byId("round"),"click",function(){
+			api.openWin({
+				name: 'Idle_items',
+				url: 'Idle_items.html',
+				pageParam: {},
+				softInputMode:"resize",
+				bounces: false
+			});
+		});
+	};
+</script>
+</html>

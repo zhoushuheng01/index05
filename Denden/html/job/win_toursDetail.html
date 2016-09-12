@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+</head>
+<style>
+    body {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+    .content {
+        -webkit-box-flex: 1;
+    }
+
+
+    .order {
+        color: #ffffff;
+        font-size: 16px;
+        background-image: url("../../image/tours/icon_order_now@2x.png") no-repeat;
+        background-position-x: 35% !important;
+        padding: 15px !important;
+        text-align: center;
+    }
+
+    .footer {
+        background-color: #FD7822;
+    }
+</style>
+<body>
+<div class="content">
+
+</div>
+<footer class="footer">
+    <div class="btn order" tapmode="" onclick="Order_form()">立即预定</div>
+</footer>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+
+
+<script>
+    /*
+        tour_id  接收frm_main页面传过来的旅游活动id
+
+     */
+    var tour_id;
+    var amount;
+    apiready = function () {
+        tour_id = api.pageParam.tour_id;
+        amount  = api.pageParam.amount;
+
+
+        fixIos7Bar($("header"));
+        var $bodyH = $("body").height();
+        var $headerH = $("header").height();
+        var $footerH = $("footer").height();
+        var $contentH = $bodyH - $headerH - $footerH;
+        api.openFrame({
+            name: 'frm_toursDetail_con',
+            url: '../../html/tours/frm_toursDetail_con.html',
+            rect: {
+                x: 0,
+                y: $headerH,
+                w: 'auto',
+                h: $contentH
+            },
+            pageParam : {
+                "tour_id":tour_id
+            },
+            bgColor: '#E5E5E5'
+        })
+    }
+
+    var init = new Init(1);
+
+    var mall_order_Url = '/mall_order';
+
+
+
+    function  Order_form(){
+        var date = "XM" + new Date().getTime();
+
+        var orderDate = Format(new Date());
+        var json = {
+            "order_no":date, //订单编号
+            "user_id" : $api.getStorage("userid"),//用户id
+            "pay_time":orderDate,//订单时间
+            "amount":amount,//价钱
+            "goods_type":1   //旅游类型
+        };
+
+        init.ajax(mall_order_Url,"POST",JSON.stringify(json),function(ret,err){
+
+            if( ret ){
+                alert(JSON.stringify(ret))
+            }else{
+                alert(JSON.stringify(err))
+            }
+
+        })
+    }
+    function bell() {
+        api.toast({msg: '订阅成功', location: 'top'})
+    }
+//    function menu(){
+//        api.openFrame({
+//            name: 'frm_slider_header_menu',
+//            url: '../../html/tours/frm_slider_header_menu.html',
+//            rect: {x: 0, y: $("header").height(), w: 'auto', h: 'auto'},
+//            bounces: false,
+//            bgColor: 'rgba(51,51,51,0.6)'
+//        })
+//    }
+    
+</script>
+</body>
+</html>

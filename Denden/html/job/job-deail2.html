@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <style type="text/css">
+    html,body,#index{
+    	height: 100%;
+    	width: 100%;
+    	background-color: #F5F5F5;
+    }
+	    #index{
+	    	padding: 10px 5px;
+	    }
+    	.container-fluid{
+    		padding-bottom: 5px;
+    	}
+    	#col-xs-12{
+			display: -webkit-flex;
+			display: flex;
+			border: 1px solid #ccc;
+			padding: 10px;
+    	}
+    	#col-xs-12 > div{
+    		
+    	}
+    	#col-xs-12 > div:nth-child(1){
+    		-webkit-flex:2;
+    		flex: 2;
+    	}
+    	.content .col-1 .title span{
+    		margin:0;
+    		float: none;
+    	}
+    	#col-xs-12 .title{
+    		text-indent: 1rem;
+    	}
+    	#col-xs-12 .title h4{
+			font-size: 1.1rem;
+			margin-bottom: 0.23rem;
+    	}
+		#col-xs-12 .body{
+			display:-webkit-flex;
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+		}
+    	i{
+    		font-style: normal;
+    	}
+
+
+    	.row-section-0{
+    		border: 1px solid #ccc;
+    		border-top: none;
+    		display: -webkit-flex;
+    		display: flex;
+    		padding: 0 10px;
+    		border-radius: 3px;
+    	}
+    	.row-section-0 .connent{
+    		-webkit-flex:1;
+    		flex:1;
+    		text-indent: 0.65rem;
+    	}
+    	.row-section-1{
+    		border:1px solid #ccc;
+    		margin:10px 0;
+    	}
+    	.row-section-1 .title{
+    	}
+    	.row-section-1 .body table{
+    		width: 100%;
+    	}
+    	.row-section-1 .body tr{
+    		display: -webkit-flex;
+    		display: flex;
+    		width: 100%;
+    		min-height: 30px;
+    		line-height: 30px;
+    	}
+    	.row-section-1 .body tr td:nth-child(1){
+    		width:80px;
+    		text-align: right;
+    	}
+    	.row-section-1 .body tr td:nth-child(2){
+    		-webkit-flex:3;
+    		flex:3;
+    		padding-left: 7px;
+    		word-wrap: break-word;
+    		word-break: break-all;
+    	}
+    	.row-section-1 .body tr .p{
+    		line-height: 1rem;
+    	}
+    	.row-section .title h4{
+			border-bottom: 1px solid #ccc;
+			height: 35px;
+			line-height: 35px;
+			padding-left: 10px;
+    	}
+    	.row-section{
+    		border: 1px solid #ccc;
+    		border-radius: 3px;
+    	}
+    	.row-section .body{
+    		padding:10px;
+    	}
+		
+
+
+	   .col-ul{
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-wrap:wrap;
+			flex-wrap:wrap;
+		}
+		.col-ul li{
+			background-color: red;
+			padding:5px;
+			border-radius: 3px;
+			color: rgba(255,255,255,0.93);
+			margin: 5px;
+		}
+		.row-section-3{
+			margin: 10px 0;
+		}
+		.row-section-3 .title h4{
+		}
+		.row-section-3 .body{
+			
+		}
+		.row-section-3 .body h5{
+			font-size: 1.2rem;
+		}
+		.row-section-3 .body .span{
+			margin: 5px 0;
+		}
+		.row-section-3 .body > span{
+			font-size: 0.81rem;
+		}
+    </style>
+</head>
+
+<body>
+    <div id="index">
+ 
+        <script id="offer_detail" type="text/x-dot-template">
+            {{ for(var i in it){ }}
+                <div class="">
+		            <div class="">
+		                <div class="" id="col-xs-12">
+		                        <div class="title">
+		                            <h4>{{= it[i].offer_title}}</h4>
+		                            <span>招聘{{= it[i].offer_total}}人</span>
+		                        </div>
+		                        <div class="body">
+		                           <!-- <span><i>40</i>元 / 天</span>
+		                            <i>月结</i>-->
+		                        </div>
+		                </div>
+		               <!--  <div class="row-section-0">
+		                    <div class="left"><span class="glyphicon glyphicon-leaf"></span>
+		                        
+		                    </div>
+		                   <div class="connent">
+		                    	<div class="title">雅课给你多重兼职保障</div>
+		                    </div>
+		                    <div class="right"><span class="glyphicon glyphicon-chevron-right"></span></div>
+		                </div>-->
+		            </div>
+		            <div class="row-section-1 row-section ">
+		                <section class="clearfix">
+		                    <div class="title">
+		                        <h4>职位详情</h4>
+		                    </div>
+		                    <div class="body">
+		                       <div class="p"> {{= it[i].Job_content}}</div>
+		                    </div>
+		                </section>
+		            </div>
+		            <div class="row-section-2 row-section">
+		                <section class="clearfix">
+		                    <div class="title">
+		                        <h4>职位标签</h4>
+		                    </div>
+		                    <div class="body">
+		                        <div class=" ">
+		                            <ul class="col-ul">
+		                                <li><i class="icon-ul-1"></i><span> {{= it[i].offer_tag.tag_name}}</span></li>
+		                            </ul>
+		                        </div>
+		                    </div>
+		                </section>
+		            </div>
+		            <div class="row-section-3 row-section">
+		                <section class="clearfix">
+		                    <div class="title">
+		                        <h4>公司详情</h4>
+		                    </div>
+		                    <div class="body">
+		                        <h5>{{= it[i].offer_name.mec_name}}</h5>
+		                        <div class="span">
+		                        </div>
+		                        <span>正在招聘：<i>{{= it[i].offer_name.offer_cnt}}</i>个职位</span>
+		                    </div>
+		                </section>
+		            </div>
+		        </div>
+            {{ } }}
+        </script>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var course_id; //课程id
+apiready = function() {
+    course_id = api.pageParam.course_id;
+   // alert(course_id);
+
+    var init = new Init(1);
+    init.ajax('/offer_detail?filter={"fields":{"id":0},"where":{"offer_id":'+course_id+'},"skip":0,"limit":10,"include":{"offer_tagPointer":"","offer_namePointer":""}}','get',{},function(ret,err){
+    	if (ret) {
+            //alert(JSON.stringify(ret));
+             var evalText = doT.template($("#offer_detail").text());
+             $("#index").html(evalText(ret));
+        } else {
+             alert(JSON.stringify(err));
+        }
+    });
+}
+
+</script>
+
+</html>

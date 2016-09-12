@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>设置</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+		<style>
+			html,body{
+			height:100%;
+			width:100%;
+			}
+			
+			.aui-list .aui-list-item-right, .aui-list-item-title-row em {
+				max-width: 50%;
+				position: relative;
+				font-size: 0.6 rem;
+				margin-left: 0.25 rem;
+			}
+			.lv {
+				color: rgba(30,173,84,0.86) !important;
+			}
+			.btn {
+				text-align: center;
+				background-color: red;
+				padding: 10px 0;
+				color: rgba(255,255,255,0.86);
+				position: absolute;
+				bottom: 25px;
+				left: 10px;
+				right:10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aui-content aui-margin-b-15">
+			<ul class="aui-list aui-list-in">
+				<li class="aui-list-item">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-title">
+							夜间
+						</div>
+						<div class="aui-list-item-right">
+							<input type="checkbox" class="aui-switch">
+						</div>
+					</div>
+				</li>
+				<li class="aui-list-item">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-title">
+							清除缓存
+						</div>
+						<div class="aui-list-item-right lv">
+							12.7M
+						</div>
+					</div>
+				</li>
+				<li class="aui-list-item">
+					<div class="aui-list-item-inner">
+						<div class="aui-list-item-title">
+							检测版本
+						</div>
+						<div class="aui-list-item-right">
+							3.3.3
+						</div>
+					</div>
+				</li>
+				<li class="aui-list-item aui-margin-t-15" onclick="openFrm('setting_set_feedback')">
+					<div class="aui-list-item-inner aui-list-item-arrow">
+						<div class="aui-list-item-title">
+							反馈
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="btn">
+			退出账号
+		</div>
+	</body>
+	<script src="../../script/api.js"></script>
+	<script src="../../script/zepto.min.js"></script>
+	<script>
+		apiready = function() {
+			
+		}
+		
+		function openFrm(name){
+			api.openWin({
+	            name: name,
+	            url: name+'.html'
+            });
+		}
+	</script>
+</html>

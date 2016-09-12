@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css" />
+    <link rel="stylesheet" href="../../css/aui-slide.css" />
+    <style>
+    html,
+    body {
+        font-size: 14px;
+        background: #ffffff;
+    }
+    
+    img.avatar {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+    }
+    
+    #aui-slide3 {
+        margin: 20px 0 0 0;
+        height: 340px;
+    }
+    
+    .aui-content,
+    .aui-slide3 {
+        width: 100%;
+    }
+    
+    #aui-waterfall {
+        width: 100%;
+    }
+    
+    #aui-waterfall .aui-slide-wrap {
+        height: 100%;
+    }
+    
+    #aui-waterfall .aui-waterfall-header img {
+        width: 100%;
+        height: 180px;
+        background-size: cover;
+    }
+    
+    #aui-waterfall {
+        padding: 10px;
+    }
+    
+    #aui-waterfall li {
+        padding: 10px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5);
+        margin-bottom: 10px;
+    }
+    
+    #aui-waterfall li .aui-waterfall-body {
+        padding: 0 0 0 10px;
+        margin: 10px 0;
+        font-size: 1.5em;
+    }
+    
+    #aui-waterfall li .aui-waterfall-footer {
+        color: #666;
+    }
+    
+    #aui-waterfall li .aui-waterfall-footer span {}
+    
+    .boxCont {
+        position: relative;
+    }
+    
+    .aui-slide-node img {
+        width: 100%;
+        height: 340px;
+    }
+    
+    .aui-slide3 {
+        border-bottom: 4px solid #ccc;
+        margin-bottom: 5px;
+    }
+    
+    .aui-slide3 {
+        border-bottom: 4px solid #ccc;
+        margin-bottom: 5px;
+    }
+    
+    .aui-row {
+        margin-top: 15px;
+        box-shadow: 0 0 18px #ccc;
+    }
+    
+    #search {
+        display: flex;
+        display: -webkit-flex;
+        margin: 10px 0 10px;
+    }
+    
+    #search .aui-searchbar-input {
+        height: 1.8 rem;
+    }
+    
+    #search .aui-searchbar-input input {
+        height: 1.7 rem;
+    }
+    
+    .aui-waterfall-header {
+        position: relative;
+    }
+    
+    .aui-waterfall-header .title {
+        position: absolute;
+        color: #fff;
+        left: 0%;
+        right: 0;
+        top: 40%;
+        text-align: center;
+    }
+    
+    .aui-waterfall-footer span:nth-child(1) img {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        position: relative;
+        top: 2px;
+    }
+    
+    .aui-grid {
+        margin-top: 205px;
+    }
+    
+    .aui-searchbar-input {
+        height: 1.6rem;
+        line-height: 1.6rem;
+    }
+    </style>
+</head>
+
+<body>
+    <section></section>
+    <section class="aui-grid">
+        <div class="aui-row">
+            <div class="aui-col-xs-4">
+                <i class="aui-iconfont aui-icon-gear"></i>
+                <div class="aui-grid-label" onclick="fnOpentype(0)">
+                    IT认证/培训
+                </div>
+            </div>
+            <div class="aui-col-xs-4">
+                <i class="aui-iconfont aui-icon-gear"></i>
+                <div class="aui-grid-label" onclick="fnOpentype(1)">
+                    会计培训
+                </div>
+            </div>
+            <div class="aui-col-xs-4">
+                <i class="aui-iconfont aui-icon-map"></i>
+                <div class="aui-grid-label" onclick="fnOpentype(2)">
+                    外语雅思
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="aui-content">
+        <div id="evaluation"></div>
+        <ul class="aui-waterfall" id="aui-waterfall">
+            <script id="course" type="text/x-dot-template">
+                {{ for(var i=0; i
+                < it.length; i++) { }} <li data-courid="{{= it[i].courid }}" tapmode onclick="openWin('{{= it[i].courid }}')" class="open-Win">
+                    <div class="aui-waterfall-header">
+                        <img src=" {{= it[i].preview_img.url }}" />
+                        <div class="title">{{= it[i].cours_name }}</div>
+                    </div>
+                    <div class="aui-waterfall-footer">
+                        <span><img src="" alt="" />{{= it[i].cours_name }}</span>
+                        <span class="aui-pull-right">
+                    <i class="aui-iconfont aui-icon-likefill aui-text-warning">
+                    {{if(!it[i].sale_prices){}}
+                    免费
+                    {{ }else{ }}
+                    {{=it[i].sale_prices}}
+                    {{}}}
+                    </i>
+                    </span>
+                    </div>
+                    </li>
+                    {{ } }}
+            </script>
+        </ul>
+    </div>
+</body>
+<!--轮播图模板-->
+<script id="adver_pos" type="text/x-dot-template">
+    <div class="aui-slide-wrap">
+        {{ for(var i=0; i
+        < it.length; i++) { }} <div class="aui-slide-node bg-dark" data-img_url="{{= it[i].adv_url }}">
+            <img src="{{= it[i].adv_png.url }}" />
+    </div>
+    {{ } }}
+    </div>
+    <div class="aui-slide-page-wrap">
+        <!--分页容器-->
+    </div>
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/SHA1.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+
+
+<!---->
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript">
+var UIScrollPicture;
+var headerHeight, footerHeight;
+var headers;
+var model;
+var query;
+//query句柄
+var queryId;
+
+//引入模块
+var UIScrollPicture = null;
+
+
+
+apiready = function() {
+    UIScrollPicture = api.require('UIScrollPicture');
+    model = api.require('model');
+    query = api.require('query');
+
+
+
+
+
+    api.parseTapmode();
+    headers = $api.dom("headers");
+    model.config({
+        appKey: 'EA5B6F20-8019-7DFB-F30B-0DB42BDE6473'
+    });
+    query.createQuery(function(ret, err) {
+        if (ret) {
+            queryId = ret.qid;
+        } else {
+            alert(JSON.stringify(err));
+        }
+    });
+    var init = new Init(1);
+
+    cours();
+    //init.adver_pos('adver_pos');
+    init.ajax('/adver_pos?filter={"where":{ "type":0 },"skip":0,"limit":5}','get',{},function(ret,err){
+        if (ret) {
+            //alert(JSON.stringify(ret));
+           var retS = ret;
+            var paths = [];
+            var captions = [];
+            for (var i = 0; i < ret.length; i++) {
+                
+                paths.push(ret[i].adv_png.url);
+                captions.push(ret[i].title);
+                
+            }
+			//alert(paths);
+            var data = {
+                paths: paths,
+                captions: captions
+            };
+            UIScrollPictures(data, function(ret, err) {
+
+                    if( ret.status ){
+                        var index = ret.index;
+
+                        switch(ret.eventType){
+                        	case "show":
+                        		
+                        	   break;
+                            case "click":
+                                switch(index){
+                                    case index:
+                                       		openWinLocation(retS[index-1].adv_url);
+                                        break;
+                                }
+                               break;
+                        };
+                        
+                    }
+                    
+            });
+        }else{
+            alert(JSON.stringify(err));
+        }
+    });
+    //发送事件
+    sendRemove();
+
+
+
+
+
+};
+
+/**/
+function sendRemove() {
+    api.sendEvent({
+        name: 'sendRemove',
+        extra: {
+            remove: "keyback",
+        }
+    });
+};
+
+function doSearch() {
+    $api.addCls($api.dom(".aui-searchbar-wrap"), "focus");
+    $api.dom('.aui-searchbar-input input').focus();
+}
+
+function cancelSearch() {
+    $api.removeCls($api.dom(".aui-searchbar-wrap.focus"), "focus");
+    $api.val($api.byId("search-input"), '');
+    $api.dom('.aui-searchbar-input input').blur();
+}
+
+function clearInput() {
+    $api.val($api.byId("search-input"), '');
+}
+
+function search() {
+    var content = $api.val($api.byId("search-input"));
+    if (content) {
+        api.alert({
+            title: '搜索提示',
+            msg: '您输入的内容为：' + content
+        });
+    } else {
+        api.alert({
+            title: '搜索提示',
+            msg: '您没有输入任何内容'
+        });
+    }
+    cancelSearch();
+}
+
+function cours( queryId ){
+	
+	query.limit({
+        qid: queryId,
+        value: "10"
+    });
+    
+    model.findAll({
+            class: "cour_group",
+            qid: queryId
+        }, function(ret, err) {
+            var data = ret;
+            var evalText = doT.template($("#course").text());
+            $("#aui-waterfall").html(evalText(data));
+        });
+
+};
+
+
+
+function GetTearcharInfo() {
+    alert("暂无讲师信息!");
+}
+
+function GetTearcharInfo(index) {}
+
+
+
+function openWin(courid) {
+
+    api.parseTapmode();
+    api.openWin({
+        name: "edus-menu-header",
+        url: 'edus-menu-header.html',
+        pageParam: {
+            courid: courid
+        }
+    });
+
+
+}
+/*广告点击*/
+function openWinLocation(url) {
+
+    api.parseTapmode();
+    api.openWin({
+        name: "edus_location",
+        url: 'edus_location.html',
+        pageParam: {
+            LocationUrl: url
+        }
+    });
+
+	
+}
+
+
+function fnOpentype(index) {
+    api.openWin({
+        name: 'coure_menu',
+        url: './edus_cour_menu.html',
+        pageParam: {
+            name: index
+        }
+    });
+}
+
+
+
+/*轮播器*/
+function UIScrollPictures(data, callback) {
+
+
+    UIScrollPicture.open({
+        rect: {
+            x: 0,
+            y: 0,
+            w: "auto",
+            h: 210
+        },
+        data: data,
+        styles: {
+            caption: {
+                height: 35,
+                color: '#E0FFFF',
+                size: 13,
+                bgColor: '#696969',
+                position: 'bottom'
+            },
+            indicator: {
+                align: 'center',
+                color: '#FFFFFF',
+                activeColor: '#DA70D6'
+            }
+        },
+        placeholderImg: 'widget://image/loading_more.gif',
+        contentMode: 'scaleToFill',
+        interval: 4,
+        fixedOn: api.frameName,
+        loop: true,
+        fixed: false
+    }, function(ret, err) {
+
+        if (typeof callback == "function") {
+            callback(ret, err)
+        };
+    });
+
+}
+</script>
+
+</html>
