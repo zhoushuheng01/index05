@@ -238,6 +238,13 @@
 				width:100%;
 				background:rgba(0,0,0,0.65);
 			}*/
+			
+			
+			#comments{
+				
+				margin:0 0 50px 0;
+			
+			}
 		</style>
 	</head>
 	<body>
@@ -404,7 +411,6 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="../../script/api.js"></script>
-	<script type="text/javascript" src="../../script/common.js"></script>
 	<script type="text/javascript" src="../../script/SHA1.js"></script>
 	<script type="text/javascript" src="../../script/doT.min.js"></script>
 	<script type="text/javascript" src="../../script/zepto.min.js"></script>
@@ -449,54 +455,68 @@
 			    sendImg: 'widget://res/img/sendImg.png',
 			    fixedOn: api.frameName
 			}, function(ret, err) {
-			   
+
 			});
-			
+
+
 			inputField.setInputFieldListener(function(ret, err) {
-				var frmh = api.frameHeight;
-			    if (ret) {
-					        
+				//var frmh = api.frameHeight;
+			    if (ret!=null) {
+
+				/*
+
+					@ret{
+
+					 {
+								 eventType:        //字符串类型；输入框弹动事件，取值范围如下：
+								 //move：输入框弹动事件
+								 //change    ：输入框高度改变事件
+								 inputFieldH：     //数字类型；输入框的高度
+								 chatViewH：       //数字类型；输入框下边缘距离屏幕底边的高度
+
+								 }
+					}
+
+
+					   api.frameHeight  当前页面的高度
+					*/
+
+
+
+
 							alert( api.frameHeight + "," + (ret.chatViewH)  );
-							
+
+
+
 							if( ret.chatViewH > 0 ){
+
+						        alert(api.frameHeight+"pinmu="+api.winHeight);
 								api.setFrameAttr({
 								    name: api.frameName,
 								    rect: {
-								        x: 0,
-								        y: h,
+
 								        w: "auto",
-								        h: (api.frameHeight)
+								        h:  "auto"
 								    },
-								    bounces: false,
+								    bounces: true,
 								    bgColor: '#fff',
-								    softInputMode:"resize",
+								    softInputMode:"auto",
 								    vScrollBarEnabled: true,
 								    hScrollBarEnabled: true
-								});
-							
+								}
+
+								);
+
 							}else{
-							
-								api.setFrameAttr({
-								    name: api.frameName,
-								    rect: {
-								        x: 0,
-								        y: h,
-								        w: "auto",
-								        h: frmh 
-								    },
-								    bounces: false,
-								    bgColor: '#fff',
-								    softInputMode:"resize",
-								    vScrollBarEnabled: true,
-								    hScrollBarEnabled: true
-								});
+
+							alert(api.frameHeight+"pinmu="+api.winHeight);
+
+
 							}
-							
-							
-							
+
 					    } else {
-					    	
-					     // alert(JSON.stringify(err));
+
+					     alert("");
 					    }
 					});
 

@@ -61,47 +61,17 @@
 			<ul id="te_ul" class="aui-list aui-media-list">
 
 
-				<li class="aui-list-item">
-					<div class="aui-list-item-inner">
-						<div class="aui-list-item-title">多张图片列表一</div>
-						<p>借助栅格来实现图片列表</p>
+				<li class="aui-list-item" v-for=" item in array "  @click="openWin()">
+					<div class="aui-list-item-inner" track-by="item.id">
+						<div class="aui-list-item-title">{{ item.title }}</div>
+						<p>{{ item.content }}</p>
 						<div class="aui-row aui-row-padded">
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m01.gif"/>
-							</div>
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m20.gif" />
-							</div>
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m20.gif" />
-							</div>
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m20.gif" />
+							<div class="aui-col-xs-4" v-for=" item_img in item.img ">
+								<img :src="item_img.url" />
 							</div>
 						</div>
 					</div>
 				</li>
-				<li class="aui-list-item">
-					<div class="aui-list-item-inner">
-						<div class="aui-list-item-title">多张图片列表一</div>
-						<p>借助栅格来实现图片列表</p>
-						<div class="aui-row aui-row-padded">
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m01.gif"/>
-							</div>
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m20.gif" />
-							</div>
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m20.gif" />
-							</div>
-							<div class="aui-col-xs-4">
-								<img src="../../image/face/m20.gif" />
-							</div>
-						</div>
-					</div>
-				</li>
-
 			</ul>
 		</div>
 	</template>
@@ -119,8 +89,25 @@
 <script type="text/javascript" src="../../script/public.js"></script>
 <script type="text/javascript">
 
+
+	var open;
+	var init;
+	/////////////////////
+	var array = [];
+
 	Vue.component("my_list",{
-		template:"#my_list"
+		template:"#my_list",
+		data:function(){
+			return {
+				array:array    //数组数据
+			}
+		},
+		methods:{
+			openWin:function(json){
+				open.Win('Used_details_win','./Used_details_win',json);
+			}
+		}
+
 	});
 	var vm = new Vue({
 		el:"#app",
@@ -128,7 +115,45 @@
 
 		}
 	});
+
+
+
 	apiready = function(){
+
+		init = new Init(1);
+
+		open = new Open();
+
+		var flea_market_Url = '/flea_market?filter=';
+		var flea_market_UrlParam = {
+			"fields":{
+				"createdAt":0,
+				"updatedAt":0
+			},
+			"include":{
+				"senderPointer":""
+			},
+			"skip":init.skip,
+			"limit":init.limit
+		};
+		init.ajax(flea_market_Url + JSON.stringify(flea_market_UrlParam),"GET",{},function(ret,err){
+
+
+			if ( ret ){
+
+				for ( var i=0; i< ret.length; i++ ){
+					array.push({
+						id:ret[i].id,
+						title : ret[i].goog_name,
+						content : ret[i].good_desc,
+						img : ret[i].img,
+						price:ret[i].price
+					});
+				}
+			}else{
+				//alert(JSON.stringify(err))
+			}
+		});
 
 
 
@@ -153,5 +178,6 @@
 			});
 		});
 	};
+
 </script>
 </html>

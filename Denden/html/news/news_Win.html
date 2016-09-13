@@ -62,10 +62,11 @@
 		<div id="index">
 			<header class="aui-bar aui-bar-nav" id="header">
 				<a class="aui-pull-left aui-btn" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span> </a>
-				<div class="aui-title"></div>
+				<div class="aui-title">666</div>
 				<a class="aui-pull-right"> <span class="iconfont-app icon-right">&#xe624;</span> </a>
 			</header>
-			<div id="main"></div>
+			<div id="main">
+			</div>
 			<!--<footer id="footer">
 				<div class="left">
 					<input type="text" id="text" placeholder="写跟帖">
@@ -109,16 +110,17 @@
 
 
 		apiready = function() {
-			header = $api.byId('header');
+		
+		header = $api.byId('header');
 			main = $api.byId('main');
 			footer = $api.byId("footer");
 			var systemType = api.systemType;
 			var systemVersion = parseFloat(api.systemVersion);
 			if (systemType == "ios" || (systemType == "android" && systemVersion >= 4.4)) {
 				if (systemType == "android") {
-					header.style.paddingTop = "240px";
+					$api.fixStatusBar(header);
 				}
-				$api.fixStatusBar(header);
+
 			} else {
 				$api.fixIos7Bar(header);
 			}
@@ -127,21 +129,30 @@
 			footerPos = $api.offset(footer);
 
 			
-
-            /*
-
-             */
-
+	/*
             id = api.pageParam.id;
             type = api.pageParam.type;
+           */
+          
+            
+            api.openFrame({
+	            name: 'bottom',
+	            url: 'bottom.html',
+	            rect: {
+		            x:0,
+		            y:headerPos.h,
+		            w:"auto",
+		            h:mainPos.h
+	            }
+            });
             
             
-            
-            openFrm("news_Win_bottom",{
+           /* 
+           openFrm("news_Win_bottom",{
 		            x:0,
 		            y:headerPos.h,
 		            w:api.frameWidth,
-		            h:"auto"
+		            h:mainPos.h
 	            },{
             	"id":id,
             	"type":type,
@@ -149,10 +160,13 @@
             },false);
             
 
+			*/
+			
+			
 			
 		};
 		
-		function openFrm(name,rect,json,bloo) {
+	/*	function openFrm(name,rect,json,bloo) {
 		
 		api.openFrame({
 	            name: name,
@@ -162,6 +176,6 @@
 	            pageParam:json,
 				softInputMode:"resize"
             });
-		}
+		}*/
 	</script>
 </html>

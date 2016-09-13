@@ -149,5 +149,53 @@ function Format(data){
     return timeString;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//    Open  打开窗口
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function Open(){
+
+}
+Open.prototype = {
+    constructor: Open,
+    /*
+     @ Win  打开window 页面
+
+     @ name 打开窗口的名字
+     @ url  打开窗口的地址
+     @ pageParam  传递到下一个页面的参数
 
 
+
+     */
+    Win : function(name,url,pageParam){
+        api.openWin({
+            name: name,
+            url: url + '.html',
+            pageParam:pageParam,
+            bounces: false
+        });
+    },
+    /*
+     @ Frm  打开frame 页面
+
+     @ name 打开窗口的名字
+     @ url  打开窗口的地址
+     @ rect {
+
+         x,y,w,h
+     }
+     @ pageParam  传递到下一个页面的参数
+     */
+    Frm : function(name,url,rect,pageParam){
+        api.openFrame({
+            name: name,
+            url: name+'.html',
+            rect: rect,
+            pageParam: pageParam,
+            bounces: false
+        });
+    }
+};

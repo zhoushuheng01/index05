@@ -9,17 +9,14 @@
   <preference name="appBackground" value="rgba(0,0,0,0.0)"/>  
   <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>  
   <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>  
-  <preference name="hScrollBarEnabled" value="false"/>  
-  <preference name="vScrollBarEnabled" value="false"/>  
+  <preference name="hScrollBarEnabled" value="true"/>  
+  <preference name="vScrollBarEnabled" value="true"/>  
   <preference name="autoLaunch" value="true"/>  
   <preference name="fullScreen" value="false"/>  
   <preference name="autoUpdate" value="true"/>  
   <preference name="smartUpdate" value="false"/>  
   <preference name="debug" value="true"/>  
-  <preference name="statusBarAppearance" value="false"/>  
-  <preference name="iOS7StatusBarAppearance" value="false"/>  
-  <preference name="smartUpdate" value="false"/>  
-  <preference name="softInputMode" value="resize"/>  
+  <preference name="statusBarAppearance" value="true"/>  
   <permission name="readPhoneState"/>  
   <permission name="camera"/>  
   <permission name="record"/>  
@@ -28,7 +25,6 @@
   <permission name="internet"/>  
   <permission name="bootCompleted"/>  
   <permission name="hardware"/>  
-  <permission name="call"/>  
   <access origin="*"/>  
   <feature name="smsVerify"> 
     <param name="android_app_key" value="160eb4389a0f9"/>  

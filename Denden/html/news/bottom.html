@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>title</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/aui.2.0.css"/>
+	<style>
+		html,body {
+			height: 100%;
+			display: -webkit-flex;
+			display: flex;
+			flex-direction: column;
+			background-color: #f5f5f5;
+		}
+		#index{
+			height:100%;
+			flex:1;
+			padding:10px;
+		}
+
+		.header{
+			border-bottom: 1px dotted #000;
+			margin-bottom: 10px;
+		}
+		.header > h3{
+			font-size: 1rem;
+		}
+
+		.header .publisher{
+			display: -webkit-flex;
+			display: flex;
+			height:50px;
+			line-height: 50px;
+		}
+		.header .publisher .left{
+			-webkit-flex: 1;
+			flex:1;
+		}
+		.header .publisher .right{
+			width:160px;
+			text-align: center;
+		}
+		#comments_ .item .right .body{
+			margin: 10px 0;
+		}
+
+		#footer{
+			height: 50px;
+		}
+
+		#pic_body{
+			display: -webkit-flex;
+			display: flex;
+			flex-direction: column;
+		}
+		#view_more{
+			position: relative;
+			z-index: 55;
+		}
+
+
+		.centent_ul{
+			height:50px;
+			position: relative;
+			text-align: center;
+		}
+		.centent_ul:after{
+			display: block;
+			content: "还没有评论，快来抢沙发";
+			line-height: 50px;
+		}
+			.foo{
+				position: static;
+				z-index: 0;
+				bottom: 0;
+				left: 0;
+				height: 50px;
+				right: 0;
+			}
+			#footer {
+				display: -webkit-flex;
+				display: flex;
+				z-index:1;
+				position:relative;
+				height: 50px;
+				line-height: 50px;
+				box-shadow: 0 -1px 1px 1px rgba(0,0,0,0.17);
+			}
+			#footer .left {
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			#footer .right {
+				width: 60px;
+				padding-left:5px;
+				text-align: center;
+			}
+		#text {
+			height: 40px;
+			padding: 0 10px;
+			width:100%;
+			margin-top: 5px;
+			margin-left: 10px;
+			min-height: inherit;
+			box-sizing: border-box;
+			border-bottom: 1px solid rgba(0,0,0,0.3);
+		}
+
+
+
+		#comments{
+
+			margin:0 0 50px 0;
+
+		}
+	</style>
+</head>
+<body>
+<div id="index">
+
+	<div id="main"></div>
+
+	</div>
+<footer id="footer">
+	<div class="left">
+		<input type="text" id="text" placeholder="写跟帖">
+	</div>
+	<div class="right">
+		<div class="iconfont-app" id="icon_app">
+			发送
+		</div>
+	</div>
+</footer>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+apiready = function(){
+
+ 
+};
+</script>
+</html>
