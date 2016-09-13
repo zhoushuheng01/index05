@@ -44,28 +44,28 @@
       <file leaf-file-name="news_Win.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/news/news_Win.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.48214287">
-              <caret line="137" column="9" selection-start-line="137" selection-start-column="9" selection-end-line="146" selection-end-column="15" />
+            <state vertical-scroll-proportion="-3.107143">
+              <caret line="132" column="34" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bottom.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bottom.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/news/bottom.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7961859">
-              <caret line="141" column="1" selection-start-line="141" selection-start-column="1" selection-end-line="141" selection-end-column="1" />
+            <state vertical-scroll-proportion="-11.928572">
+              <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="news_Win_bottom.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="news_Win_bottom.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/html/news/news_Win_bottom.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="263" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.10957324">
+              <caret line="448" column="12" selection-start-line="448" selection-start-column="12" selection-end-line="448" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -139,9 +139,9 @@
         <option value="$PROJECT_DIR$/html/news/second_hand.html" />
         <option value="$PROJECT_DIR$/html/news/news_Win_frm.html" />
         <option value="$PROJECT_DIR$/html/news/Used_details_win.html" />
+        <option value="$PROJECT_DIR$/html/news/bottom.html" />
         <option value="$PROJECT_DIR$/html/news/news_Win.html" />
         <option value="$PROJECT_DIR$/html/news/news_Win_bottom.html" />
-        <option value="$PROJECT_DIR$/html/news/bottom.html" />
       </list>
     </option>
   </component>
@@ -373,7 +373,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16122234" sideWeight="0.4871355" order="0" side_tool="false" content_ui="combo" x="835" y="284" width="259" height="364" />
@@ -828,26 +828,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/html/news/bottom.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.928572">
+          <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/html/news/news_Win.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.48214287">
-          <caret line="137" column="9" selection-start-line="137" selection-start-column="9" selection-end-line="146" selection-end-column="15" />
+        <state vertical-scroll-proportion="-3.107143">
+          <caret line="132" column="34" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/html/news/news_Win_bottom.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="263" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/news/bottom.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7961859">
-          <caret line="141" column="1" selection-start-line="141" selection-start-column="1" selection-end-line="141" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.10957324">
+          <caret line="448" column="12" selection-start-line="448" selection-start-column="12" selection-end-line="448" selection-end-column="12" />
           <folding />
         </state>
       </provider>

@@ -67,7 +67,7 @@
 			</header>
 			<div id="main">
 			</div>
-			<!--<footer id="footer">
+			<footer id="footer">
 				<div class="left">
 					<input type="text" id="text" placeholder="写跟帖">
 				</div>
@@ -76,7 +76,7 @@
 						&#xe639;
 					</div>
 				</div>
-			</footer>-->
+			</footer>
 		</div>
 	</body>
 	<script type="text/javascript" src="../../script/api.js"></script>
@@ -129,25 +129,25 @@
 			footerPos = $api.offset(footer);
 
 			
-	/*
+
             id = api.pageParam.id;
             type = api.pageParam.type;
-           */
+
           
             
-            api.openFrame({
-	            name: 'bottom',
-	            url: 'bottom.html',
-	            rect: {
-		            x:0,
-		            y:headerPos.h,
-		            w:"auto",
-		            h:mainPos.h
-	            }
-            });
+//            api.openFrame({
+//	            name: 'bottom',
+//	            url: 'bottom.html',
+//	            rect: {
+//		            x:0,
+//		            y:headerPos.h,
+//		            w:"auto",
+//		            h:mainPos.h
+//	            }
+//            });
             
             
-           /* 
+
            openFrm("news_Win_bottom",{
 		            x:0,
 		            y:headerPos.h,
@@ -160,13 +160,12 @@
             },false);
             
 
-			*/
 			
 			
 			
 		};
 		
-	/*	function openFrm(name,rect,json,bloo) {
+function openFrm(name,rect,json,bloo) {
 		
 		api.openFrame({
 	            name: name,
@@ -176,6 +175,6 @@
 	            pageParam:json,
 				softInputMode:"resize"
             });
-		}*/
+		}
 	</script>
 </html>
